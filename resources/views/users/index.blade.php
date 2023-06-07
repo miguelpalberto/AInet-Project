@@ -19,6 +19,8 @@ maximum-scale=1.0, minimum-scale=1.0">
 </head>
 
 <body>
+    <h1>Lista de Users</h1>
+    <p><a href="{{ route('users.create') }}">Criar nova conta</a></p>
     <table>
         <thead>
             <tr>
@@ -30,6 +32,9 @@ maximum-scale=1.0, minimum-scale=1.0">
                 <th>Data Criação</th>
                 <th>Data Edição</th>
                 <th>Data Remoção</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -40,9 +45,24 @@ maximum-scale=1.0, minimum-scale=1.0">
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->user_type }}</td>
                     <td>{{ $user->blocked }}</td>
+                    <td>{{ $user->photo_url }}</td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->updated_at }}</td>
                     <td>{{ $user->deleted_at }}</td>
+                    <td>
+                        {{-- <a href="/users/{{$user->id}}/edit">Modificar</a> --}}
+                        <a href="{{ route('users.edit', ['user' => $user]) }}">Modificar</a>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" name="delete">Apagar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="{{ route('users.show', ['user' => $user]) }}">Consultar</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
