@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="en">
 
 <head>
@@ -8,13 +8,29 @@
 maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User</title>
-</head>
+</head> --}}
 
-<body>
-    <h2>User {{ $user->name }}</h2>
-    <div>
-        @include('users.shared.fields', ['readonlyData' => true])
-    </div>
-</body>
 
-</html>
+@extends('template.layout')
+
+@section('titulo', 'User')
+
+@section('subtitulo')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Gestão</li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+        <li class="breadcrumb-item"><strong>{{ $user->nome }}</strong></li>
+        <li class="breadcrumb-item active">Consultar</li>
+    </ol>
+@endsection
+
+@section('main')
+
+    <body>
+        <div>
+            @include('users.shared.fields', ['readonlyData' => true])
+        </div>
+        <div class="my-4 d-flex justify-content-end">
+            <a href="{{ route('users.edit', ['user' => $user]) }}" class="btn btn-secondary ms-3">Alterar Curso</a>
+        </div>
+    @endsection

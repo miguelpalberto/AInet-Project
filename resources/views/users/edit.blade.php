@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="en">
 
 <head>
@@ -12,18 +12,34 @@
 
 <body>
     <h2>Modificar utilizador {{ $user->name }}</h2>
-    {{-- <form method="POST" action="/users/{{ $user->id }}"> --}}
+    <form method="POST" action="/users/{{ $user->id }}"> --}}
+
+@extends('template.layout')
+
+@section('titulo', "Modificar User")
+
+@section('subtitulo')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Gestão</li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">User</a></li>
+        <li class="breadcrumb-item"><strong>{{ $user->nome }}</strong></li>
+        <li class="breadcrumb-item active">Modificar</li>
+    </ol>
+@endsection
+
+
+@section('main')
+
     <form method="POST" action="{{ route('users.update', ['user' => $user]) }}">
         @csrf
         @method('PUT')
+        
+        @include('users.shared.fields')
 
-        {{-- Subview: --}}
-        @include ('users.shared.fields')
-
-        <div>
-            <button type="submit" name="ok">Guardar alterações</button>
+        <div class="my-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" name="ok">Guardar Alterações</button>
+            <a href="{{ route('users.edit', ['user' => $user]) }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
-</body>
 
-</html>
+@endsection

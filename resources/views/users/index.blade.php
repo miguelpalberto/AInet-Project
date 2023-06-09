@@ -1,28 +1,21 @@
-<!doctype html>
-<html lang="en">
+@extends('template.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0,
-maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Users</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
-</head>
+@section('titulo', 'Users')
 
-<body>
-    <h1>Lista de Users</h1>
-    <p><a href="{{ route('users.create') }}">Criar nova conta</a></p>
-    <table>
-        <thead>
+@section('subtitulo')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Gestão</li>
+        {{-- <li class="breadcrumb-item">Curricular</li> --}}
+        <li class="breadcrumb-item active">Users</li>
+    </ol>
+@endsection
+
+@section('main')
+    <p>
+        <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova conta</a>
+    </p>
+    <table class="table">
+        <thead class="table-dark">
             <tr>
                 <th>Nome</th>
                 <th>Email</th>
@@ -32,9 +25,9 @@ maximum-scale=1.0, minimum-scale=1.0">
                 <th>Data Criação</th>
                 <th>Data Edição</th>
                 <th>Data Remoção</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th class="button-icon-col"></th>
+                <th class="button-icon-col"></th>
+                <th class="button-icon-col"></th>
             </tr>
         </thead>
         <tbody>
@@ -49,24 +42,24 @@ maximum-scale=1.0, minimum-scale=1.0">
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->updated_at }}</td>
                     <td>{{ $user->deleted_at }}</td>
-                    <td>
-                        {{-- <a href="/users/{{$user->id}}/edit">Modificar</a> --}}
-                        <a href="{{ route('users.edit', ['user' => $user]) }}">Modificar</a>
-                    </td>
-                    <td>
+                    <td class="button-icon-col"><a href="{{ route('users.show', ['user' => $user]) }}"
+                            class="btn btn-secondary"><i class="fas fa-eye"></i></a></td>
+                    <td class="button-icon-col"><a href="{{ route('users.edit', ['user' => $user]) }}"
+                            class="btn btn-dark"><i class="fas fa-edit"></i></a></td>
+                    <td class="button-icon-col">
                         <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" name="delete">Apagar</button>
+                            <button type="submit" name="delete" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </form>
-                    </td>
-                    <td>
-                        <a href="{{ route('users.show', ['user' => $user]) }}">Consultar</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-
-</html>
+    <div>
+        {{ $users->links() }}
+    </div>
+@endsection

@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::view('/', 'home')->name('root');
+
 Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
 
 // Route::get('users', [UserController::class, 'index'])->name('users.index');
@@ -28,3 +28,9 @@ Route::get('customers', [CustomerController::class, 'index'])->name('customers.i
 // Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 // Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Route::view('teste', 'template.layout');

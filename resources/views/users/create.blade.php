@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="en">
 
 <head>
@@ -12,29 +12,38 @@
 
 <body>
     <h2>Nova Conta</h2>
-    {{-- <form method="POST" action="/users"> --}}
+    <form method="POST" action="/users"> --}}
+
+{{-- @extends('template.layout') --}}
+@extends('template.layout')
+
+{{-- @section('header-title', 'Criar Novo User') --}}
+@section('titulo', 'Criar Novo User')
+
+@section('subtitulo')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Gestão</li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+        <li class="breadcrumb-item active">Criar Novo</li>
+    </ol>
+@endsection
+
+
+
+@section('main')
+
     <form method="POST" action="{{ route('users.store') }}">
         @csrf
-        <div>
-            {{-- TODO: adicionar id automaticamente --}}
-        </div>
+        {{-- <div>
+            TODO: adicionar id automaticamente
+        </div> --}}
 
         {{-- Subview: --}}
         @include ('users.shared.fields')
 
-        <div>
-            <label for="inputEmail">Email</label>
-            <input type="text" name="email" id="inputEmail">
-        </div>
-        <div>
-            <label for="inputPassword">Password</label>
-            <input type="text" name="password" id="inputPassword">
-        </div>
-
-        <div>
-            <button type="submit" name="ok">Criar Conta</button>
+        <div class="my-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" name="ok">Criar conta</button>
+            <a href="{{ route('users.create') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
-</body>
-
-</html>
+@endsection
