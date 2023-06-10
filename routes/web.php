@@ -39,6 +39,10 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('orders', OrderController::class);
 
+Route::resource('order_items', OrderItemController::class);
+Route::resource('colors', ColorController::class);
+Route::resource('prices', PriceController::class);
+
 
 Auth::routes();
 

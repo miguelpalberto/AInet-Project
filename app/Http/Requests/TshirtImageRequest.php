@@ -13,7 +13,7 @@ class TshirtImageRequest extends FormRequest
     {
         return true; //true!
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +27,7 @@ class TshirtImageRequest extends FormRequest
             'name' =>        'required|string|max:30',
             'description' => 'string|max:50',
             'image_url' =>   'required|string|max:255',
-            'extra_info' =>   '',//TODO
+            //'extra_info' =>   '',//TODO
         ];
     }
 
@@ -47,7 +47,7 @@ class TshirtImageRequest extends FormRequest
             'image_url.required' => 'A imagem é obrigatória',
             'image_url.string' => 'O url da imagem tem que ser uma string',
             'image_url.max' => 'O url da imagem pode ter no máximo 255 caracteres',
-            'extra_info' => '',//TODO
+            //'extra_info' => '',//TODO
         ];
     }
 }
