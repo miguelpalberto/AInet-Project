@@ -11,7 +11,7 @@ class PriceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; //true!
     }
 
     /**
@@ -27,7 +27,7 @@ class PriceRequest extends FormRequest
             'unit_price_own' => 'required|float',
             'unit_price_catalog_discount'  => 'float',
             'unit_price_own_discount'  => 'float'
-            
+
         ];
     }
 

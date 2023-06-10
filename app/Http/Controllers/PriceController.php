@@ -18,8 +18,10 @@ class PriceController extends Controller
      */
     public function index(): View
     {
+
         $prices = Price::paginate(10);
         return view('prices.index', compact('prices'));
+
     }
 
     /**
