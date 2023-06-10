@@ -10,6 +10,9 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    protected $fillable = ['order_id', 'tshirt_image_id', 'color_code', 'size', 'qty', 'unit_price', 'sub_total'];
+
     public function order(): BelongsTo
     {
         //FK, PK
