@@ -13,7 +13,7 @@
 @section('main')
     <p><a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova imagem de tshirt</a></p>
 
-    <!--Filtro:-->
+    <!-- Filtro: -->
     {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
     {{-- <hr>
     <form method="GET" action="{{ route('tshirtImages.index') }}">

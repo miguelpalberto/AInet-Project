@@ -4,7 +4,7 @@
 {{-- TODO: colocar apenas para ser visto (e pelo admin) --}}
 {{-- <div class="mb-3 form-floating">
     <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="inputID"
-        {{ $disabledStr }} value="{{ old('id', $tshirtImage->tshirtImage) }}">
+        {{ $disabledStr }} value="{{ old('id', $price->price) }}">
     <label for="inputAbr" class="form-label">ID</label>
     @error('id')
         <div class="invalid-feedback">
@@ -74,7 +74,7 @@
     @enderror
 </div>
 
-{{-- @php
+<!-- {{-- @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
 @endphp
 <div>
@@ -113,4 +113,4 @@
 <div>
     <label for="inputOpcional">Opcional</label>
     <input type="text" name="opcional" id="inputOpcional" {{ $disabledStr }} value="{{ $disciplina->opcional }}">
-</div> --}}
+</div> --}} -->
