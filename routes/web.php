@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TshirtImageController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +21,6 @@ use App\Http\Controllers\CustomerController;
 
 Route::view('/', 'home')->name('root');
 
-Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
-
 // Route::get('users', [UserController::class, 'index'])->name('users.index');
 // Route::get('users/create', [UserController::class, 'create'])->name('users.create'); //aqui "users/create" é modificável (url que desejamos)
 // Route::post('users', [UserController::class, 'store'])->name('users.store');
@@ -28,6 +29,16 @@ Route::get('customers', [CustomerController::class, 'index'])->name('customers.i
 // Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 // Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
+
+//Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::resource('customer', CustomerController::class);
+
+Route::resource('tshirtImages', TshirtImageController::class);
+
+Route::resource('categories', CategoryController::class);
+
+Route::resource('orders', OrderController::class);
+
 
 Auth::routes();
 

@@ -82,12 +82,12 @@
                             Dashboard
                         </a>
                         <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Planos Curricularessssss
+                            <div class="sb-nav-link-icon {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('users.index') }}"><i class="fas fa-table"></i></div>
+                            Imagens Tshirts
                         </a>
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
-                            Alunosssss
+                            Carrinho Compras
                         </a>
                         <div class="sb-sidenav-menu-heading">Gestão</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -156,7 +156,7 @@
             <footer class="py-2 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy;Politécnico de Leiria 2023</div>
+                        <div class="text-muted">Copyright &copy;ImageShirt 2023</div>
                     </div>
                 </div>
             </footer>
