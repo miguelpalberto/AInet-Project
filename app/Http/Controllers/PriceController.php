@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Price;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Http\Requests\PriceRequest;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
+
 
 class PriceController extends Controller
 {
@@ -30,9 +27,7 @@ class PriceController extends Controller
     public function create(): View
     {
         $price = new Price();
-
-        return view('prices.create')
-        ->withPrice($price);
+        return view('prices.create')->withPrice($price);
     }
 
     /**

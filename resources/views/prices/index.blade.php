@@ -1,19 +1,19 @@
 
 @extends('template.layout')
 
-@section('titulo', 'Imagens de Tshirts')
+@section('titulo', 'Preço')
 
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item active">Imagens Tshirts</li>
+        <li class="breadcrumb-item active">Preço</li>
     </ol>
 @endsection
 
 @section('main')
-    <p><a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova imagem de tshirt</a></p>
+    <p><a class="btn btn-success" href="{{ route('prices.create') }}"><i class="fas fa-plus"></i> &nbsp;Colocar novo preço</a></p>
 
-    <!--Filtro:-->
+    <!-- Filtro: -->
     {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
     {{-- <hr>
     <form method="GET" action="{{ route('tshirtImages.index') }}">
@@ -46,36 +46,34 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>ID Cliente</th>
-                <th>ID Categoria</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>URL Imagem</th>
-                <th>Info Extra</th>
+                <th>unit_price_catalog</th>
+                <th>unit_price_own</th>
+                <th>unit_price_catalog_discount</th>
+                <th>unit_price_own_discount</th>
+                <th>qty_discount</th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($tshirtImages as $tshirtImage)
+            @foreach ($prices as $price)
                 <tr>
-                    <td>{{ $tshirtImage->id }}</td>
-                    <td>{{ $tshirtImage->customer_id }}</td>
-                    <td>{{ $tshirtImage->category_id }}</td>
+                    <td>{{ $price->id }}</td>
+                    <td>{{ $price->unit_price_catalog }}</td>
+                    <td>{{ $price->unit_price_own }}</td>
                     {{-- <td>{{ $tshirtImage->categoryStr }}</td> --}}
-                    <td>{{ $tshirtImage->name }}</td>
-                    <td>{{ $tshirtImage->description }}</td>
-                    <td>{{ $tshirtImage->image_url }}</td>
-                    <td>{{ $tshirtImage->extra_info }}</td>
+                    <td>{{ $price->unit_price_catalog_discount }}</td>
+                    <td>{{ $price->unit_price_own_discount }}</td>
+                    <td>{{ $price->qty_discount }}</td>
                     <td class="button-icon-col"><a class="btn btn-secondary"
-                            href="{{ route('tshirtImages.show', ['tshirtImage' => $tshirtImage]) }}">
+                            href="{{ route('prices.show', ['price' => $price]) }}">
                             <i class="fas fa-eye"></i></a></td>
                     <td class="button-icon-col"><a class="btn btn-dark"
-                            href="{{ route('tshirtImages.edit', ['tshirtImage' => $tshirtImage]) }}">
+                            href="{{ route('prices.edit', ['price' => $price]) }}">
                             <i class="fas fa-edit"></i></a></td>
                     <td class="button-icon-col">
-                        <form method="POST" action="{{ route('tshirtImages.destroy', ['tshirtImage' => $tshirtImage]) }}">
+                        <form method="POST" action="{{ route('prices.destroy', ['price' => $price]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="delete" class="btn btn-danger">
@@ -87,6 +85,6 @@
         </tbody>
     </table>
     <div>
-        {{ $tshirtImages->withQueryString()->links() }}
+        {{ $prices->withQueryString()->links() }}
     </div>
 @endsection
