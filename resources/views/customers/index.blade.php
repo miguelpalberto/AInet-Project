@@ -1,66 +1,48 @@
-{{-- <!doctype html>
-<html lang="en">
+@extends('template.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customers</title>
-</head>
+@section('titulo', 'Clientes')
 
-<body>
-    @dump($customers)
-</body>
+@section('subtitulo')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Gestão</li>
+        <li class="breadcrumb-item active">Clientes</li>
+    </ol>
+@endsection
 
-</html> --}}
-<!doctype html>
-<html lang="en">
+@section('main')
+    <p><a class="btn btn-success" href="{{ route('customers.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar novo
+            cliente</a></p>
+    <hr>
+    <form method="GET" action="{{ route('customers.index') }}">
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="nome" id="inputNome"
+                            value="{{ old('nome', $filterByName) }}">
+                        <label for="inputNome" class="form-label">Nome</label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-shrink-1 d-flex flex-column justify-content-between">
+                <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
+                <a href="{{ route('customers.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
+            </div>
+        </div>
+    </form>
+    @include('customers.shared.table', [
+        'customers' => $customers,
+        'showFoto' => true,
+        'showContatos' => true,
+        'showDetail' => true,
+        'showEdit' => true,
+        'showDelete' => true,
+    ])
+    <div>
+        {{ $customers->withQueryString()->links() }}
+    </div>
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0,
-maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
-</head>
 
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>NIF</th>
-                <th>Morada</th>
-                <th>Tipo Pagamento</th>
-                <th>Referência Pagamento</th>
-                <th>Data Criação</th>
-                <th>Data Edição</th>
-                <th>Data Remoção</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($customers as $customer)
-                <tr>
-                    {{-- usar campos iguais à db: --}}
-                    <td>{{ $customer->nif }}</td>
-                    <td>{{ $customer->address }}</td>
-                    <td>{{ $customer->default_payment_type }}</td>
-                    <td>{{ $customer->default_payment_ref }}</td>
-                    <td>{{ $customer->created_at }}</td>
-                    <td>{{ $customer->updated_at }}</td>
-                    <td>{{ $customer->deleted_at }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
 
-</html>
+
+
+
