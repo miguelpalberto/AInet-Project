@@ -37,7 +37,7 @@ class PriceController extends Controller
     {
         $newPrice = Price::create($request->validate());
         $url = route('prices.show', ['price' => $newPrice]);
-        $htmlMessage = "Imagem de Price <a href='$url'>#{$newPrice->id}</a> <strong>\"{$newPrice->name}\"</strong> foi criada com sucesso!";
+        $htmlMessage = "Preço <a href='$url'>#{$newPrice->id}</a> foi criado com sucesso!";
         return redirect()->route('prices.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -49,8 +49,7 @@ class PriceController extends Controller
     public function show(Price $price): View
     {
          //$users = User::all();
-         return view('prices.show')
-         ->with('price', $price);
+         return view('prices.show') ->with('price', $price);
         //->with('users', $users);
     }
 
@@ -73,7 +72,7 @@ class PriceController extends Controller
     {
         $price->update($request->validated());
         $url = route('prices.show', ['price' => $price]);
-        $htmlMessage = "Imagem de Preço <a href='$url'>#{$price->id}</a> <strong>\"{$price->name}\"</strong> foi alterada com sucesso!";
+        $htmlMessage = "Preço <a href='$url'>#{$price->id}</a> foi alterado com sucesso!";
         return redirect()->route('prices.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -86,11 +85,11 @@ class PriceController extends Controller
     {
         try {
             $price->delete();
-            $htmlMessage = "Imagem de Preço #{$price->id} <strong>\"{$price->name}\"</strong> foi apagada com sucesso!";
+            $htmlMessage = "Preço #{$price->id}foi apagado com sucesso!";
             $alertType = 'success';
         } catch (\Exception $error) {
             $url = route('prices.show', ['price' => $price]);
-            $htmlMessage = "Não foi possível apagar a Imagem de Preço <a href='$url'>#{$price->id}</a><strong>\"{$price->name}\"</strong> porque ocorreu um erro!";
+            $htmlMessage = "Não foi possível apagar o Preço <a href='$url'>#{$price->id}</a> porque ocorreu um erro!";
             $alertType = 'danger';
         }
         return redirect()->route('prices.index')
