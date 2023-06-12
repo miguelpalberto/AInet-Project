@@ -103,18 +103,20 @@
                                 <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}" href="{{ route('customers.index') }}">Clientes</a>
                             </nav>
                             <nav class="sb-sidenav-menu-nested nav">
-                                <p> </p>
+                            
+                            <br>
+
                             </nav>
 
                             <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
                             <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Encomendas</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}" href="{{ route('orders.index') }}">Encomendas</a>
                             </nav>
                             <nav class="sb-sidenav-menu-nested nav">
-                                <p> </p>
+                        
                             </nav>
-
+                            <br>
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">Preços</a>
                             </nav>

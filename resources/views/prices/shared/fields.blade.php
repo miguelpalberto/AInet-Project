@@ -3,9 +3,9 @@
 @endphp
 {{-- TODO: colocar apenas para ser visto (e pelo admin) --}}
 {{-- <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('inputID') is-invalid @enderror" name="id" id="inputID"
+    <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="inputID"
         {{ $disabledStr }} value="{{ old('id', $price->id) }}">
-    <label for="inputAbr" class="form-label">ID</label>
+    <label for="inputID" class="form-label">ID</label>
     @error('inputID')
         <div class="invalid-feedback">
             {{ $message }}
