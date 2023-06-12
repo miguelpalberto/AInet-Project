@@ -7,6 +7,9 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PriceController;
+
+
 
 /*
 |--------------------------------------------------------------------------

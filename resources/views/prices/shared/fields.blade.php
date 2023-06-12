@@ -3,76 +3,74 @@
 @endphp
 {{-- TODO: colocar apenas para ser visto (e pelo admin) --}}
 {{-- <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="inputID"
-        {{ $disabledStr }} value="{{ old('id', $price->price) }}">
+    <input type="text" class="form-control @error('inputID') is-invalid @enderror" name="id" id="inputID"
+        {{ $disabledStr }} value="{{ old('id', $price->id) }}">
     <label for="inputAbr" class="form-label">ID</label>
-    @error('id')
+    @error('inputID')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div> --}}
+
 <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('customer_id') is-invalid @enderror" name="customer_id" id="inputCustomerID"
-        {{ $disabledStr }} value="{{ old('customer_id', $tshirtImage->customer_id) }}">
-    <label for="inputCustomerID" class="form-label">ID Customer</label>
-    @error('customer_id')
+    <input type="text" class="form-control @error('unit_price_catalog') is-invalid @enderror" name="unit_price_catalog" id="inputPriceCatalog"
+        {{ $disabledStr }} value="{{ old('unit_price_catalog', $price->unit_price_catalog) }}">
+    <label for="inputPriceCatalog" class="form-label">Preço Catalogo</label>
+    @error('unit_price_catalog')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div>
+
 {{-- //TODO: fazer selecao de categoria, nao escrever, e fazer ex 17 Ficha 7 --}}
 <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="inputCategoryID"
-        {{ $disabledStr }} value="{{ old('category_id', $tshirtImage->category_id) }}">
-    <label for="inputCategoryID" class="form-label">ID Category</label>
-    @error('category_id')
+    <input type="text" class="form-control @error('unit_price_own') is-invalid @enderror" name="unit_price_own" id="inputPriceOwn"
+        {{ $disabledStr }} value="{{ old('unit_price_own', $price->unit_price_own) }}">
+    <label for="inputPriceOwn" class="form-label">Preço Own</label>
+    @error('unit_price_own')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div>
+
 <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-        id="inputName" {{ $disabledStr }} value="{{ old('name', $tshirtImage->name) }}">
-    <label for="inputName" class="form-label">Nome</label>
-    @error('name')
+    <input type="text" class="form-control @error('unit_price_catalog_discount') is-invalid @enderror" name="unit_price_catalog_discount"
+        id="inputPriceCatalogDiscount" {{ $disabledStr }} value="{{ old('unit_price_catalog_discount', $price->unit_price_catalog_discount) }}">
+    <label for="inputPriceCatalogDiscount" class="form-label">Preço Catalogo Disc</label>
+    @error('unit_price_catalog_discount')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div>
+
 <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" id="inputDescription"
-        {{ $disabledStr }} value="{{ old('description', $tshirtImage->description) }}">
-    <label for="inputDescription" class="form-label">Descrição</label>
-    @error('description')
+    <input type="text" class="form-control @error('unit_price_own_discount') is-invalid @enderror" name="unit_price_own_discount" id="inputPriceOwnDiscount"
+        {{ $disabledStr }} value="{{ old('unit_price_own_discount', $price->unit_price_own_discount) }}">
+    <label for="inputDescription" class="form-label">Preço Own Disc</label>
+    @error('unit_price_own_discount')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div>
+
 <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('image_url') is-invalid @enderror" name="image_url" id="inputImageURL"
-        {{ $disabledStr }} value="{{ old('image_url', $tshirtImage->image_url) }}">
-    <label for="inputImageURL" class="form-label">URL Imagem</label>
-    @error('image_url')
+    <input type="text" class="form-control @error('qty_discount') is-invalid @enderror" name="qty_discount" id="inputQtyDiscount"
+        {{ $disabledStr }} value="{{ old('qty_discount', $price->qty_discount) }}">
+    <label for="inputQtyDiscount" class="form-label">Quantidade Disc</label>
+    @error('qty_discount')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
     @enderror
 </div>
-<div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('extra_info') is-invalid @enderror" name="extra_info" id="inputExtraInfo"
-        {{ $disabledStr }} value="{{ old('extra_info', $tshirtImage->extra_info) }}">
-    <label for="inputExtraInfo" class="form-label">Info Extra</label>
-    @error('extra_info')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+
+
+
 
 <!-- {{-- @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';

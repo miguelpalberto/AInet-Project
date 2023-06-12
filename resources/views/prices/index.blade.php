@@ -16,7 +16,7 @@
     <!-- Filtro: -->
     {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
     {{-- <hr>
-    <form method="GET" action="{{ route('tshirtImages.index') }}">
+    <form method="GET" action="{{ route('prices.index') }}">
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
@@ -35,7 +35,7 @@
             </div>
             <div class="flex-shrink-1 d-flex flex-column justify-content-between">
                 <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
-                <a href="{{ route('disciplinas.index') }}"
+                <a href="{{ route('prices.index') }}"
                     class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
             </div>
         </div>
