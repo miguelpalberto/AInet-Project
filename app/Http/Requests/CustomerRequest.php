@@ -23,7 +23,6 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //TODO: usar em user?
             'name' => [
                 'required',
                 Rule::unique('users', 'name')->ignore($this->id),
@@ -35,7 +34,7 @@ class CustomerRequest extends FormRequest
             ],
             'user_type' =>          'required|in:C,E,A',
 
-            'nif' =>                    'int|min:9|max:9',
+            'nif' =>                    'int|min:9',
             'address' =>                'string|max:255',
             'default_payment_type' =>   'nullable|in:VISA,MC,PAYPAL',
             // 'default_payment_ref' => [
@@ -45,6 +44,9 @@ class CustomerRequest extends FormRequest
             //         return $paymentType === 'PAYPAL' || $paymentType === 'VISA' || $paymentType === 'MC';
             //     })
             // ],
+
+            'default_payment_ref' =>   'nullable',
+
             //TODO confirmar
             //TODO foto
 
@@ -69,11 +71,12 @@ class CustomerRequest extends FormRequest
             'user_type.in' => 'O tipo de utilizador tem de ser C, E ou A',
 
             'nif.int' =>  'NIF tem de ser um inteiro',
-            'nif.min' =>  'NIF tem de ter 9 caracteres',
-            'nif.max' =>  'NIF tem de ter 9 caracteres',
+            'nif.min' =>  'NIF tem de ter 9 caracteres (min)',
+            'nif.max' =>  'NIF tem de ter 9 caracteres (max)',
             'address.string' =>  'Morada tem de ser uma string',
             'default_payment_type.in' => 'O Tipo de Pagamento Predefinido tem de ser Visa, MasterCard ou Paypal',
             // 'default_payment_ref.required' => 'Se indicar Tipo de Pagamento Predefinido tem de indicar a respetiva Referência',
+            //'default_payment_ref.optional' => '',
             //TODO foto
 
             'password_inicial.required' => 'A password inicial é obrigatória',

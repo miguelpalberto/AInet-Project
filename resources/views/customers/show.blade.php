@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('titulo', 'Cliente')
+@section('titulo', 'Clientes')
 
 @section('subtitulo')
     <ol class="breadcrumb">
@@ -15,10 +15,10 @@
     <div>
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
-                @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => true])
+                @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => true, 'isCliente' => true])
                 @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => true])
                 <div class="my-1 d-flex justify-content-end">
-                    {{-- @can ver alteracoes docente --}}
+                    {{-- TODO @can ver alteracoes docente --}}
                     <form method="POST" action="{{ route('customers.destroy', ['customer' => $customer]) }}">
                         @csrf
                         @method('DELETE')
@@ -41,8 +41,8 @@
             </div>
         </div>
     </div>
-    {{-- TODO rever --}}
-    <div>
+    {{-- TODO descomentar e rever depois de ter orders--}}
+    {{-- <div>
         <h3>Orders do Cliente</h3>
         @include('orders.shared.table', [
             'orders' => $customer->orders,
@@ -51,5 +51,5 @@
             'showEdit' => false,
             'showDelete' => false,
         ])
-    </div>
+    </div> --}}
 @endsection

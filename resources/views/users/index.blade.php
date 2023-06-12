@@ -5,7 +5,6 @@
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        {{-- <li class="breadcrumb-item">Curricular</li> --}}
         <li class="breadcrumb-item active">Users</li>
     </ol>
 @endsection
@@ -14,52 +13,43 @@
     <p>
         <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova conta</a>
     </p>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Tipo de User</th>
-                <th>Bloqueado</th>
-                <th>Foto</th>
-                <th>Data Criação</th>
-                <th>Data Edição</th>
-                <th>Data Remoção</th>
-                <th class="button-icon-col"></th>
-                <th class="button-icon-col"></th>
-                <th class="button-icon-col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-                <tr>
-                    {{-- usar campos iguais à db: --}}
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->user_type }}</td>
-                    <td>{{ $user->blocked }}</td>
-                    <td>{{ $user->photo_url }}</td>
-                    <td>{{ $user->created_at }}</td>
-                    <td>{{ $user->updated_at }}</td>
-                    <td>{{ $user->deleted_at }}</td>
-                    <td class="button-icon-col"><a href="{{ route('users.show', ['user' => $user]) }}"
-                            class="btn btn-secondary"><i class="fas fa-eye"></i></a></td>
-                    <td class="button-icon-col"><a href="{{ route('users.edit', ['user' => $user]) }}"
-                            class="btn btn-dark"><i class="fas fa-edit"></i></a></td>
-                    <td class="button-icon-col">
-                        <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" name="delete" class="btn btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <hr>
+    <form method="GET" action="{{ route('users.index') }}">
+        <div class="d-flex justify-content-between">
+
+
+            <div class="flex-grow-1 pe-2">
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="name" id="inputName"
+                            value="{{ old('name', $filterByName) }}">
+                        <label for="inputName" class="form-label">Nome</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-shrink-1 d-flex flex-column justify-content-between">
+                <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
+                <a href="{{ route('users.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
+            </div>
+
+
+        </div>
+    </form>
+    @include('users.shared.table', [
+        'users' => $users,
+        'showFoto' => true,
+        'showDates' => false,
+        'showDetail' => true,
+        'showEdit' => true,
+        'showDelete' => true,
+        //TODO admin
+    ])
     <div>
-        {{ $users->links() }}
+        {{ $users->withQueryString()->links() }}
     </div>
 @endsection
+
+
+
+

@@ -21,12 +21,12 @@ class CustomerController extends Controller
      */
     public function index(Request $request): View
     {
-        $customers = Customer::all();
+        //$customers = Customer::all();
         $filterByName = $request->name ?? '';
         $customerQuery = Customer::query();
         if ($filterByName !== '') {
             $userIds = User::where('name', 'like', "%$filterByName%")->pluck('id');
-            $customerQuery->whereIntegerInRaw('user_id', $userIds);
+            $customerQuery->whereIntegerInRaw('id', $userIds);
         }
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         //$customers = $customerQuery->paginate(10);
@@ -88,8 +88,7 @@ class CustomerController extends Controller
     //  */
     public function show(Customer $customer): View
     {
-        $customer->load('orders');
-        //$customer->load('orders', 'user'); //TODO para adicionar botao ir direto p painel user do cliente
+        $customer->load('orders', 'user');
         return view('customers.show', compact('customer'));
     }
 

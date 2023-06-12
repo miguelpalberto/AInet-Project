@@ -5,12 +5,10 @@
                 <th></th>
             @endif
             <th>Nome</th>
-            <th>E-Mail</th>
-
-            <th>NIF</th>
-            <th>Morada</th>
-            <th>Tipo Pagamento</th>
-            <th>Referência Pagamento</th>
+            <th>Email</th>
+            <th>Tipo de User</th>
+            <th>Bloqueado</th>
+            <th>Foto</th>
             @if ($showDates)
                 <th>Data Criação</th>
                 <th>Data Edição</th>
@@ -28,41 +26,39 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($customers as $customer)
+        @foreach ($users as $user)
             <tr>
                 @if ($showFoto)
-                {{-- TODO --}}
+                    {{-- TODO --}}
                     <td><img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
                             height="45"></td>
                 @endif
-                <td>{{ $customer->user->name }}</td>
-                <td>{{ $customer->user->email }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->user_type }}</td>
+                <td>{{ $user->blocked }}</td>
+                <td>{{ $user->photo_url }}</td>
 
-                <td>{{ $customer->nif }}</td>
-                <td>{{ $customer->address }}</td>
-                <td>{{ $customer->default_payment_type }}</td>
-                <td>{{ $customer->default_payment_ref }}</td>
-
-                {{-- TODO - show cenas é diferente ficha 9--}}
+                {{-- TODO - show cenas é diferente ficha 9 --}}
                 @if ($showDates)
-                    <td>{{ $customer->created_at }}</td>
-                    <td>{{ $customer->updated_at }}</td>
-                    <td>{{ $customer->deleted_at }}</td>
+                    <td>{{ $user->created_at }}</td>
+                    <td>{{ $user->updated_at }}</td>
+                    <td>{{ $user->deleted_at }}</td>
                 @endif
 
                 @if ($showDetail)
                     <td class="button-icon-col"><a class="btn btn-secondary"
-                            href="{{ route('customers.show', ['customer' => $customer]) }}">
+                            href="{{ route('users.show', ['user' => $user]) }}">
                             <i class="fas fa-eye"></i></a></td>
                 @endif
                 @if ($showEdit)
                     <td class="button-icon-col"><a class="btn btn-dark"
-                            href="{{ route('customers.edit', ['customer' => $customer]) }}">
+                            href="{{ route('users.edit', ['user' => $user]) }}">
                             <i class="fas fa-edit"></i></a></td>
                 @endif
                 @if ($showDelete)
                     <td class="button-icon-col">
-                        <form method="POST" action="{{ route('customers.destroy', ['customer' => $customer]) }}">
+                        <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="delete" class="btn btn-danger">
@@ -74,14 +70,4 @@
         @endforeach
     </tbody>
 </table>
-
-
-
-
-
-
-
-
-
-
 
