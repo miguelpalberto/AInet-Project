@@ -12,7 +12,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,17 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:25'
         ];
     }
+
+
+    public function messages(): array//////
+    {
+        return [
+            'name.max' => 'A quantidade maxima do nome é 25 caracteres',
+        
+        ];
+    }
+
 }

@@ -122,12 +122,12 @@
                             </nav>
                             <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Categorias</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}" href="{{ route('categories.index') }}">Categorias</a>
                             </nav>
 
                             <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Cores</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'colors.index' ? 'active' : '' }}" href="{{ route('colors.index') }}">Cores</a>
                             </nav>
 
                             <!-- TODO  -->
