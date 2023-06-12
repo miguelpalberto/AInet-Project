@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class DocenteRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,18 @@ class DocenteRequest extends FormRequest
     {
         return [
             //TODO: usar em user?
-            // 'name' => [
-            //     'required',
-            //     Rule::unique('users', 'name')->ignore($this->id),
-            // ],
-            // 'email' => [
-            //     'required',
-            //     'email',
-            //     Rule::unique('users', 'email')->ignore($this->id),
-            // ],
-            // 'user_type' =>          'required',
+            'name' => [
+                'required',
+                Rule::unique('users', 'name')->ignore($this->id),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->id),
+            ],
+            'user_type' =>          'required|in:C,E,A',
 
-            'nif' =>                    'min:9|max:9',
+            'nif' =>                    'int|min:9|max:9',
             'address' =>                'string|max:255',
             'default_payment_type' =>   'nullable|in:VISA,MC,PAYPAL',
             // 'default_payment_ref' => [
@@ -46,6 +46,7 @@ class DocenteRequest extends FormRequest
             //     })
             // ],
             //TODO confirmar
+            //TODO foto
 
             'password_inicial' =>       'sometimes|required'
         ];
@@ -59,13 +60,24 @@ class DocenteRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'name.required' =>  'O nome é obrigatório',
+            'name.unique' =>    'O nome tem que ser único',
+            'email.required' => 'O email é obrigatório',
+            'email.email' =>    'O formato do email é inválido',
+            'email.unique' =>   'O email tem que ser único',
+            'user_type.required' => 'O tipo de utilizador é obrigatório',
+            'user_type.in' => 'O tipo de utilizador tem de ser C, E ou A',
+
+            'nif.int' =>  'NIF tem de ser um inteiro',
             'nif.min' =>  'NIF tem de ter 9 caracteres',
             'nif.max' =>  'NIF tem de ter 9 caracteres',
             'address.string' =>  'Morada tem de ser uma string',
             'default_payment_type.in' => 'O Tipo de Pagamento Predefinido tem de ser Visa, MasterCard ou Paypal',
             // 'default_payment_ref.required' => 'Se indicar Tipo de Pagamento Predefinido tem de indicar a respetiva Referência',
+            //TODO foto
 
             'password_inicial.required' => 'A password inicial é obrigatória',
+
         ];
     }
 }

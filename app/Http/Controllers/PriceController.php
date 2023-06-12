@@ -37,7 +37,7 @@ class PriceController extends Controller
     {
         $newPrice = Price::create($request->validate());
         $url = route('prices.show', ['price' => $newPrice]);
-        $htmlMessage = "Imagem de Price <a href='$url'>#{$newPrice->id}</a> <strong>\"{$newPrice->nome}\"</strong> foi criada com sucesso!";
+        $htmlMessage = "Imagem de Price <a href='$url'>#{$newPrice->id}</a> <strong>\"{$newPrice->name}\"</strong> foi criada com sucesso!";
         return redirect()->route('prices.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');

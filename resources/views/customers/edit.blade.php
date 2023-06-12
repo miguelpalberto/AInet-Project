@@ -34,6 +34,7 @@
                     'user' => $customer->user,
                     'allowUpload' => true,
                     'formToDelete' => 'form_delete_photo',
+                    //TODO delete foto - ver alteracoes docente
                 ])
             </div>
         </div>

@@ -31,7 +31,7 @@ Route::view('/', 'home')->name('root');
 Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
 
 //Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
-Route::resource('customer', CustomerController::class);
+Route::resource('customers', CustomerController::class);
 
 Route::resource('tshirtImages', TshirtImageController::class);
 

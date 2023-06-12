@@ -73,53 +73,69 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+
+                        <!-- TODO  -->
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}"><i class="fas fa-table"></i></div>
-                            Imagens Tshirts
+
+                        <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}"
+                            href="{{ route('tshirtImages.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
+                            Imagens Tshirt
                         </a>
+
+                        <!-- TODO  -->
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
                             Carrinho Compras
                         </a>
-                        <div class="sb-sidenav-menu-heading">Gestão</div>
-                       
-                       
+                        <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
+
+
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
-                            </nav>                     
+                            </nav>
                             <!-- //EU ESTOU A RESOLVER ISTO -->
-                       
+
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">T-Shirt</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}" href="{{ route('customers.index') }}">Clientes</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <p> </p>
+                            </nav>
+
+                            <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
+                            <!-- MUDAR A ROUTE -->
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Encomendas</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <p> </p>
+                            </nav>
+
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">Preços</a>
                             </nav>
                             <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Costumers</a>
-                            </nav>
-                            <!-- MUDAR A ROUTE -->
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Orders</a>
-                            </nav>
-                            <!-- MUDAR A ROUTE -->
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Categories</a>
-                            </nav>
-                            
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">Prices</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Categorias</a>
                             </nav>
 
                             <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Colors</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">Cores</a>
                             </nav>
-                        
-                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRecursosHumanos" aria-expanded="false" aria-controls="collapseRecursosHumanos">
+
+                            <!-- TODO  -->
+                        <div class="sb-sidenav-menu-heading">Espaço Privado</div>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
+                            Minhas Encomendas
+                        </a>
+
+                        {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRecursosHumanos" aria-expanded="false" aria-controls="collapseRecursosHumanos">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Recursos Humanosssssss
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -129,21 +145,8 @@
                                 <a class="nav-link" href="#">Departamentosssssss</a>
                                 <a class="nav-link" href="#">Docentesssss</a>
                             </nav>
-                        </div>
-                        <div class="sb-sidenav-menu-heading">Candidaturassssssss</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
-                            Enviar candidaturaaaaaaaa
-                        </a>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
-                            Candidaturasssssss
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Espaço Privado</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
-                            Minhas disciplinassssssss
-                        </a>
+                        </div> --}}
+
                     </div>
                 </div>
             </nav>

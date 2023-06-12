@@ -61,7 +61,7 @@ class TshirtImageController extends Controller
     {
         $newTshirtImage = TshirtImage::create($request->validated());
         $url = route('tshirtImages.show', ['tshirtImage' => $newTshirtImage]);
-        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$newTshirtImage->id}</a> <strong>\"{$newTshirtImage->nome}\"</strong> foi criada com sucesso!";
+        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$newTshirtImage->id}</a> <strong>\"{$newTshirtImage->name}\"</strong> foi criada com sucesso!";
         return redirect()->route('tshirtImages.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
