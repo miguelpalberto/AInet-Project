@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -10,20 +11,43 @@ class UserRequest extends FormRequest
     {
         return true;//
     }
+
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|string|max:50',
+            //TODO: usar em user?
+            'name' => [
+                'required',
+                Rule::unique('users', 'name')->ignore($this->id),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->id),
+            ],
+            'user_type' =>          'required|in:C,E,A',
+
+            'password_inicial' =>       'sometimes|required'
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
-            'name.required' => 'O nome é obrigatório',
+            'name.required' =>  'O nome é obrigatório',
+            'name.unique' =>    'O nome tem que ser único',
             'email.required' => 'O email é obrigatório',
-            'email.string' => 'O email tem que ser uma string',
-            'email.max' => 'O email pode ter no máximo 50 caracteres',
+            'email.email' =>    'O formato do email é inválido',
+            'email.unique' =>   'O email tem que ser único',
+            'user_type.required' => 'O tipo de utilizador é obrigatório',
+            'user_type.in' => 'O tipo de utilizador tem de ser C, E ou A',
+
+            'password_inicial.required' => 'A password inicial é obrigatória',
         ];
     }
 }

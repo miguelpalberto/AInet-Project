@@ -16,9 +16,9 @@
     <form method="GET" action="{{ route('customers.index') }}">
                 <div class="d-flex justify-content-between">
                     <div class="mb-3 me-2 flex-grow-1 form-floating">
-                        <input type="text" class="form-control" name="nome" id="inputNome"
-                            value="{{ old('nome', $filterByName) }}">
-                        <label for="inputNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="name" id="inputName"
+                            value="{{ old('name', $filterByName) }}">
+                        <label for="inputName" class="form-label">Nome</label>
                     </div>
                 </div>
             </div>
@@ -31,10 +31,11 @@
     @include('customers.shared.table', [
         'customers' => $customers,
         'showFoto' => true,
-        'showContatos' => true,
+        'showDates' => false,
         'showDetail' => true,
         'showEdit' => true,
         'showDelete' => true,
+        //TODO admin
     ])
     <div>
         {{ $customers->withQueryString()->links() }}

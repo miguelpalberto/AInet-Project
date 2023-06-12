@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TshirtImage extends Model
@@ -15,12 +17,12 @@ class TshirtImage extends Model
     protected $fillable = ['customer_id', 'category_id', 'name', 'description', 'image_url', 'extra_info'];
     protected $dates = ['deleted_at'];
 
-    public function categoryRef(): BelongsTo
+    public function category(): BelongsTo
     {
         //FK, PK
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-    public function customerRef(): BelongsTo
+    public function customerT(): BelongsTo
     {
         //FK, PK
         return $this->belongsTo(Customer::class, 'customer_id', 'id');

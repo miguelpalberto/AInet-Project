@@ -31,6 +31,7 @@
         @foreach ($customers as $customer)
             <tr>
                 @if ($showFoto)
+                {{-- TODO --}}
                     <td><img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
                             height="45"></td>
                 @endif
@@ -42,6 +43,7 @@
                 <td>{{ $customer->default_payment_type }}</td>
                 <td>{{ $customer->default_payment_ref }}</td>
 
+                {{-- TODO - show cenas é diferente ficha 9--}}
                 @if ($showDates)
                     <td>{{ $customer->created_at }}</td>
                     <td>{{ $customer->updated_at }}</td>

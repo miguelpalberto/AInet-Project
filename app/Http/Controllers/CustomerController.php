@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\User;
+use App\Models\TshirtImage;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -52,12 +55,12 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request): RedirectResponse
     {
         $formData = $request->validated();
-        $customer = DB::transaction(function () use ($formData) {
+        $customer = DB::transaction(function () use ($formData, $request) {
             $newUser = new User();
             $newUser->user_type = 'C';
             $newUser->name = $formData['name'];
             $newUser->email = $formData['email'];
-            $newUser->admin = $formData['admin'];
+            //TODO admin - ver docente
             $newUser->blocked = 0;
             $newUser->password = Hash::make($formData['password_inicial']);
             $newUser->save();
@@ -68,6 +71,7 @@ class CustomerController extends Controller
             $newCustomer->default_payment_type = $formData['default_payment_type'];
             $newCustomer->default_payment_ref = $formData['default_payment_ref'];
             $newCustomer->save();
+            //TODO foto - ver docente
             return $newCustomer;
         });
         $url = route('customers.show', ['customer' => $customer]);
@@ -76,6 +80,7 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
+            //TODO redirect ver docente
     }
 
     // /**
@@ -112,9 +117,10 @@ class CustomerController extends Controller
             $user->user_type = 'C';
             $user->name = $formData['name'];
             $user->email = $formData['email'];
-            $user->admin = $formData['admin'];
+            //TODO admin ver docente
             $user->blocked = 0;
             $user->save();
+            //TODO foto ver docente
             return $customer;
         });
         $url = route('customers.show', ['customer' => $customer]);
@@ -138,6 +144,7 @@ class CustomerController extends Controller
                     $customer->delete();
                     $user->delete();
                 });
+                //TODO foto ver docente
                 $htmlMessage = "Cliente #{$customer->id}
                         <strong>\"{$user->name}\"</strong> foi apagado com sucesso!";
                 return redirect()->route('customers.index')
@@ -166,4 +173,8 @@ class CustomerController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }
+
+    //TODO destroy foto ver docente
+
+    //TODO changeadmin ver docente
 }

@@ -18,6 +18,7 @@
                 @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => true])
                 @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => true])
                 <div class="my-1 d-flex justify-content-end">
+                    {{-- @can ver alteracoes docente --}}
                     <form method="POST" action="{{ route('customers.destroy', ['customer' => $customer]) }}">
                         @csrf
                         @method('DELETE')
@@ -35,6 +36,7 @@
                 @include('users.shared.fields_foto', [
                     'user' => $customer->user,
                     'allowUpload' => false,
+                    //TODO delete foto - ver alteracoes docente
                 ])
             </div>
         </div>
@@ -44,6 +46,7 @@
         <h3>Orders do Cliente</h3>
         @include('orders.shared.table', [
             'orders' => $customer->orders,
+            'showDates' => false,
             'showDetail' => true,
             'showEdit' => false,
             'showDelete' => false,

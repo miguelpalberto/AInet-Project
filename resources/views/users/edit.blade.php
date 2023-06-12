@@ -22,7 +22,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
         <li class="breadcrumb-item"><a href="{{ route('users.index') }}">User</a></li>
-        <li class="breadcrumb-item"><strong>{{ $user->nome }}</strong></li>
+        <li class="breadcrumb-item"><strong>{{ $user->name }}</strong></li>
         <li class="breadcrumb-item active">Modificar</li>
     </ol>
 @endsection
@@ -33,7 +33,7 @@
     <form method="POST" action="{{ route('users.update', ['user' => $user]) }}">
         @csrf
         @method('PUT')
-        
+
         @include('users.shared.fields')
 
         <div class="my-4 d-flex justify-content-end">
