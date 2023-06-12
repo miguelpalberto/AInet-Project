@@ -35,8 +35,8 @@
                     <td><img src="/img/avatar_unknown.png" alt="Avatar" class="bg-dark rounded-circle" width="45"
                             height="45"></td>
                 @endif
-                <td>{{ $customer->user->name }}</td>
-                <td>{{ $customer->user->email }}</td>
+                <td>{{ $customer->user->name ?? 'Utilizador desconhecido' }}</td>
+                <td>{{ $customer->user->email ?? 'Utilizador desconhecido' }}</td>
 
                 <td>{{ $customer->nif }}</td>
                 <td>{{ $customer->address }}</td>

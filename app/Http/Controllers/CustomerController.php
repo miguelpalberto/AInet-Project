@@ -55,7 +55,7 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request): RedirectResponse
     {
         $formData = $request->validated();
-        $customer = DB::transaction(function () use ($formData, $request) {
+        $customer = DB::transaction(function () use ($formData) {
             $newUser = new User();
             $newUser->user_type = 'C';
             $newUser->name = $formData['name'];
