@@ -8,7 +8,8 @@ use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
-
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\OrderItemController;
 
 
 /*
@@ -43,7 +44,9 @@ Route::resource('categories', CategoryController::class);
 Route::resource('orders', OrderController::class);
 
 Route::resource('order_items', OrderItemController::class);
+
 Route::resource('colors', ColorController::class);
+
 Route::resource('prices', PriceController::class);
 
 
