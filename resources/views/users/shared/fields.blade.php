@@ -1,5 +1,6 @@
 @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
+    $isCliente = $isCliente ?? true;
 @endphp
 
 {{-- isto será no edit customer ? - para ser proprio user a mudar suas infos - atualizar com codigo ativo
@@ -15,7 +16,7 @@
 {{-- TODO: fazer isto so apenas se user logged in for admin --}}
 
 
-<div class="mb-3 form-floating">
+<div class="mb-3 form-floating ms-2">
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="inputName"
     {{ $disabledStr }} value="{{ old('name', $user->name) }}">
     <label for="inputName" class="form-label">Nome</label>
@@ -25,9 +26,11 @@
         </div>
     @enderror
 </div>
-<div class="mb-3 form-floating">
+
+@if (!$isCliente)
+<div class="mb-3 form-floating ms-2">
     <select class="form-control @error('user_type') is-invalid @enderror" name="user_type" id="inputUser_type" {{ $disabledStr }}>
-        <option value="C" {{ old('user_type', $user->user_type) == 'C' ? 'selected' : '' }}>Cliente</option>
+        {{-- <option value="C" {{ old('user_type', $user->user_type) == 'C' ? 'selected' : '' }}>Cliente</option> --}}
         <option value="F" {{ old('user_type', $user->user_type) == 'F' ? 'selected' : '' }}>Funcionário</option>
         <option value="A" {{ old('user_type', $user->user_type) == 'A' ? 'selected' : '' }}>Administrador</option>
     </select>
@@ -38,9 +41,10 @@
         </div>
     @enderror
 </div>
+@endif
 
 {{-- rever se deixo estes campos aqui --}}
-<div class="mb-3 form-floating">
+<div class="mb-3 form-floating ms-2">
     <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="inputEmail" {{ $disabledStr }} value="{{ old('email', $user->email) }}">
     <label for="inputEmail">Email</label>
     @error('email')
@@ -49,7 +53,7 @@
         </div>
     @enderror
 </div>
-{{-- <div class="mb-3 form-floating">
+{{-- <div class="mb-3 form-floating ms-2">
         <input type="text" name="password" id="inputPassword" class="form-control @error('password') is-invalid @enderror" {{ $disabledStr }} value="{{ $user->password }}">
         <label for="inputPassword">Password</label>
     @error('password')
@@ -58,3 +62,5 @@
     </div>
         @enderror
     </div> --}}
+
+    {{-- TODO - foto --}}

@@ -27,7 +27,7 @@ class PriceRequest extends FormRequest
             'unit_price_catalog' => 'required|float',
             'unit_price_own' => 'required|float',
             'unit_price_catalog_discount'  => 'float',
-            'unit_price_own_discount'  => 'float'
+            'unit_price_own_discount'  => 'float',
 
         ];
     }
@@ -39,7 +39,7 @@ class PriceRequest extends FormRequest
             'unit_price_catalog.required' => 'Preço de T-shirt com imagem do catálogo é obrigatório',
             'unit_price_own.required' => 'Preço de T-shirt com imagem propria é obrigatório',
             'unit_price_catalog_discount.float'  => 'Tem de ser um numero',
-            'unit_price_own_discount.float'  => 'Tem de ser um numero'
+            'unit_price_own_discount.float'  => 'Tem de ser um numero',
         ];
     }
 }

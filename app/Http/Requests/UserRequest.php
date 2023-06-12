@@ -15,7 +15,6 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //TODO: usar em user?
             'name' => [
                 'required',
                 Rule::unique('users', 'name')->ignore($this->id),
@@ -26,8 +25,12 @@ class UserRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($this->id),
             ],
             'user_type' =>          'required|in:C,E,A',
+            'email_verified_at' =>  'optional',
+            'password' =>  'optional',
+            'blocked' =>  'optional',
+            'photo_url' =>  'optional',
 
-            'password_inicial' =>       'sometimes|required'
+            'password_inicial' =>       'sometimes|required',
         ];
     }
 

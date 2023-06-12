@@ -28,7 +28,7 @@ class TshirtImageRequest extends FormRequest
             'name' =>        'required|string|max:30',
             'description' => 'string|max:50',
             'image_url' =>   'required|string|max:255',
-            //'extra_info' =>   '',//TODO
+            'extra_info' =>   'optional',//TODO
         ];
     }
 

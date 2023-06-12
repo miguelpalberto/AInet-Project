@@ -15,7 +15,7 @@
         @csrf
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
-                @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => false])
+                @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => false,  'isCliente' => true])
                 @include('customers.shared.fields_password_inicial')
                 @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => false])
                 <div class="my-1 d-flex justify-content-end">
