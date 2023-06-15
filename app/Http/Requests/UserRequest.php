@@ -48,7 +48,7 @@ class UserRequest extends FormRequest
             'email.email' =>    'O formato do email é inválido',
             'email.unique' =>   'O email tem que ser único',
             'user_type.required' => 'O tipo de utilizador é obrigatório',
-            'user_type.in' => 'O tipo de utilizador tem de ser C, E ou A',
+            'user_type.in' => 'O tipo de utilizador tem de ser Funcionário(E) ou Administrador(A)',
 
             'password_inicial.required' => 'A password inicial é obrigatória',
         ];

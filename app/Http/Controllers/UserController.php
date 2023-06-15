@@ -102,14 +102,13 @@ class UserController extends Controller
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
-            $user->password = Hash::make($formData['password_inicial']);
             $user->save();
             return $user;
         });
         $url = route('users.show', ['user' => $user]);
         $htmlMessage = "User <a href='$url'>#{$user->id}</a>
                         <strong>\"{$user->name}\"</strong> foi alterado com sucesso!";
-        return redirect()->route('docentes.index')
+        return redirect()->route('users.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
