@@ -13,33 +13,31 @@
 @section('main')
     <p><a class="btn btn-success" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> &nbsp;Colocar nova Order</a></p>
 
-    <!-- Filtro: -->
-    {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
-    {{-- <hr>
+<!--Filtro:-->
+    
     <form method="GET" action="{{ route('orders.index') }}">
         <div class="d-flex justify-content-between">
+
+
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
-                    <div class="flex-grow-1 mb-3 form-floating">
-                        <select class="form-select" name="category" id="inputCategory">
-                            <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">Todas Categorias </option>
-                            @foreach ($categorys as $category)
-                                <option {{ old('category_id', $filterByCategory) == $category->id ? 'selected' : '' }}
-                                    value="{{ $category->id }}">
-                                    {{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="inputCategory" class="form-label">Categoria</label>
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="customer_id" id="inputCustomerID"
+                            value="{{ old('customer_id', $filterByCustomerID) }}">
+                        <label for="inputCustomerID" class="form-label">Customer ID</label>
                     </div>
                 </div>
             </div>
+
             <div class="flex-shrink-1 d-flex flex-column justify-content-between">
                 <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
-                <a href="{{ route('orders.index') }}"
-                    class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
+                <a href="{{ route('orders.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
             </div>
+
+
         </div>
-    </form> --}}
+    </form>
+   
 
     <!--Tabela:-->
     <table class="table">

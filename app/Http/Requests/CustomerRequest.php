@@ -43,13 +43,13 @@ class CustomerRequest extends FormRequest
                 }),
             ],
 
-            'default_payment_ref' =>   'nullable',
+            'default_payment_ref' => 'nullable',
 
             //TODO confirmar
             //TODO foto
             //
 
-            'password_inicial' =>       'sometimes|required'
+            'password_inicial' => 'sometimes|required'
 
         ];
     }

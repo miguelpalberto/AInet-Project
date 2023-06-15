@@ -14,13 +14,20 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         // FAZER OS FILTROS
 
+        $filterByCustomerID = $request->customer_id ?? '';
+        $userQuery = Order::query();
+        
+        if ($filterByCustomerID !== '') {
+            $customerIds = Order::where('customer_id', 'like', "%$filterByCustomerID%")->pluck('id');
+            $userQuery->whereIntegerInRaw('id', $customerIds);
+        }
 
         $orders = Order::paginate(10);
-        return view('orders.index', compact('orders'));
+        return view('orders.index', compact('orders', 'filterByCustomerID'));
     }
 
     /**
