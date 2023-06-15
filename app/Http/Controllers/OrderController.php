@@ -19,15 +19,21 @@ class OrderController extends Controller
         // FAZER OS FILTROS
         // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
+        $filterByNif = $request->nif ?? '';
         $userQuery = Order::query();
         
         if ($filterByCustomerID !== '') {
             $customerIds = Order::where('customer_id', 'like', "%$filterByCustomerID%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $customerIds);
         }
+        if ($filterByNif !== '') {
+            $customerNif = Order::where('nif', 'like', "%$filterByNif%")->pluck('id');
+            $userQuery->whereIntegerInRaw('id', $customerNif);
+        }
+        
 
-        $orders = Order::paginate(10);
-        return view('orders.index', compact('orders', 'filterByCustomerID'));
+        $orders = $userQuery->paginate(10);
+        return view('orders.index', compact('orders', 'filterByCustomerID','filterByNif'));
     }
 
     /**
@@ -36,7 +42,7 @@ class OrderController extends Controller
     public function create(): View
     {
         $order = new Order();
-        return view('orders.create')->withOrder($order);
+        return view('orders.create', compact('order'));
     }
 
     /**
@@ -57,7 +63,7 @@ class OrderController extends Controller
      */
     public function show(Order $order): View
     {
-        return view('orders.show')->with('order', $order);
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -65,10 +71,9 @@ class OrderController extends Controller
      */
     public function edit(Order $order): View
     {
-        return view('orders.edit', [
-            'order' => $order
-            //, 'users' => $users
-        ]);
+        return view('orders.edit', compact('order'));
+            //,
+       
     }
 
     /**
