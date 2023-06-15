@@ -30,8 +30,8 @@ class ColorRequest extends FormRequest
     public function messages(): array//////
     {
         return [
-            'name.max' => 'Só pode escrever 15 carac',
-           
+            'name.max' => 'A quantidade maxima de caracteres do nome é de 15 caracteres',
+
         ];
     }
 

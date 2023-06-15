@@ -69,7 +69,7 @@ class CustomerController extends Controller
             $newCustomer->nif = $formData['nif'];
             $newCustomer->address = $formData['address'];
             $newCustomer->default_payment_type = $formData['default_payment_type'] ?? null;
-            $newCustomer->default_payment_ref = $formData['default_payment_ref'];
+            $newCustomer->default_payment_ref = $formData['default_payment_ref'] ?? null;
             $newCustomer->save();
             //TODO foto - ver docente
             return $newCustomer;
@@ -109,8 +109,8 @@ class CustomerController extends Controller
         $customer = DB::transaction(function () use ($formData, $customer) {
             $customer->nif = $formData['nif'];
             $customer->address = $formData['address'];
-            $customer->default_payment_type = $formData['default_payment_type'];
-            $customer->default_payment_ref = $formData['default_payment_ref'];
+            $customer->default_payment_type = $formData['default_payment_type'] ?? null;
+            $customer->default_payment_ref = $formData['default_payment_ref'] ?? null;
             $customer->save();
             $user = $customer->user;
             $user->user_type = 'C';

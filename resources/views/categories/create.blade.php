@@ -15,7 +15,7 @@
         @csrf
         @include('categories.shared.fields')
         <div class="my-4 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="ok">Guardar Categoria</button>
+            <button type="submit" class="btn btn-primary" name="ok">Guardar Nova Categoria</button>
             <a href="{{ route('categories.create') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>

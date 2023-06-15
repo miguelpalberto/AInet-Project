@@ -6,12 +6,12 @@
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item active">Cor</li>
+        <li class="breadcrumb-item active">Cores</li>
     </ol>
 @endsection
 
 @section('main')
-    <p><a class="btn btn-success" href="{{ route('colors.create') }}"><i class="fas fa-plus"></i> &nbsp;Colocar nova Cor</a></p>
+    <p><a class="btn btn-success" href="{{ route('colors.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova Cor</a></p>
 
     <!-- Filtro: -->
     {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
@@ -45,8 +45,8 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
-                <th>code</th>
-                <th>nome</th>
+                <th>Código</th>
+                <th>Nome</th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
@@ -57,9 +57,9 @@
                 <tr>
                     <td>{{ $color->code }}</td>
                     <td>{{ $color->name }}</td>
-                    
-                    
-                    
+
+
+
                     <td class="button-icon-col"><a class="btn btn-secondary"
                             href="{{ route('colors.show', ['color' => $color]) }}">
                             <i class="fas fa-eye"></i></a></td>
@@ -78,6 +78,9 @@
             @endforeach
         </tbody>
     </table>
+
+
+    
     <div>
         {{ $colors->withQueryString()->links() }}
     </div>
