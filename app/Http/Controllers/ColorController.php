@@ -15,8 +15,14 @@ class ColorController extends Controller
      */
     public function index(): View
     {
+        $filterByName = $request->name ?? '';
+        $userQuery = Color::query();
+        if ($filterByName !== '') {
+            $colorIds = Color::where('name', 'like', "%$filterByName%")->pluck('code');
+            $userQuery->whereIntegerInRaw('code', $colorIds);
+        }
         $colors = Color::paginate(10);
-        return view('colors.index', compact('colors'));
+        return view('colors.index', compact('colors', 'filterByName'));
     }
 
     /**

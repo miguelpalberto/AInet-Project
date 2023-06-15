@@ -13,6 +13,8 @@
     <p><a class="btn btn-success" href="{{ route('customers.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar novo
             cliente</a></p>
     <hr>
+    
+    <!--Filtro-->
     <form method="GET" action="{{ route('customers.index') }}">
         <div class="d-flex justify-content-between">
 

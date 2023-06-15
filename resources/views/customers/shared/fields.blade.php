@@ -42,7 +42,7 @@
                 value="PAYPAL">Paypal
             </option>
         </select>
-        <label for="inputDefaultPaymentType" class="form-label">Tipo Pagamento Predefenido</label>
+        <label for="inputDefaultPaymentType" class="form-label">Tipo Pagamento Predefinido</label>
         @error('default_payment_type')
             <div class="invalid-feedback">
                 {{ $message }}
