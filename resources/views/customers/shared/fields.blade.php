@@ -30,9 +30,8 @@
     <div class="mb-3 form-floating flex-grow-1 ms-2">
         <select class="form-select @error('default_payment_type') is-invalid @enderror" name="default_payment_type"
             id="inputDefaultPaymentType" {{ $disabledStr }}>
-            <option {{ old('default_payment_type', $customer->default_payment_type) == null ? 'selected' : '' }}
-                value="nullable">-Nenhum-
-            </option>
+            <option {{ old('default_payment_type', $customer->default_payment_type) === null ? 'selected' : '' }}
+                value="">-Nenhum-</option>
             <option {{ old('default_payment_type', $customer->default_payment_type) == 'VISA' ? 'selected' : '' }}
                 value="VISA">Visa
             </option>

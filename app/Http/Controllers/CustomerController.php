@@ -68,7 +68,7 @@ class CustomerController extends Controller
             $newCustomer->id = $newUser->id;
             $newCustomer->nif = $formData['nif'];
             $newCustomer->address = $formData['address'];
-            $newCustomer->default_payment_type = $formData['default_payment_type'];
+            $newCustomer->default_payment_type = $formData['default_payment_type'] ?? null;
             $newCustomer->default_payment_ref = $formData['default_payment_ref'];
             $newCustomer->save();
             //TODO foto - ver docente

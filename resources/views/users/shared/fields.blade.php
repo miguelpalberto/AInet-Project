@@ -29,12 +29,12 @@
 
 @if (!$isCliente)
 <div class="mb-3 form-floating ms-2">
-    <select class="form-control @error('user_type') is-invalid @enderror" name="user_type" id="inputUser_type" {{ $disabledStr }}>
+    <select class="form-control @error('user_type') is-invalid @enderror" name="user_type" id="inputUserType" {{ $disabledStr }}>
         {{-- <option value="C" {{ old('user_type', $user->user_type) == 'C' ? 'selected' : '' }}>Cliente</option> --}}
-        <option value="F" {{ old('user_type', $user->user_type) == 'F' ? 'selected' : '' }}>Funcionário</option>
-        <option value="A" {{ old('user_type', $user->user_type) == 'A' ? 'selected' : '' }}>Administrador</option>
+        <option {{ old('user_type', $user->user_type) == 'E' ? 'selected' : '' }} value="E" >Funcionário</option>
+        <option {{ old('user_type', $user->user_type) == 'A' ? 'selected' : '' }} value="A">Administrador</option>
     </select>
-    <label for="inputUser_type" class="form-label">Tipo de User</label>
+    <label for="inputUserType" class="form-label">Tipo de User</label>
     @error('user_type')
         <div class="invalid-feedback">
             {{ $message }}
