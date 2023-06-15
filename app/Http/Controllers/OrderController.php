@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function index(Request $request): View
     {
         // FAZER OS FILTROS
-
+        // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
         $userQuery = Order::query();
         
