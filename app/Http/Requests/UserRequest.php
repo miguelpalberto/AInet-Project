@@ -25,10 +25,10 @@ class UserRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($this->id),
             ],
             'user_type' =>          'required|in:C,E,A',
-            'email_verified_at' =>  'optional',
-            'password' =>  'optional',
-            'blocked' =>  'optional',
-            'photo_url' =>  'optional',
+            'email_verified_at' =>  'nullable',
+            // 'password' =>  'nullable', //not needed - colocar aqui apenas campos que utilizador vai preencher
+            // 'blocked' =>  'nullable',
+            // 'photo_url' =>  'nullable',
 
             'password_inicial' =>       'sometimes|required',
         ];

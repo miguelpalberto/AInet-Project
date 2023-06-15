@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\TshirtImage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -16,8 +17,14 @@ class CategoryController extends Controller
      */
     public function index(): View
     {
+        $filterByName = $request->name ?? '';
+        $userQuery = Category::query();
+        if ($filterByName !== '') {
+            $categoryIds = Category::where('name', 'like', "%$filterByName%")->pluck('id');
+            $userQuery->whereIntegerInRaw('id', $categoryIds);
+        }
         $categories = Category::paginate(10);
-        return view('categories.index', compact('categories'));
+        return view('categories.index', compact('categories', 'filterByName'));
     }
 
     /**
@@ -26,7 +33,8 @@ class CategoryController extends Controller
     public function create(): View
     {
         $category = new Category();
-        return view('categories.create')->withCategory($category);
+        return view('categories.create')
+            ->withDisciplina($category)
     }
 
     /**
@@ -47,7 +55,15 @@ class CategoryController extends Controller
      */
     public function show(Category $category): View
     {
-        return view('categories.show') ->with('category', $category);
+        //TODO: ter detalhes com tshirtimagens (mudar view show e um @include do index (para enviar o showDetails))
+        // $tshirtImages = TshirtImage::all();
+        // $showDetail = 'tshirtImages';
+        // $category->load('tshirtImages', 'tshirtImages.category');
+
+        return view('categories.show')
+            ->with('category', $category)
+            //->with('tshirtImages', $tshirtImage)
+            //->with('showDetail', $showDetail);
     }
 
     /**

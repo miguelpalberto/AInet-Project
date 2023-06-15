@@ -31,8 +31,8 @@ class CategoryRequest extends FormRequest
     public function messages(): array//////
     {
         return [
-            'name.max' => 'A quantidade maxima do nome é 25 caracteres',
-        
+            'name.max' => 'A quantidade maxima de caracteres do nome é de 25 caracteres',
+
         ];
     }
 
