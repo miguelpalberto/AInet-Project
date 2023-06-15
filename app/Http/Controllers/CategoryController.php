@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         return view('categories.create')
-            ->withDisciplina($category)
+            ->withCategories($category)
     }
 
     /**
