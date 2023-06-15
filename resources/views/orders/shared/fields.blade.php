@@ -13,16 +13,29 @@
     @enderror
 </div> --}}
 
-<div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" id="inputStatus"
-        {{ $disabledStr }} value="{{ old('status', $order->status) }}">
-    <label for="inputStatus" class="form-label">Status</label>
-    @error('status')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+
+<div class="mb-3 form-floating flex-grow-1 ms-2">
+        <select class="form-select @error('status') is-invalid @enderror" name="status"
+            id="inputDefaultPaymentType" {{ $disabledStr }}>
+            <option {{ old('status', $order->status) === 'pending' ? 'selected' : '' }}
+                value="pending">-Em espera-</option>
+            <option {{ old('status', $order->status) == 'paid' ? 'selected' : '' }}
+                value="paid">Pago
+            </option>
+            <option {{ old('status', $order->status) == 'closed' ? 'selected' : '' }}
+                value="closed">Fechado
+            </option>
+            <option {{ old('status', $order->status) == 'canceled' ? 'selected' : '' }}
+                value="canceled">Cancelado
+            </option>
+        </select>
+        <label for="inputDefaultPaymentType" class="form-label">Tipo de Status</label>
+        @error('status')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
 
 {{-- //TODO: fazer selecao de categoria, nao escrever, e fazer ex 17 Ficha 7 --}}
 <div class="mb-3 form-floating">
@@ -91,16 +104,28 @@
     @enderror
 </div>
 
-<div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('payment_type') is-invalid @enderror" name="payment_type" id="inputPaymentType"
-        {{ $disabledStr }} value="{{ old('payment_type', $order->payment_type) }}">
-    <label for="inputPaymentType" class="form-label">Tipo Pagamento</label>
-    @error('payment_type')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+<div class="mb-3 form-floating flex-grow-1 ms-2">
+        <select class="form-select @error('payment_type') is-invalid @enderror" name="payment_type"
+            id="inputDefaultPaymentType" {{ $disabledStr }}>
+            <option {{ old('payment_type', $order->payment_type) === null ? 'selected' : '' }}
+                value="">-Nenhum-</option>
+            <option {{ old('payment_type', $order->payment_type) == 'VISA' ? 'selected' : '' }}
+                value="VISA">Visa
+            </option>
+            <option {{ old('payment_type', $order->payment_type) == 'MC' ? 'selected' : '' }}
+                value="MC">MasterCard
+            </option>
+            <option {{ old('payment_type', $order->payment_type) == 'PAYPAL' ? 'selected' : '' }}
+                value="PAYPAL">Paypal
+            </option>
+        </select>
+        <label for="inputDefaultPaymentType" class="form-label">Tipo Pagamento Predefenido</label>
+        @error('payment_type')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
 
 <div class="mb-3 form-floating">
     <input type="text" class="form-control @error('payment_ref') is-invalid @enderror" name="payment_ref" id="inputPaymentRef"

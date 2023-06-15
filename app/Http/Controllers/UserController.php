@@ -25,6 +25,7 @@ class UserController extends Controller
         //TODO corrigir?
         $filterByUserType = $request->user_type ?? '';
         $filterByName = $request->name ?? '';
+        $filterByEmail = $request->email ?? '';
         $userQuery = User::query();
         if ($filterByUserType !== '') {
             $userQuery->where('user_type', $filterByUserType);
@@ -33,10 +34,14 @@ class UserController extends Controller
             $userIds = User::where('name', 'like', "%$filterByName%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $userIds);
         }
+        if ($filterByEmail !== '') {
+            $userIds = User::where('email', 'like', "%$filterByEmail%")->pluck('id');
+            $userQuery->whereIntegerInRaw('id', $userIds);
+        }
         // TODO ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         $users = $userQuery->paginate(10);
         //$users = $userQuery->with('customer')->paginate(10);
-        return view('users.index', compact('users', 'filterByName', 'filterByUserType'));
+        return view('users.index', compact('users', 'filterByName', 'filterByUserType','filterByEmail'));
     }
 
     // /**

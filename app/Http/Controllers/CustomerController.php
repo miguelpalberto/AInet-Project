@@ -23,15 +23,21 @@ class CustomerController extends Controller
     {
         //$customers = Customer::all();
         $filterByName = $request->name ?? '';
+        $filterByEmail = $request->email ?? '';
         $customerQuery = Customer::query();
         if ($filterByName !== '') {
             $userIds = User::where('name', 'like', "%$filterByName%")->pluck('id');
             $customerQuery->whereIntegerInRaw('id', $userIds);
+        }       
+        if ($filterByEmail !== '') {
+            $userEmail = User::where('email', 'like', "%$filterByEmail%")->pluck('id');
+            $customerQuery->whereIntegerInRaw('id', $userEmail);
         }
+    
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         //$customers = $customerQuery->paginate(10);
         $customers = $customerQuery->with('orders', 'user')->paginate(10);//TODO  confirmar
-        return view('customers.index', compact('customers', 'filterByName'));
+        return view('customers.index', compact('customers', 'filterByName', 'filterByEmail'));
     }
 
     // /**

@@ -23,15 +23,19 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|in:pending,paid,closed,canceled',
+            'status' => 'nullable|in:pending,paid,closed,canceled',
             'customer_id' => 'required|integer',
             'date' => 'required|integer:betwenn:1,31',
             'total_price' => 'required|float',
             'notes' => 'required|string|max:30',
             'nif' => 'required|integer|max:9',
-            'address' => 'required|string|max:50',
-            'payment_type' => 'required|in:VISA,MC,PAYPAL',
-            'payment_ref' => 'required|integer',
+            'address' => 'required|string|max:255',
+            'payment_type' => 'nullable|in:VISA,MC,PAYPAL',
+            'payment_ref' => [
+                Rule::requiredIf(function () {
+                    return $this->input('payment_type') !== null;
+                }),
+            ],
             'receipt_url' => 'required|integer',
         ];
     }
@@ -40,15 +44,15 @@ class OrderRequest extends FormRequest
     {
         return [
             
-            'status' => 'alterar',
-            'customer_id' => 'alterar',
-            'date' => 'alterar',
-            'total_price' => 'alterar',
+            'status' => '',
+            'customer_id' => 'Tem de inserir',
+            'date' => 'Tem de inserir',
+            'total_price' => 'TENS DE METER O PREÇO',
             'notes' => 'alterar',
-            'nif' => 'alterar',
-            'address' => 'alterar',
-            'payment_type' => 'alterar',
-            'payment_ref' => 'alterar',
+            'nif' => 'NIF tem de ter no mínimo 9 números',
+            'address' => 'Obrigatório',
+            'payment_type' => 'Inserir o tipo de Pagamento',
+            'payment_ref' => 'Tem de ser 9 caracteres',
             'receipt_url' => 'alterar',
 
         ];
