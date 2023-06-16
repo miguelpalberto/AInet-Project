@@ -15,10 +15,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                Rule::unique('users', 'name')->ignore($this->id),
-            ],
+            'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
@@ -43,6 +40,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name.required' =>  'O nome é obrigatório',
+            'name.string' =>  'O nome tem de ser uma string',
+            'name.max' =>  'O nome tem de ter no máximo 255 caracteres',
             'name.unique' =>    'O nome tem que ser único',
             'email.required' => 'O email é obrigatório',
             'email.email' =>    'O formato do email é inválido',

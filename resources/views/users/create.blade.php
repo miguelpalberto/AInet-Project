@@ -20,7 +20,7 @@
                 <div class="my-1 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary" name="ok" form="form_user">Guardar novo
                         user</button>
-                    <a href="{{ route('users.create', ['user' => $user]) }}"
+                    <a href="{{ route('users.index', ['user' => $user]) }}"
                         class="btn btn-secondary ms-3">Cancelar</a>
                 </div>
             </div>

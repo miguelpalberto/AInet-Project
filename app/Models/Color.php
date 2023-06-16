@@ -14,8 +14,13 @@ class Color extends Model
     protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
 
+    protected $primaryKey = 'code';//dizer chave prim nao e id, é code
+    protected $keyType = 'string';//dizer tipostring  dados chave primaria
+    public $incrementing = false;
+
     public function orderItemsCol(): HasMany
     {
+
         return $this->hasMany(OrderItem::class, 'color_code', 'code');
     }
 }

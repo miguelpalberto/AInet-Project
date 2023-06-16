@@ -15,8 +15,8 @@
         @csrf
         @include('colors.shared.fields')
         <div class="my-4 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="ok">Guardar Cor</button>
-            <a href="{{ route('colors.create') }}" class="btn btn-secondary ms-3">Cancelar</a>
+            <button type="submit" class="btn btn-primary" name="ok">Criar Nova Cor</button>
+            <a href="{{ route('colors.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
 @endsection

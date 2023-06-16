@@ -200,7 +200,7 @@ class UserController extends Controller
 //     {
 //         //$user->update($request->all());
 //         // return redirect('/users');
-//         // $validated = $request->validate([
+//         // $validated = $request->validated([
 //         //     'name' => 'required',
 //         //     'email' => 'required|string|max:50',
 //         // ]);

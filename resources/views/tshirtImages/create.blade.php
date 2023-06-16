@@ -16,7 +16,7 @@
         @include('tshirtImages.shared.fields')
         <div class="my-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary" name="ok">Guardar nova imagem de t-shirt</button>
-            <a href="{{ route('tshirtImages.create') }}" class="btn btn-secondary ms-3">Cancelar</a>
+            <a href="{{ route('tshirtImages.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
 @endsection

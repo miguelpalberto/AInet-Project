@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -37,7 +38,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request): RedirectResponse
     {
-        $newOrder = Order::create($request->validate());
+        $newOrder = Order::create($request->validated());
         $url = route('orders.show', ['order' => $newOrder]);
         $htmlMessage = "Order <a href='$url'>#{$newOrder->id}</a> foi criada com sucesso!";
         return redirect()->route('orders.index')

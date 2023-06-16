@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\TshirtImage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 
 
@@ -15,7 +17,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $filterByName = $request->name ?? '';
         $userQuery = Category::query();
@@ -34,7 +36,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         return view('categories.create')
-            ->withCategories($category)
+            ->withCategory($category);
     }
 
     /**
@@ -42,7 +44,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
-        $newCategory = Category::create($request->validate());
+        $newCategory = Category::create($request->validated());
         $url = route('categories.show', ['category' => $newCategory]);
         $htmlMessage = "Categoria <a href='$url'>#{$newCategory->id}</a> foi criada com sucesso!";
         return redirect()->route('categories.index')
@@ -61,9 +63,10 @@ class CategoryController extends Controller
         // $category->load('tshirtImages', 'tshirtImages.category');
 
         return view('categories.show')
-            ->with('category', $category)
+            ->withCategory($category);
             //->with('tshirtImages', $tshirtImage)
             //->with('showDetail', $showDetail);
+
     }
 
     /**
@@ -74,6 +77,7 @@ class CategoryController extends Controller
         return view('categories.edit', [
             'category' => $category
             //, 'users' => $users
+
         ]);
     }
 
@@ -82,12 +86,13 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $newCategory = Category::create($request->validate());
-        $url = route('categories.show', ['category' => $newCategory]);
-        $htmlMessage = "Categoria <a href='$url'>#{$newCategory->id}</a> foi criada com sucesso!";
-        return redirect()->route('categories.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
+            $category->update($request->validated());
+            $url = route('categories.show', ['category' => $category]);
+            $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
+                            <strong>\"{$category->nome}\"</strong> foi alterada com sucesso!";
+            return redirect()->route('categories.index')
+                ->with('alert-msg', $htmlMessage)
+                ->with('alert-type', 'success');
     }
 
     /**
@@ -96,15 +101,34 @@ class CategoryController extends Controller
     public function destroy(Category $category): RedirectResponse
     {
         try {
-            $category->delete();
-            $htmlMessage = "Categoria #{$category->id}foi apagada com sucesso!";
-            $alertType = 'success';
+            $totalTshirtImages = DB::scalar('select count(*) from tshirt_images where category_id = ?', [$category->id]);
+            if ($totalTshirtImages == 0) {
+                $category->delete();
+                $htmlMessage = "Categoria #{$category->id}
+                        <strong>\"{$category->name}\"</strong> foi apagada com sucesso!";
+                return redirect()->route('categories.index')
+                    ->with('alert-msg', $htmlMessage)
+                    ->with('alert-type', 'success');
+            } else {
+                $url = route('categories.show', ['category' => $category]);
+                $alertType = 'warning';
+                $tshirtImageStr = $totalTshirtImages > 0 ?
+                    ($totalTshirtImages == 1 ?
+                        "1 Imagem de Tshirt com esta categoria" :
+                        "$totalTshirtImages Imagens de Tshirt com esta categoria") :
+                    "";
+                    $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
+                        <strong>\"{$category->name}\"</strong>
+                        não pode ser apagada porque há $tshirtImageStr!
+                        ";
+            }
         } catch (\Exception $error) {
             $url = route('categories.show', ['category' => $category]);
-            $htmlMessage = "Não foi possível apagar a Categoria <a href='$url'>#{$category->id}</a> porque ocorreu um erro!";
+            $htmlMessage = "Não foi possível apagar a categoria <a href='$url'>#{$category->id}</a>
+                        <strong>\"{$category->name}\"</strong> porque ocorreu um erro!";
             $alertType = 'danger';
         }
-        return redirect()->route('categories.index')
+        return back()
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }

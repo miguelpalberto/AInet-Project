@@ -1,4 +1,3 @@
-
 @extends('template.layout')
 
 @section('titulo', 'Categoria')
@@ -19,17 +18,17 @@
     <div class="my-4 d-flex justify-content-end">
         <form method="POST" action="{{ route('categories.destroy', ['category' => $category]) }}">
             @csrf
-    @method('DELETE')
-    <button type="submit" name="delete" class="btn btn-danger">
-        Apagar Categoria
-    </button>
-</form>
-<a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-secondary ms-3">Alterar
-    Categoria</a>
-</div>
+            @method('DELETE')
+            <button type="submit" name="delete" class="btn btn-danger">
+                Apagar Categoria
+            </button>
+        </form>
+        <a href="{{ route('categories.edit', ['category' => $category]) }}" class="btn btn-secondary ms-3">Alterar
+            Categoria</a>
+    </div>
 
-{{-- TODO: detalhes a mostrar tshirts de x categoria --}}
-{{-- <div class="my-3">
+    {{-- TODO: detalhes a mostrar tshirts de x categoria --}}
+    {{-- <div class="my-3">
     <ul class="nav nav-pills">
         <li class="nav-item">
             <a class="nav-link {{ $showDetail == 'docentes' ? 'active' : '' }}"
@@ -68,4 +67,3 @@
     @endif
 </div> --}}
 @endsection
-

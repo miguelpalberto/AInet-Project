@@ -23,7 +23,14 @@ class ColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:15'
+            // 'code' => [
+            //     'required',
+            //     'string',
+            //     'size:6',
+            //     Rule::unique('colors', 'code')->ignore($this->code),
+            // ],
+            'code' => 'required|string|size:6|unique:colors',
+            'name' => 'required|string|max:15',
         ];
     }
 
@@ -31,6 +38,10 @@ class ColorRequest extends FormRequest
     {
         return [
             'name.max' => 'A quantidade maxima de caracteres do nome é de 15 caracteres',
+            'code.required' =>  'O código é obrigatório',
+            'code.string' =>  'O código tem de ser uma string',
+            'code.size' =>  'O código tem de ter 6 caracteres',
+            'code.unique' =>  'O código tem de ser único (já existe esse código de cor)',
 
         ];
     }

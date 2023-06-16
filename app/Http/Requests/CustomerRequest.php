@@ -23,16 +23,13 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                Rule::unique('users', 'name')->ignore($this->id),
-            ],
+            'name' => 'required|max:255',
             'email' => [
                 'required',
                 'email',
                 Rule::unique('users', 'email')->ignore($this->id),
             ],
-            'user_type' =>          'required|in:C',
+            //'user_type' =>          'required|in:C',
 
             'nif' =>                    'integer|digits:9',
             'address' =>                'string|max:255',
@@ -65,6 +62,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'name.required' =>  'O nome é obrigatório',
+            'name.max' =>  'O nome tem de ter no máximo 255 caracteres',
             'name.unique' =>    'O nome tem que ser único',
             'email.required' => 'O email é obrigatório',
             'email.email' =>    'O formato do email é inválido',

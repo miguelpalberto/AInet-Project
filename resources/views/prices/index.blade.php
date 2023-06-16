@@ -1,12 +1,12 @@
 
 @extends('template.layout')
 
-@section('titulo', 'Preço')
+@section('titulo', 'Preços')
 
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item active">Preço</li>
+        <li class="breadcrumb-item active">Preços</li>
     </ol>
 @endsection
 

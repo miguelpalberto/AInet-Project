@@ -7,13 +7,15 @@ use App\Models\Color;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ColorEditRequest;
 
 class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $filterByName = $request->name ?? '';
         $userQuery = Color::query();
@@ -39,10 +41,27 @@ class ColorController extends Controller
      */
     public function store(ColorRequest $request): RedirectResponse
     {
-        $newColor = Color::create($request->validate());
-        $url = route('colors.show', ['color' => $newColor]);
-        $htmlMessage = "Cor <a href='$url'>#{$newColor->code}</a> foi criada com sucesso!";
-        return redirect()->route('colors.index')
+
+        // $newColor = Color::create($request->validated());
+        // $url = route('colors.show', ['color' => $newColor]);
+        // $htmlMessage = "Cor <a href='$url'>#{$newColor->code}</a> foi criada com sucesso!";
+        // return redirect()->route('colors.index')
+        //     ->with('alert-msg', $htmlMessage)
+        //     ->with('alert-type', 'success');
+
+        $formData = $request->validated();
+        $color = DB::transaction(function () use ($formData, $request) {
+            $newColor = new Color();
+            $newColor->code = $formData['code'];
+            $newColor->name = $formData['name'];
+            $newColor->save();
+            return $newColor;
+        });
+        $url = route('colors.show', ['color' => $color]);
+        $htmlMessage = "Cor <a href='$url'>#{$color->code}</a>
+                        <strong>\"{$color->name}\"</strong> foi criada com sucesso!";
+
+        return redirect()->back()
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
@@ -52,7 +71,8 @@ class ColorController extends Controller
      */
     public function show(Color $color): View
     {
-        return view('colors.show') ->with('color', $color);
+        return view('colors.show')
+            ->withColor($color);
     }
 
     /**
@@ -69,11 +89,37 @@ class ColorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ColorRequest $request, Color $color): RedirectResponse
+    // public function update(ColorEditRequest $request, Color $color): RedirectResponse
+    // {
+    //     $color->update($request->validated());
+    //     $url = route('colors.show', ['color' => $color]);
+    //     $htmlMessage = "Cor <a href='$url'>#{$color->code}</a> foi alterada com sucesso!";
+    //     return redirect()->route('colors.index')
+    //         ->with('alert-msg', $htmlMessage)
+    //         ->with('alert-type', 'success');
+
+    //     // $formData = $request->validated();
+    //     // $color = DB::transaction(function () use ($formData, $color) {
+    //     //     $color->name = $formData['name'];
+    //     //     //$color->code = $formData['code'];
+    //     //     $color->save();
+    //     //     return $color;
+    //     // });
+    //     // $url = route('colors.show', ['color' => $color]);
+    //     // $htmlMessage = "Cor <a href='$url'>#{$color->code}</a>
+    //     //                 <strong>\"{$color->name}\"</strong> foi alterada com sucesso!";
+    //     //     return redirect()->back()
+    //     //         ->with('alert-msg', $htmlMessage)
+    //     //         ->with('alert-type', 'success');
+    // }
+    public function update(ColorEditRequest $request, Color $color): RedirectResponse
     {
-        $color->update($request->validated());
+        $color->name = $request->input('name');
+        $color->save();
+
         $url = route('colors.show', ['color' => $color]);
         $htmlMessage = "Cor <a href='$url'>#{$color->code}</a> foi alterada com sucesso!";
+
         return redirect()->route('colors.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -96,7 +142,40 @@ class ColorController extends Controller
         return redirect()->route('colors.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
+
+        //TODO: Utilizar o de baixo quando ja tenhamos criado o order_items
+
+        // try {
+        //     $totalOrderItems = DB::scalar('select count(*) from order_items where color_code = ?', [$color->code]);
+        //     if ($totalOrderItems == 0) {
+        //         $color->delete();
+        //         $htmlMessage = "Cor #{$color->id}
+        //                 <strong>\"{$color->name}\"</strong> foi apagada com sucesso!";
+        //         return redirect()->route('colors.index')
+        //             ->with('alert-msg', $htmlMessage)
+        //             ->with('alert-type', 'success');
+        //     } else {
+        //         $url = route('colors.show', ['color' => $color]);
+        //         $alertType = 'warning';
+        //         $orderItemsStr = $totalOrderItems > 0 ?
+        //             ($totalOrderItems == 1 ?
+        //                 "1 Order Item com esta cor" :
+        //                 "$totalOrderItems Order Items com esta cor") :
+        //             "";
+        //             $htmlMessage = "Cor <a href='$url'>#{$color->id}</a>
+        //                 <strong>\"{$color->name}\"</strong>
+        //                 não pode ser apagada porque há $orderItemsStr!
+        //                 ";
+        //     }
+        // } catch (\Exception $error) {
+        //     $url = route('colors.show', ['color' => $color]);
+        //     $htmlMessage = "Não foi possível apagar a cor <a href='$url'>#{$color->id}</a>
+        //                 <strong>\"{$color->name}\"</strong> porque ocorreu um erro!";
+        //     $alertType = 'danger';
+        // }
+        // return back()
+        //     ->with('alert-msg', $htmlMessage)
+        //     ->with('alert-type', $alertType);
+
     }
-
 }
-
