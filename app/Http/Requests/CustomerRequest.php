@@ -31,9 +31,9 @@ class CustomerRequest extends FormRequest
             ],
             //'user_type' =>          'required|in:C',
 
-            'nif' =>                    'integer|digits:9',
-            'address' =>                'string|max:255',
-            'default_payment_type' =>   'nullable|in:VISA,MC,PAYPAL',
+            'nif' =>                    'nullable|integer|digits:9',
+            'address' =>                'nullable|string|max:255',
+            'default_payment_type' =>  'nullable|in:VISA,MC,PAYPAL',
             //'default_payment_ref' =>  'nullable',
             'default_payment_ref' => [
                 Rule::requiredIf(function () {
