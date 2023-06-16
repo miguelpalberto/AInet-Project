@@ -11,7 +11,7 @@
 @endsection
 
 @section('main')
-    <p><a class="btn btn-success" href="{{ route('prices.create') }}"><i class="fas fa-plus"></i> &nbsp;Colocar novo preço</a></p>
+    <p><a class="btn btn-success" href="{{ route('prices.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar Novo Preço</a></p>
 
     <!-- Filtro: -->
     {{-- Descomentar e corrigir DEPOIS de criar classe category --}}
@@ -46,11 +46,11 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>unit_price_catalog</th>
-                <th>unit_price_own</th>
-                <th>unit_price_catalog_discount</th>
-                <th>unit_price_own_discount</th>
-                <th>qty_discount</th>
+                <th>Preço Imagem da Loja</th>
+                <th>Preço Imagem do Cliente</th>
+                <th>Preço Imagem da Loja c/ Desconto</th>
+                <th>Preço Imagem do Cliente c/ Desconto</th>
+                <th>Quantidade Mínima p/ Desconto</th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>

@@ -2,44 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TshirtImage;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Order;
+use App\Models\Category;
 use Illuminate\View\View;
-use App\Http\Requests\TshirtImageRequest;
+use App\Models\TshirtImage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\TshirtImageRequest;
 
 class TshirtImageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+
+    public function index(Request $request): View
     {
-        $tshirtImages = TshirtImage::paginate(10);
-        return view('tshirtImages.index', compact('tshirtImages'));
+        $categories = Category::all();
+        $filterByCategory = $request->category ?? '';
+        $filterByName = $request->name ?? '';
+        $tshirtImageQuery = TshirtImage::query();
+        if ($filterByCategory !== '') {
+            $tshirtImageQuery->where('category_id', $filterByCategory);
+        }
+        if ($filterByName !== '') {
+            $tshirtImageIds = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id');
+            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
+        }
+        $tshirtImages = $tshirtImageQuery->with('category', 'customerT')->paginate(10);
+        return view('tshirtImages.index', compact(
+            'tshirtImages',
+            'categories',
+            'filterByCategory',
+            'filterByName',
+        ));
     }
-    // Depois de criar classe category - Substituir por funcao acima e corrigir, para ter filtro de categoria, na apresentacao das tshirts- Ex 3 Ficha 7
-    // public function index(Request $request): View
-    // {
-    //     $cursos = Curso::all();
-    //     $filterByCurso = $request->curso ?? '';
-    //     $filterByAno = $request->ano ?? '';
-    //     $filterBySemestre = $request->semestre ?? '';
-    //     $disciplinaQuery = Disciplina::query();
-    //     if ($filterByCurso !== '') {
-    //         $disciplinaQuery->where('curso', $filterByCurso);
-    //     }
-    //     $disciplinas = $disciplinaQuery->paginate(10);
-    //     return view('disciplinas.index', compact(
-    //         'disciplinas',
-    //         'cursos',
-    //         'filterByCurso',
-    //         'filterByAno',
-    //         'filterBySemestre'
-    //     ));
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -47,11 +46,11 @@ class TshirtImageController extends Controller
     public function create(): View
     {
         $tshirtImage = new TshirtImage();
-        //$user = User::all();
-        return view('tshirtImages.create')
-            ->withTshirtImage($tshirtImage)
-            //->withUsers($users)
-        ;
+        $categories = Category::all();
+         return view('tshirtImages.create')
+             ->withTshirtImage($tshirtImage)
+             ->withCategories($categories);
+
     }
 
     /**
@@ -59,9 +58,24 @@ class TshirtImageController extends Controller
      */
     public function store(TshirtImageRequest $request): RedirectResponse
     {
-        $newTshirtImage = TshirtImage::create($request->validated());
-        $url = route('tshirtImages.show', ['tshirtImage' => $newTshirtImage]);
-        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$newTshirtImage->id}</a> <strong>\"{$newTshirtImage->name}\"</strong> foi criada com sucesso!";
+        //$newTshirtImage = TshirtImage::create($request->validated());
+        $formData = $request->validated();
+        $tshirtImage = DB::transaction(function () use ($formData) {
+            $newtshirtImage = new TshirtImage();
+            $newtshirtImage->customer_id = $formData['customer_id'] ?? null;
+            $newtshirtImage->category_id = $formData['category_id'] ?? null;
+            $newtshirtImage->name = $formData['name'];
+            $newtshirtImage->description = $formData['description'] ?? null;
+            //TODO: criar imagem e descomentar
+            //$newtshirtImage->image_url = $formData['image_url'];
+            $newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $newtshirtImage->save();
+            return $newtshirtImage;
+        });
+
+
+        $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
+        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a> <strong>\"{$tshirtImage->name}\"</strong> foi criada com sucesso!";
         return redirect()->route('tshirtImages.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -70,12 +84,21 @@ class TshirtImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TshirtImage $tshirtImage): View
+    public function show(TshirtImage $tshirtImage): View //Request $request,
     {
-        //$users = User::all();
+        $orders = Order::all();
+        // Following line ensures that $showDetail is either alunos or docentes
+        //$showDetail = $request->query('show-detail') == 'alunos' ? 'alunos' : 'docentes';
+        // if ($showDetail == 'docentes') {
+        //     $tshirtImage->load('docentes', 'docentes.user', 'docentes.departamentoRef');
+        // } else {
+        //     $tshirtImage->load('alunos', 'alunos.user', 'alunos.cursoRef');
+        // }
         return view('tshirtImages.show')
-            ->with('tshirtImage', $tshirtImage);
-        //->with('users', $users);
+            ->with('tshirtImage', $tshirtImage)
+            ->with('orders', $orders)
+            //->with('showDetail', $showDetail)
+            ;
     }
 
     /**
@@ -83,10 +106,9 @@ class TshirtImageController extends Controller
      */
     public function edit(TshirtImage $tshirtImage): View
     {
-        //$users = User::all();
+        $categories = Category::all();
         return view('tshirtImages.edit', [
-            'tshirtImage' => $tshirtImage
-            //, 'users' => $users
+            'tshirtImage' => $tshirtImage, 'categories' => $categories
         ]);
     }
 
@@ -95,9 +117,29 @@ class TshirtImageController extends Controller
      */
     public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
-        $tshirtImage->update($request->validated());
+        // $tshirtImage->update($request->validated());
+        // $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
+        // $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a> <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
+        // return redirect()->route('tshirtImages.index')
+        //     ->with('alert-msg', $htmlMessage)
+        //     ->with('alert-type', 'success');
+
+        $formData = $request->validated();
+        $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage) {
+            $tshirtImage->customer_id = $formData['customer_id'] ?? null;
+            $tshirtImage->category_id = $formData['category_id'] ?? null;
+            $tshirtImage->name = $formData['name'];
+            $tshirtImage->description = $formData['description'] ?? null;
+            //TODO: criar imagem e descomentar
+            //$tshirtImage->image_url = $formData['image_url'];//editar
+            $tshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $tshirtImage->save();
+            return $tshirtImage;
+        });
+
         $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a> <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
+        $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a>
+                        <strong>\"{$tshirtImage->name}\"</strong> foi criada com sucesso!";
         return redirect()->route('tshirtImages.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -110,15 +152,34 @@ class TshirtImageController extends Controller
     public function destroy(TshirtImage $tshirtImage): RedirectResponse
     {
         try {
-            $tshirtImage->delete();
-            $htmlMessage = "Imagem de Tshirt #{$tshirtImage->id} <strong>\"{$tshirtImage->name}\"</strong> foi apagada com sucesso!";
-            $alertType = 'success';
+            $totalOrders = DB::scalar('select count(*) from order_items where tshirt_image_id = ?', [$tshirtImage->id]);
+            if ($totalOrders == 0) {
+                $tshirtImage->delete();
+                $htmlMessage = "Imagem de Tshirt #{$tshirtImage->id}
+                        <strong>\"{$tshirtImage->nome}\"</strong> foi apagada com sucesso!";
+                return redirect()->route('tshirtImages.index')
+                    ->with('alert-msg', $htmlMessage)
+                    ->with('alert-type', 'success');
+            } else {
+                $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
+                $alertType = 'warning';
+                $tshirtStr = $totalOrders > 0 ?
+                    ($totalOrders == 1 ?
+                        "1 encomenda(order_items) com essa imagem de tshirt" :
+                        "$totalOrders encomendas(order_items) com essa imagem de tshirt") :
+                    "";
+                $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a>
+                        <strong>\"{$tshirtImage->name}\"</strong>
+                        não pode ser apagada porque há $tshirtStr!
+                        ";
+            }
         } catch (\Exception $error) {
             $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-            $htmlMessage = "Não foi possível apagar a Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a><strong>\"{$tshirtImage->name}\"</strong> porque ocorreu um erro!";
+            $htmlMessage = "Não foi possível apagar a imagem de tshirt <a href='$url'>#{$tshirtImage->id}</a>
+                        <strong>\"{$tshirtImage->nome}\"</strong> porque ocorreu um erro!";
             $alertType = 'danger';
         }
-        return redirect()->route('tshirtImages.index')
+        return back()
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }

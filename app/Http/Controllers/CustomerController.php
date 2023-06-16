@@ -28,12 +28,12 @@ class CustomerController extends Controller
         if ($filterByName !== '') {
             $userIds = User::where('name', 'like', "%$filterByName%")->pluck('id');
             $customerQuery->whereIntegerInRaw('id', $userIds);
-        }       
+        }
         if ($filterByEmail !== '') {
             $userEmail = User::where('email', 'like', "%$filterByEmail%")->pluck('id');
             $customerQuery->whereIntegerInRaw('id', $userEmail);
         }
-    
+
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         //$customers = $customerQuery->paginate(10);
         $customers = $customerQuery->with('orders', 'user')->paginate(10);//TODO  confirmar
@@ -128,6 +128,7 @@ class CustomerController extends Controller
             //TODO foto ver docente
             return $customer;
         });
+        
         $url = route('customers.show', ['customer' => $customer]);
         $htmlMessage = "Cliente <a href='$url'>#{$customer->id}</a>
                         <strong>\"{$customer->user->name}\"</strong> foi alterado com sucesso!";

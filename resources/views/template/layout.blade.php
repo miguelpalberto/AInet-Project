@@ -75,59 +75,71 @@
                     <div class="nav">
 
                         <!-- TODO  -->
-                        <a class="nav-link" href="#">
+                        {{-- <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Dashboard
-                        </a>
+                        </a> --}}
+                        <br>
 
                         <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}"
                             href="{{ route('tshirtImages.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-shirt"></i></div>
                             Imagens Tshirt
                         </a>
 
                         <!-- TODO  -->
                         <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>
                             Carrinho Compras
                         </a>
                         <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
 
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
-                            </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
+                                Users</a>
+                        </nav>
                             <!-- //EU ESTOU A RESOLVER ISTO -->
 
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}" href="{{ route('customers.index') }}">Clientes</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}" href="{{ route('customers.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                    Clientes</a>
                             </nav>
-                            <nav class="sb-sidenav-menu-nested nav">
-                            
-                            <br>
 
+                            <nav class="sb-sidenav-menu-nested nav">
+                            <br>
                             </nav>
 
                             <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
-                            <!-- MUDAR A ROUTE -->
+
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}" href="{{ route('orders.index') }}">Encomendas</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}" href="{{ route('orders.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
+                                    Encomendas</a>
                             </nav>
                             <nav class="sb-sidenav-menu-nested nav">
-                        
+
                             </nav>
                             <br>
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">Preços</a>
-                            </nav>
-                            <!-- MUDAR A ROUTE -->
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}" href="{{ route('categories.index') }}">Categorias</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
+                                    Preços</a>
                             </nav>
 
-                            <!-- MUDAR A ROUTE -->
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Route::currentRouteName() == 'colors.index' ? 'active' : '' }}" href="{{ route('colors.index') }}">Cores</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}" href="{{ route('categories.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-border-all"></i></div>
+                                    Categorias</a>
+                            </nav>
+
+
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'colors.index' ? 'active' : '' }}" href="{{ route('colors.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-palette"></i></div>
+                                    Cores</a>
                             </nav>
 
                             <!-- TODO  -->
