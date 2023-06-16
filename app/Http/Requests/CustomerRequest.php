@@ -33,7 +33,7 @@ class CustomerRequest extends FormRequest
 
             'nif' =>                    'nullable|integer|digits:9',
             'address' =>                'nullable|string|max:255',
-            'default_payment_type' =>  'nullable|in:VISA,MC,PAYPAL',
+            'default_payment_type' =>   'nullable|in:VISA,MC,PAYPAL',
             //'default_payment_ref' =>  'nullable',
             'default_payment_ref' => [
                 Rule::requiredIf(function () {
@@ -45,7 +45,6 @@ class CustomerRequest extends FormRequest
             //'default_payment_ref' => 'nullable',
 
 
-          
             //TODO confirmar
             //TODO foto
 

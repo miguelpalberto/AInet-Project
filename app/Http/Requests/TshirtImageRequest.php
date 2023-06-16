@@ -23,12 +23,13 @@ class TshirtImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => 'exists:customer,id',
-            'category_id' => 'exists:category,id',
+            'customer_id' => 'nullable|exists:customer,id',
+            'category_id' => 'nullable|exists:category,id',
             'name' =>        'required|string|max:30',
-            'description' => 'string|max:50',
-            'image_url' =>   'required|string|max:255',
-            'extra_info' =>   'optional',//TODO
+            'description' => 'nullable|string|max:100',
+            'image_url' =>   'nullable',//apagar
+            //'image_url' =>   'required|string|max:255',
+            'extra_info' =>   'nullable',//TODO
         ];
     }
 
@@ -44,11 +45,11 @@ class TshirtImageRequest extends FormRequest
             'customer_id.exists' => 'O customer não existe na base de dados',
             'category_id.exists' => 'A categoria não existe na base de dados',
             'description.string' => 'A descrição tem que ser uma string',
-            'description.max' => 'A descrição pode ter no máximo 50 caracteres',
+            'description.max' => 'A descrição pode ter no máximo 100 caracteres',
             'image_url.required' => 'A imagem é obrigatória',
             'image_url.string' => 'O url da imagem tem que ser uma string',
             'image_url.max' => 'O url da imagem pode ter no máximo 255 caracteres',
-            //'extra_info' => '',//TODO
+            'extra_info' => '',//TODO
         ];
     }
 }

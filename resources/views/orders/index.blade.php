@@ -5,12 +5,12 @@
 @section('subtitulo')
 <ol class="breadcrumb">
     <li class="breadcrumb-item">Gestão</li>
-    <li class="breadcrumb-item active">Orders</li>
+    <li class="breadcrumb-item active">Encomendas</li>
 </ol>
 @endsection
 
 @section('main')
-<p><a class="btn btn-success" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> &nbsp;Colocar nova Order</a></p>
+<p><a class="btn btn-success" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar Nova Encomenda</a></p>
 
 <!--Filtro:-->
 
@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-between">
                 <div class="mb-3 me-2 flex-grow-1 form-floating">
                     <input type="text" class="form-control" name="customer_id" id="inputCustomerID" value="{{ old('customer_id', $filterByCustomerID) }}">
-                    <label for="inputCustomerID" class="form-label">Customer ID</label>
+                    <label for="inputCustomerID" class="form-label">ID Cliente</label>
                 </div>
             </div>
         </div>
@@ -31,13 +31,13 @@
             <div class="d-flex justify-content-between">
                 <div class="mb-3 me-2 flex-grow-1 form-floating">
                     <input type="text" class="form-control" name="nif" id="inputNif" value="{{ old('nif', $filterByNif) }}">
-                    <label for="inputNif" class="form-label">Nif</label>
+                    <label for="inputNif" class="form-label">NIF</label>
                 </div>
             </div>
         </div>
 
-       
-      
+
+
 
         <div class="flex-shrink-1 d-flex flex-column justify-content-between">
             <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
@@ -54,16 +54,16 @@
     <thead class="table-dark">
         <tr>
             <th>ID</th>
-            <th>status</th>
-            <th>customer_id</th>
-            <th>date</th>
-            <th>total_price</th>
-            <th>notes</th>
-            <th>nif</th>
-            <th>address</th>
-            <th>payment_type</th>
-            <th>payment_ref</th>
-            <th>receipt_url</th>
+            <th>Estado</th>
+            <th>ID Cliente</th>
+            <th>Data</th>
+            <th>Preço Total</th>
+            <th>Notas</th>
+            <th>NIF</th>
+            <th>Morada Envio</th>
+            <th>Tipo Pagamento</th>
+            <th>Referência Pagamento</th>
+            <th>Recibo</th>
             <th class="button-icon-col"></th>
             <th class="button-icon-col"></th>
             <th class="button-icon-col"></th>
