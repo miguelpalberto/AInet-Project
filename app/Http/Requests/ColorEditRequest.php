@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class ColorEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,17 +23,19 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:25',
+            //'code' => 'required|string|size:6',
+            'name' => 'required|string|max:15',
         ];
     }
-
 
     public function messages(): array//////
     {
         return [
-            'name.max' => 'A quantidade maxima de caracteres do nome é de 25 caracteres',
-            'name.required' =>  'O nome é obrigatório',
-            'name.string' =>  'O nome tem de ser uma string',
+            'name.max' => 'A quantidade maxima de caracteres do nome é de 15 caracteres',
+            //'code.required' =>  'O código é obrigatório',
+            //'code.string' =>  'O código tem de ser uma string',
+            //'code.size' =>  'O código tem de ter 6 caracteres',
+            //'code.unique' =>  'O código tem de ser único (já existe esse código de cor)',
 
         ];
     }

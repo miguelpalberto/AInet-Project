@@ -1,4 +1,3 @@
-
 @extends('template.layout')
 
 @section('titulo', 'Cor')
@@ -20,17 +19,17 @@
     <div class="my-4 d-flex justify-content-end">
         <form method="POST" action="{{ route('colors.destroy', ['color' => $color]) }}">
             @csrf
-    @method('DELETE')
-    <button type="submit" name="delete" class="btn btn-danger">
-        Apagar Cor
-    </button>
-</form>
-<a href="{{ route('colors.edit', ['color' => $color]) }}" class="btn btn-secondary ms-3">Alterar
-    Cor</a>
-</div>
+            @method('DELETE')
+            <button type="submit" name="delete" class="btn btn-danger">
+                Apagar Cor
+            </button>
+        </form>
+        <a href="{{ route('colors.edit', ['color' => $color]) }}" class="btn btn-secondary ms-3">Alterar
+            Cor</a>
+    </div>
 
-{{-- TODO: detalhes a mostrar order_items de x cor --}}
-{{-- <div class="my-3">
+    {{-- TODO: detalhes a mostrar order_items de x cor --}}
+    {{-- <div class="my-3">
     <ul class="nav nav-pills">
         <li class="nav-item">
             <a class="nav-link {{ $showDetail == 'docentes' ? 'active' : '' }}"
@@ -69,6 +68,3 @@
     @endif
 </div> --}}
 @endsection
-
-
-

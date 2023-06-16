@@ -18,7 +18,7 @@
         @include('prices.shared.fields')
         <div class="my-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary" name="ok">Guardar Alterações</button>
-            <a href="{{ route('prices.edit', ['price' => $price]) }}"
+            <a href="{{ route('prices.index', ['price' => $price]) }}"
                 class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>

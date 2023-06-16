@@ -1,7 +1,7 @@
 
 @extends('template.layout')
 
-@section('titulo', 'Preço')
+@section('titulo', 'Cores')
 
 @section('subtitulo')
     <ol class="breadcrumb">
@@ -61,13 +61,13 @@
 
 
                     <td class="button-icon-col"><a class="btn btn-secondary"
-                            href="{{ route('colors.show', ['color' => $color]) }}">
+                            href="{{ route('colors.show', ['color' => $color->code ]) }}">
                             <i class="fas fa-eye"></i></a></td>
                     <td class="button-icon-col"><a class="btn btn-dark"
-                            href="{{ route('colors.edit', ['color' => $color]) }}">
+                            href="{{ route('colors.edit', ['color' => $color->code]) }}">
                             <i class="fas fa-edit"></i></a></td>
                     <td class="button-icon-col">
-                        <form method="POST" action="{{ route('colors.destroy', ['color' => $color]) }}">
+                        <form method="POST" action="{{ route('colors.destroy', ['color' => $color->code]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="delete" class="btn btn-danger">
@@ -80,7 +80,7 @@
     </table>
 
 
-    
+
     <div>
         {{ $colors->withQueryString()->links() }}
     </div>

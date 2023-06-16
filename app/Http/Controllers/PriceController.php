@@ -6,6 +6,7 @@ use App\Models\Price;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Http\Requests\PriceRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class PriceController extends Controller
@@ -35,7 +36,7 @@ class PriceController extends Controller
      */
     public function store(PriceRequest $request): RedirectResponse
     {
-        $newPrice = Price::create($request->validate());
+        $newPrice = Price::create($request->validated());
         $url = route('prices.show', ['price' => $newPrice]);
         $htmlMessage = "Preço <a href='$url'>#{$newPrice->id}</a> foi criado com sucesso!";
         return redirect()->route('prices.index')

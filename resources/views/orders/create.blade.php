@@ -16,7 +16,7 @@
         @include('orders.shared.fields')
         <div class="my-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary" name="ok">Guardar Order</button>
-            <a href="{{ route('orders.create') }}" class="btn btn-secondary ms-3">Cancelar</a>
+            <a href="{{ route('orders.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
 @endsection

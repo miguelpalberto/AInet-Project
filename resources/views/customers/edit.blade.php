@@ -24,7 +24,7 @@
                 <div class="my-1 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary" name="ok" form="form_customer">Guardar
                         Alterações</button>
-                    <a href="{{ route('customers.show', ['customer' => $customer]) }}"
+                    <a href="{{ route('customers.index', ['customer' => $customer]) }}"
                         class="btn btn-secondary ms-3">Cancelar</a>
                 </div>
             </div>
