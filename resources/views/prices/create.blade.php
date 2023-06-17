@@ -1,4 +1,5 @@
-@extends('template.layout')
+{{-- Prices é só uma linha (já criada desde o inicio, nao se pode criar mais) --}}
+{{-- @extends('template.layout')
 
 @section('titulo', 'Preço')
 
@@ -19,5 +20,5 @@
             <a href="{{ route('prices.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
-@endsection
+@endsection --}}
 

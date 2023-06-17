@@ -20,12 +20,12 @@ class CategoryController extends Controller
     public function index(Request $request): View
     {
         $filterByName = $request->name ?? '';
-        $userQuery = Category::query();
+        $categoryQuery = Category::query();
         if ($filterByName !== '') {
             $categoryIds = Category::where('name', 'like', "%$filterByName%")->pluck('id');
-            $userQuery->whereIntegerInRaw('id', $categoryIds);
+            $categoryQuery->whereIntegerInRaw('id', $categoryIds);
         }
-        $categories = Category::paginate(10);
+        $categories = $categoryQuery->paginate(10);
         return view('categories.index', compact('categories', 'filterByName'));
     }
 

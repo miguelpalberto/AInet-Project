@@ -18,12 +18,12 @@ class ColorController extends Controller
     public function index(Request $request): View
     {
         $filterByName = $request->name ?? '';
-        $userQuery = Color::query();
+        $colorQuery = Color::query();
         if ($filterByName !== '') {
             $colorIds = Color::where('name', 'like', "%$filterByName%")->pluck('code');
-            $userQuery->whereIntegerInRaw('code', $colorIds);
+            $colorQuery->whereIn('code', $colorIds);
         }
-        $colors = Color::paginate(10);
+        $colors = $colorQuery->paginate(10);
         return view('colors.index', compact('colors', 'filterByName'));
     }
 
@@ -41,14 +41,6 @@ class ColorController extends Controller
      */
     public function store(ColorRequest $request): RedirectResponse
     {
-
-        // $newColor = Color::create($request->validated());
-        // $url = route('colors.show', ['color' => $newColor]);
-        // $htmlMessage = "Cor <a href='$url'>#{$newColor->code}</a> foi criada com sucesso!";
-        // return redirect()->route('colors.index')
-        //     ->with('alert-msg', $htmlMessage)
-        //     ->with('alert-type', 'success');
-
         $formData = $request->validated();
         $color = DB::transaction(function () use ($formData, $request) {
             $newColor = new Color();

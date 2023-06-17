@@ -17,12 +17,12 @@ class OrderController extends Controller
      */
     public function index(Request $request): View
     {
-        // FAZER OS FILTROS
+        // COrrigir vendo pelo tshirts
         // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
         $filterByNif = $request->nif ?? '';
         $userQuery = Order::query();
-        
+
         if ($filterByCustomerID !== '') {
             $customerIds = Order::where('customer_id', 'like', "%$filterByCustomerID%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $customerIds);
@@ -31,7 +31,7 @@ class OrderController extends Controller
             $customerNif = Order::where('nif', 'like', "%$filterByNif%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $customerNif);
         }
-        
+
 
         $orders = $userQuery->paginate(10);
         return view('orders.index', compact('orders', 'filterByCustomerID','filterByNif'));
@@ -74,7 +74,7 @@ class OrderController extends Controller
     {
         return view('orders.edit', compact('order'));
             //,
-       
+
     }
 
     /**

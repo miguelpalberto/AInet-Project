@@ -5,7 +5,7 @@
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item"><a href="{{ route('tshirtImage.index') }}">Imagens Tshirts</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('tshirtImages.index') }}">Imagens Tshirts</a></li>
         <li class="breadcrumb-item"><strong>{{ $tshirtImage->name }}</strong></li>
         <li class="breadcrumb-item active">Alterar</li>
     </ol>
