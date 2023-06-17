@@ -17,7 +17,7 @@
     <form method="GET" action="{{ route('users.index') }}">
         <div class="d-flex justify-content-between">
 
-    
+
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
                     <div class="mb-3 me-2 flex-grow-1 form-floating">
@@ -26,10 +26,10 @@
                         <label for="inputName" class="form-label">Nome</label>
                     </div>
                 </div>
-            </div>
 
-            <div class="flex-grow-1 pe-2">
-                <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between">
+
+
                     <div class="mb-3 me-2 flex-grow-1 form-floating">
                         <input type="text" class="form-control" name="email" id="inputEmail"
                             value="{{ old('email', $filterByEmail) }}">
@@ -50,7 +50,7 @@
 
         </div>
 
-        
+
     </form>
     @include('users.shared.table', [
         'users' => $users,

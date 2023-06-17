@@ -5,7 +5,7 @@
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item"><a href="{{ route('price.index') }}"> Preço</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('prices.index') }}"> Preço</a></li>
         <li class="breadcrumb-item"><strong>{{ $price->name }}</strong></li>
         <li class="breadcrumb-item active">Alterar</li>
     </ol>

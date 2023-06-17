@@ -22,27 +22,24 @@ class PriceController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        $price = new Price();
-        return view('prices.create')->withPrice($price);
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PriceRequest $request): RedirectResponse
-    {
-        $newPrice = Price::create($request->validated());
-        $url = route('prices.show', ['price' => $newPrice]);
-        $htmlMessage = "Preço <a href='$url'>#{$newPrice->id}</a> foi criado com sucesso!";
-        return redirect()->route('prices.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
-    }
+    // Prices é só uma linha (já criada desde o inicio)
+    // public function create(): View
+    // {
+    //     $price = new Price();
+    //     return view('prices.create')->withPrice($price);
+    // }
+
+    // Prices é só uma linha (já criada desde o inicio)
+    // public function store(PriceRequest $request): RedirectResponse
+    // {
+    //     $newPrice = Price::create($request->validated());
+    //     $url = route('prices.show', ['price' => $newPrice]);
+    //     $htmlMessage = "Preço <a href='$url'>#{$newPrice->id}</a> foi criado com sucesso!";
+    //     return redirect()->route('prices.index')
+    //         ->with('alert-msg', $htmlMessage)
+    //         ->with('alert-type', 'success');
+    // }
 
     /**
      * Display the specified resource.
@@ -79,23 +76,21 @@ class PriceController extends Controller
             ->with('alert-type', 'success');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Price $price): RedirectResponse
-    {
-        try {
-            $price->delete();
-            $htmlMessage = "Preço #{$price->id}foi apagado com sucesso!";
-            $alertType = 'success';
-        } catch (\Exception $error) {
-            $url = route('prices.show', ['price' => $price]);
-            $htmlMessage = "Não foi possível apagar o Preço <a href='$url'>#{$price->id}</a> porque ocorreu um erro!";
-            $alertType = 'danger';
-        }
-        return redirect()->route('prices.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', $alertType);
-    }
+    // Prices é só uma linha (nao removivel)
+    // public function destroy(Price $price): RedirectResponse
+    // {
+    //     try {
+    //         $price->delete();
+    //         $htmlMessage = "Preço #{$price->id}foi apagado com sucesso!";
+    //         $alertType = 'success';
+    //     } catch (\Exception $error) {
+    //         $url = route('prices.show', ['price' => $price]);
+    //         $htmlMessage = "Não foi possível apagar o Preço <a href='$url'>#{$price->id}</a> porque ocorreu um erro!";
+    //         $alertType = 'danger';
+    //     }
+    //     return redirect()->route('prices.index')
+    //         ->with('alert-msg', $htmlMessage)
+    //         ->with('alert-type', $alertType);
+    // }
 }
 

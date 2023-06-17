@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TshirtImageRequest;
 
@@ -47,10 +48,9 @@ class TshirtImageController extends Controller
     {
         $tshirtImage = new TshirtImage();
         $categories = Category::all();
-         return view('tshirtImages.create')
-             ->withTshirtImage($tshirtImage)
-             ->withCategories($categories);
-
+        return view('tshirtImages.create')
+            ->withTshirtImage($tshirtImage)
+            ->withCategories($categories);
     }
 
     /**
@@ -58,7 +58,7 @@ class TshirtImageController extends Controller
      */
     public function store(TshirtImageRequest $request): RedirectResponse
     {
-        //$newTshirtImage = TshirtImage::create($request->validated());
+
         $formData = $request->validated();
         $tshirtImage = DB::transaction(function () use ($formData) {
             $newtshirtImage = new TshirtImage();
@@ -67,8 +67,21 @@ class TshirtImageController extends Controller
             $newtshirtImage->name = $formData['name'];
             $newtshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
+            $newtshirtImage->image_url = ''; //TODO apagar
             //$newtshirtImage->image_url = $formData['image_url'];
-            $newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+
+            //Campo Extra-Info é com ficheiro json:
+            $extraInfo = json_encode($formData['extra_info']);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                // Log the JSON encoding error
+                Log::error('JSON encoding error: ' . json_last_error_msg());
+
+                // Return an error response or perform any other error handling
+                return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
+            }
+            $newtshirtImage->extra_info = $extraInfo;
+                    //$newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+
             $newtshirtImage->save();
             return $newtshirtImage;
         });
@@ -98,7 +111,7 @@ class TshirtImageController extends Controller
             ->with('tshirtImage', $tshirtImage)
             ->with('orders', $orders)
             //->with('showDetail', $showDetail)
-            ;
+        ;
     }
 
     /**
@@ -117,12 +130,6 @@ class TshirtImageController extends Controller
      */
     public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
-        // $tshirtImage->update($request->validated());
-        // $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-        // $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a> <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
-        // return redirect()->route('tshirtImages.index')
-        //     ->with('alert-msg', $htmlMessage)
-        //     ->with('alert-type', 'success');
 
         $formData = $request->validated();
         $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage) {
@@ -131,15 +138,26 @@ class TshirtImageController extends Controller
             $tshirtImage->name = $formData['name'];
             $tshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
+            $tshirtImage->image_url = ''; //TODO apagar
             //$tshirtImage->image_url = $formData['image_url'];//editar
-            $tshirtImage->extra_info = $formData['extra_info'] ?? null;
+
+            $extraInfo = json_encode($formData['extra_info']);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                // Log the JSON encoding error
+                Log::error('JSON encoding error: ' . json_last_error_msg());
+                // Return an error response or perform any other error handling
+                return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
+            }
+            $tshirtImage->extra_info = $extraInfo;
+                    //$tshirtImage->extra_info = $formData['extra_info'] ?? null;
+
             $tshirtImage->save();
             return $tshirtImage;
         });
 
         $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
         $htmlMessage = "Imagem de Tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                        <strong>\"{$tshirtImage->name}\"</strong> foi criada com sucesso!";
+                        <strong>\"{$tshirtImage->name}\"</strong> foi alterada com sucesso!";
         return redirect()->route('tshirtImages.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
