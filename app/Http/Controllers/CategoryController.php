@@ -14,11 +14,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    //Auth
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'category');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): View
     {
+        //$this->authorize('viewAny', Category::class);//auth
+
         $filterByName = $request->name ?? '';
         $categoryQuery = Category::query();
         if ($filterByName !== '') {
@@ -34,6 +42,8 @@ class CategoryController extends Controller
      */
     public function create(): View
     {
+        //$this->authorize('create', Category::class);//auth
+
         $category = new Category();
         return view('categories.create')
             ->withCategory($category);
@@ -44,6 +54,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
+        //$this->authorize('create', Category::class);//auth
+
         $newCategory = Category::create($request->validated());
         $url = route('categories.show', ['category' => $newCategory]);
         $htmlMessage = "Categoria <a href='$url'>#{$newCategory->id}</a> foi criada com sucesso!";
@@ -62,10 +74,12 @@ class CategoryController extends Controller
         // $showDetail = 'tshirtImages';
         // $category->load('tshirtImages', 'tshirtImages.category');
 
+        //$this->authorize('view', $category);//auth
+
         return view('categories.show')
             ->withCategory($category);
-            //->with('tshirtImages', $tshirtImage)
-            //->with('showDetail', $showDetail);
+        //->with('tshirtImages', $tshirtImage)
+        //->with('showDetail', $showDetail);
 
     }
 
@@ -74,6 +88,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        //$this->authorize('update', $category);//auth
+
         return view('categories.edit', [
             'category' => $category
             //, 'users' => $users
@@ -86,13 +102,15 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-            $category->update($request->validated());
-            $url = route('categories.show', ['category' => $category]);
-            $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
+        //$this->authorize('update', $category);//auth
+
+        $category->update($request->validated());
+        $url = route('categories.show', ['category' => $category]);
+        $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
                             <strong>\"{$category->nome}\"</strong> foi alterada com sucesso!";
-            return redirect()->route('categories.index')
-                ->with('alert-msg', $htmlMessage)
-                ->with('alert-type', 'success');
+        return redirect()->route('categories.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
     }
 
     /**
@@ -100,6 +118,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
+        //$this->authorize('delete', $category);//auth
+
         try {
             $totalTshirtImages = DB::scalar('select count(*) from tshirt_images where category_id = ?', [$category->id]);
             if ($totalTshirtImages == 0) {
@@ -117,7 +137,7 @@ class CategoryController extends Controller
                         "1 Imagem de Tshirt com esta categoria" :
                         "$totalTshirtImages Imagens de Tshirt com esta categoria") :
                     "";
-                    $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
+                $htmlMessage = "Categoria <a href='$url'>#{$category->id}</a>
                         <strong>\"{$category->name}\"</strong>
                         não pode ser apagada porque há $tshirtImageStr!
                         ";
