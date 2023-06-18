@@ -1,12 +1,12 @@
 @extends('template.layout')
 
-@section('titulo', 'Cor')
+@section('titulo', 'Criar Cor')
 
 @section('subtitulo')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item"><a href="{{ route('colors.index') }}">Cor</a></li>
-        <li class="breadcrumb-item active">Criar Nova</li>
+        <li class="breadcrumb-item"><a href="{{ route('colors.index') }}">Cores</a></li>
+        <li class="breadcrumb-item active">Criar Nova Cor</li>
     </ol>
 @endsection
 

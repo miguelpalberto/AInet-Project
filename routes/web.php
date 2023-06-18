@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\TshirtImageController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
-use App\Http\Controllers\ColorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\TshirtImageController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 
 
 /*
@@ -24,6 +25,8 @@ use App\Http\Controllers\OrderItemController;
 */
 
 Route::view('/', 'home')->name('root');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes(['verify' => true]);
 
 // Route::get('users', [UserController::class, 'index'])->name('users.index');
 // Route::get('users/create', [UserController::class, 'create'])->name('users.create'); //aqui "users/create" é modificável (url que desejamos)
@@ -50,12 +53,15 @@ Route::resource('colors', ColorController::class);
 Route::resource('prices', PriceController::class);
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 //Route::view('teste', 'template.layout');
 
-Auth::routes();
+//TODO: Minhas Encomendas
+// Route::get('disciplinas/minhas', [DisciplinaController::class, 'minhasDisciplinas'])
+// ->name('disciplinas.minhas')
+// ->middleware('verified');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/password/change', [ChangePasswordController::class, 'show'])
+->name('password.change.show');
+Route::post('/password/change', [ChangePasswordController::class, 'store'])
+->name('password.change.store');
+

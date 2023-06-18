@@ -25,7 +25,7 @@ class TshirtImageRequest extends FormRequest
         return [
             'customer_id' => 'nullable|integer|exists:customers,id',
             'category_id' => 'nullable|integer|exists:categories,id',
-            'name' =>        'required|string|max:30',
+            'name' =>        'required|string|max:100',
             'description' => 'nullable|string|max:100',
             'image_url' =>   'nullable',//apagar
             //'image_url' =>   'required|string|max:255',//TODO
@@ -42,6 +42,8 @@ class TshirtImageRequest extends FormRequest
     {
         return [
             'name.required' => 'O nome é obrigatório',
+            'name.string' => 'O nome tem de ser uma string',
+            'name.max' => 'O nome pode ter no máximo 100 caracteres',
             'customer_id.exists' => 'O customer não existe na base de dados',
             'customer_id.integer' => 'O ID do customer tem que ser um número inteiro',
             'category_id.exists' => 'A categoria não existe na base de dados',
