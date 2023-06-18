@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Order::class, 'order');
+    // }
+
     /**
      * Display a listing of the resource.
      */
