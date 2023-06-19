@@ -11,10 +11,11 @@
         <h3>Item(s) no carrinho</h3>
     </div>
 
-    @if ($cart)
-        @include('tshirtImages.shared.table', [
+    @if ($cart && count($cart) > 0)
+        @include('cart.shared.table', [
             'tshirtImages' => $cart,
-            'showAddCart' => true,
+            'showAddCart' => false,
+            'showRemoveCart' => true,
         ])
         <div class="my-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary" name="ok" form="formStore"> Confirmar Compras</button>
@@ -27,5 +28,9 @@
             @csrf
             @method('DELETE')
         </form>
+        @else
+            <div>
+                <p><strong>O carrinho está vazio.</strong></p>
+            </div>
     @endif
 @endsection
