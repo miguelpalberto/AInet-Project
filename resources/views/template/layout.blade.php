@@ -87,13 +87,12 @@
                             Imagens Tshirt
                         </a>
 
-                        <!-- TODO  -->
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>
-                            Carrinho Compras
+                        <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"
+                            href="{{ route('cart.show') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
                         </a>
-                        <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
+                        <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">

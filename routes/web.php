@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\CartController;
 
 
 /*
@@ -59,3 +60,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Adicionar tshit ao carrinho
+Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
+// Remover tshit ao carrinho
+Route::delete('cart/{tshirtImage}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+// Mostrar carrinho
+Route::get('cart', [CartController::class, 'show'])->name('cart.show');
+// Gravar encomenda
+Route::post('cart', [CartController::class, 'store'])->name('cart.store');
+// Limpar carrinho
+Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
+
+// Carrinho
+//Route::resource('cart', CartController::class);
