@@ -78,6 +78,7 @@ class CustomerController extends Controller
             $newCustomer->default_payment_ref = $formData['default_payment_ref'] ?? null;
             $newCustomer->save();
             //TODO foto - ver docente
+            //$newCustomer->load('user');//para ter acesso a $customer->user->name a frente
             return $newCustomer;
         });
         $url = route('customers.show', ['customer' => $customer]);
@@ -128,7 +129,7 @@ class CustomerController extends Controller
             //TODO foto ver docente
             return $customer;
         });
-        
+
         $url = route('customers.show', ['customer' => $customer]);
         $htmlMessage = "Cliente <a href='$url'>#{$customer->id}</a>
                         <strong>\"{$customer->user->name}\"</strong> foi alterado com sucesso!";

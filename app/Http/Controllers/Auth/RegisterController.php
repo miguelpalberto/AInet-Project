@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Customer;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -23,6 +25,13 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    //ADDED:
+    public function showRegistrationForm()
+    {
+        $customers = Customer::all();
+        return view('auth.register', compact('customers'));
+    }
 
     /**
      * Where to redirect users after registration.
@@ -52,7 +61,13 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
+
+            'address' => ['nullable', 'string', 'max:255'],
+            'nif' => ['nullable', 'integer', 'digits:9'],
+            'default_payment_type' => ['nullable', 'in:VISA,MC,PAYPAL'],
+            'default_payment_ref' => ['nullable', 'string', 'max:255'],
+
         ]);
     }
 
@@ -64,10 +79,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return DB::transaction(function () use ($data) {
+            $newUser = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'user_type' => 'C',
+                'blocked' => 0,
+                'photo_url' => null,
+
+
+            ]);
+            $newCustomer = Customer::create([
+                'id' => $newUser->id,
+                'nif' => $data['nif'],
+                'address' => $data['address'],
+                'default_payment_type' => $data['default_payment_type'],
+                'default_payment_ref' => $data['default_payment_ref'],
+
+            ]);
+            //$newCustomer->id = $newUser->id;
+            return $newUser;
+        });
     }
 }

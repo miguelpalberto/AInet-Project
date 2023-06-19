@@ -16,6 +16,9 @@ class Customer extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['nif', 'address', 'default_payment_type', 'default_payment_ref'];
+    //protected $primaryKey = 'id';
+    //protected $table = 'customers';
+    //public $incrementing = false;
 
     public function user(): BelongsTo
     {

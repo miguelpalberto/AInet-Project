@@ -14,7 +14,7 @@
         <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova conta</a>
     </p>
     <hr>
-    <form method="GET" action="{{ route('users.index') }}">
+    <form method="GET" action="{{ route('users.index') }}?filter=1">
         <div class="d-flex justify-content-between">
 
 
@@ -27,13 +27,26 @@
                     </div>
                 </div>
 
-            <div class="d-flex justify-content-between">
-
-
+                {{-- <div class="d-flex justify-content-between">
+                        <div class="mb-3 me-2 flex-grow-1 form-floating">
+                            <input type="text" class="form-control" name="email" id="inputEmail"
+                                value="{{ old('email', $filterByEmail) }}">
+                            <label for="inputEmail" class="form-label">Email</label>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="d-flex justify-content-between">
                     <div class="mb-3 me-2 flex-grow-1 form-floating">
-                        <input type="text" class="form-control" name="email" id="inputEmail"
-                            value="{{ old('email', $filterByEmail) }}">
-                        <label for="inputEmail" class="form-label">Email</label>
+                        <select class="form-select" name="user_type" id="inputUserType">
+                            <option value="">Todos</option>
+                            <option value="C"{{ old('user_type', $filterByUserType) === 'C' ? ' selected' : '' }}>Cliente
+                            </option>
+                            <option value="E"{{ old('user_type', $filterByUserType) === 'E' ? ' selected' : '' }}>Funcionário
+                            </option>
+                            <option value="A"{{ old('user_type', $filterByUserType) === 'A' ? ' selected' : '' }}>Administrador
+                            </option>
+                        </select>
+                        <label for="inputUserType" class="form-label">Tipo de User</label>
                     </div>
                 </div>
             </div>
@@ -65,7 +78,3 @@
         {{ $users->withQueryString()->links() }}
     </div>
 @endsection
-
-
-
-
