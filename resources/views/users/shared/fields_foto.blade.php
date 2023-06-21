@@ -1,4 +1,7 @@
+
+<!-- Ver com o Prof -->
 <img src="{{ $user->fullPhotoUrl }}" alt="Avatar" class="rounded-circle img-thumbnail">
+
 @if ($allowUpload)
     <div class="mb-3 pt-3">
         <input type="file" class="form-control @error('file_foto') is-invalid @enderror" name="file_foto"
