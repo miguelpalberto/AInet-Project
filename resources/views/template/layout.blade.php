@@ -117,10 +117,17 @@
                             Imagens Tshirt
                         </a>
 
+
+
+      
+
+                        
+
                         <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}" href="{{ route('cart.show') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
                         </a>
 
+                   @can('viewAny', \App\Models\Customer::class)<!--Auth-->
                         <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
                         <nav class="sb-sidenav-menu-nested nav">
@@ -136,11 +143,13 @@
                                 Clientes
                             </a>
                         </nav>
+                        @endcan
 
                         <nav class="sb-sidenav-menu-nested nav">
                             <br>
                         </nav>
 
+                        @can('viewAny', \App\Models\Order::class)<!--Auth-->
                         <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
 
                         <nav class="sb-sidenav-menu-nested nav">
@@ -149,8 +158,10 @@
                                 Encomendas
                             </a>
                         </nav>
+                        @endcan
                         <nav class="sb-sidenav-menu-nested nav">
 
+                            @can('viewAny', \App\Models\Category::class)<!--Auth-->
                         </nav>
                         <br>
                         <nav class="sb-sidenav-menu-nested nav">
@@ -174,6 +185,7 @@
                                 Cores
                             </a>
                         </nav>
+                        @endcan
 
                         <!-- TODO  -->
                         <div class="sb-sidenav-menu-heading">Espaço Privado</div>

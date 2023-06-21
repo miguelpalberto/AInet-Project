@@ -19,6 +19,7 @@
             @endif
             @if ($showEdit)
                 <th class="button-icon-col"></th>
+                <th class="button-icon-col"></th>
             @endif
             @if ($showDelete)
                 <th class="button-icon-col"></th>
@@ -55,6 +56,15 @@
                     <td class="button-icon-col"><a class="btn btn-dark"
                             href="{{ route('users.edit', ['user' => $user]) }}">
                             <i class="fas fa-edit"></i></a></td>
+                    {{-- bloquear: --}}
+                    <td class="button-icon-col">
+                        <form method="POST" action="{{ route('usersBlock', ['user' => $user]) }}">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" name="usersBlock" class="btn btn-dark">
+                                <i class="fas fa-unlock"></i></button>
+                        </form>
+                    </td>
                 @endif
                 @if ($showDelete)
                     <td class="button-icon-col">
@@ -70,4 +80,3 @@
         @endforeach
     </tbody>
 </table>
-

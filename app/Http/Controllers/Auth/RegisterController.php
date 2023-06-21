@@ -87,8 +87,6 @@ class RegisterController extends Controller
                 'user_type' => 'C',
                 'blocked' => 0,
                 'photo_url' => null,
-
-
             ]);
             $newCustomer = Customer::create([
                 'id' => $newUser->id,

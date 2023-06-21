@@ -30,9 +30,15 @@ class OrderRequest extends FormRequest
             'notes' => 'nullable|string|max:255',
             'nif' => 'nullable|integer|digits:9',//TODO default nif
             'address' => 'required|string|max:255',//TODO default address
-            'payment_type' => 'required|in:VISA,MC,PAYPAL',
-            'payment_ref' => 'required|integer|digits_between:3,20',
+
+            'payment_type' => 'nullable|in:VISA,MC,PAYPAL',
+            'payment_ref' => [
+                Rule::requiredIf(function () {
+                    return $this->input('payment_type') !== null;
+                }),
+            ],//TODO ver enunciado
             'receipt_url' => 'nullable|string|max:255',
+
         ];
     }
 

@@ -39,7 +39,7 @@ class CustomerRequest extends FormRequest
                 Rule::requiredIf(function () {
                     return $this->input('default_payment_type') !== null;
                 }),
-            ],
+            ],//TODO ver enunciado (repetir nas orders)
 
 
             //'default_payment_ref' => 'nullable',

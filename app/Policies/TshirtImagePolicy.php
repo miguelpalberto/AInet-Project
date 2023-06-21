@@ -6,26 +6,34 @@ use App\Models\TshirtImage;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class CategoryPolicy
+class TshirtImagePolicy
 {
+    //Usado em disciplinas:
+    // public function before(?User $user, string $ability): bool|null
+    // {
+    //     if ((($user->user_type === 'A') ?? false)) {
+    //         return true;
+    //     }
+    //     return null;
+    // }
     /**
      * Determine whether the user can view any models.
      */
     /////ViewAny é para o Index (lista)
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool //?User para anonimos
     {
         //
-        return $user->user_type === 'A';
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    /////ViewAny é para o Show (mostrar só uma categoria)
-    public function view(User $user, TshirtImage $tshirtImage): bool
+    /////ViewAny é para o Show (mostrar só uma)
+    public function view(?User $user, TshirtImage $tshirtImage): bool //?User para anonimos
     {
         //
-        return $user->user_type === 'A';
+        return true;
     }
 
     /**
@@ -34,7 +42,6 @@ class CategoryPolicy
     public function create(User $user): bool
     {
         //
-        //return true;
         return $user->user_type === 'A';
     }
 
