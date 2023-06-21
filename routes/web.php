@@ -65,3 +65,4 @@ Route::get('/password/change', [ChangePasswordController::class, 'show'])
 Route::post('/password/change', [ChangePasswordController::class, 'store'])
 ->name('password.change.store');
 
+Route::patch('/users/{user}/blocked', [UserController::class, 'changeBlocked'])->name('usersBlock');

@@ -25,19 +25,30 @@
                     <td>{{ $tshirtImage->description }}</td>
                     <td>{{ $tshirtImage->image_url }}</td>
                     <td>{{ $tshirtImage->extra_info }}</td>
-                    <td class="button-icon-col"><a class="btn btn-secondary"
-                            href="{{ route('tshirtImages.show', ['tshirtImage' => $tshirtImage]) }}">
-                            <i class="fas fa-eye"></i></a></td>
-                    <td class="button-icon-col"><a class="btn btn-dark"
-                            href="{{ route('tshirtImages.edit', ['tshirtImage' => $tshirtImage]) }}">
-                            <i class="fas fa-edit"></i></a></td>
                     <td class="button-icon-col">
-                        <form method="POST" action="{{ route('tshirtImages.destroy', ['tshirtImage' => $tshirtImage]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" name="delete" class="btn btn-danger">
-                                <i class="fas fa-trash"></i></button>
-                        </form>
+                        {{-- @can('view', $category)<!--Auth--> --}}
+                            <a class="btn btn-secondary"
+                                href="{{ route('tshirtImages.show', ['tshirtImage' => $tshirtImage]) }}">
+                                <i class="fas fa-eye"></i></a>
+                        {{-- @endcan --}}
+                    </td>
+                    <td class="button-icon-col">
+                        @can('update', $category)<!--Auth-->
+                            <a class="btn btn-dark"
+                                href="{{ route('tshirtImages.edit', ['tshirtImage' => $tshirtImage]) }}">
+                                <i class="fas fa-edit"></i></a>
+                        @endcan
+                    </td>
+                    <td class="button-icon-col">
+                        @can('delete', $category)<!--Auth-->
+                            <form method="POST"
+                                action="{{ route('tshirtImages.destroy', ['tshirtImage' => $tshirtImage]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" name="delete" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i></button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

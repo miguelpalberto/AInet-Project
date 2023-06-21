@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Auth\Access\Response;
 
-class CostumerPolicy
+class CustomerPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -14,7 +14,6 @@ class CostumerPolicy
     /////ViewAny é para o Index (lista)
     public function viewAny(User $user): bool
     {
-        //
         return $user->user_type === 'A';
     }
 
@@ -70,4 +69,5 @@ class CostumerPolicy
     {
         return false;
     }
+
 }

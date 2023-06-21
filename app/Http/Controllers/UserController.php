@@ -107,6 +107,9 @@ class UserController extends Controller
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
+            if ($request->user()->can('changeBlocked', $user)) {//TODO rever se e necessario
+                $user->blocked =  $formData['blocked'];
+            }
             $user->save();
             return $user;
         });
@@ -161,6 +164,34 @@ class UserController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }
+
+    //public function changeBlocked(UserRequest $request, User $user): RedirectResponse
+    public function changeBlocked(User $user): RedirectResponse
+    {
+        $this->authorize('changeBlocked', $user); //auth
+        $strblocked = 'bloqueado';
+
+        //$formData = $request->validated();
+        //$user = DB::transaction(function () use ($formData, $user) {
+            if ($user->blocked == 0){
+                $user->blocked = 1;
+            } else{
+                $user->blocked = 0;
+                $strblocked = 'desbloqueado';
+            }
+
+            $user->save();
+            return $user;
+        //});
+        $url = route('users.index', ['user' => $user]);
+        $htmlMessage = "User <a href='$url'>#{$user->id}</a>
+                        <strong>\"{$user->name}\"</strong> foi $strblocked!";
+        return redirect()->route('users.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }
+
+
 }
 
 

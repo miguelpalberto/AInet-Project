@@ -42,8 +42,7 @@ class TshirtImagePolicy
     public function create(User $user): bool
     {
         //
-        //return true;
-        return false;
+        return $user->user_type === 'A';
     }
 
     /**
@@ -51,7 +50,7 @@ class TshirtImagePolicy
      */
     public function update(User $user, TshirtImage $tshirtImage): bool
     {
-        return false;
+        return $user->user_type === 'A';
     }
 
     /**
@@ -59,7 +58,7 @@ class TshirtImagePolicy
      */
     public function delete(User $user, TshirtImage $tshirtImage): bool
     {
-        return false;
+        return $user->user_type === 'A';
     }
 
     /**

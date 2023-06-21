@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Category;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TshirtImage extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['customer_id', 'category_id', 'name', 'description', 'image_url', 'extra_info'];
     protected $dates = ['deleted_at'];

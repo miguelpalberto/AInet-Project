@@ -42,7 +42,8 @@ class UserPolicy
      */
     public function update(User $user, User $userClasse): bool
     {
-        return $user->id == $userClasse->id || $user->user_type === 'A';//proprio user editar dados ou admin editar blocked -> TODO
+        return ($user->id == $userClasse->id) ||
+                ($user->user_type === 'A' && $userClasse->user_type !== 'C');//proprio user editar dados ou admin sem ser cliente
     }
 
     /**
@@ -68,5 +69,15 @@ class UserPolicy
     public function forceDelete(User $user, User $userClasse): bool
     {
         return false;
+    }
+
+    public function changeBlocked(User $user, User $userClasse): bool
+    {
+        if ($user->user_type !== 'A') {
+            return false;
+        }
+        // Can change "blocked" field, if user is admin
+        // but not the logged in user
+        return $user->id != $userClasse->id;
     }
 }

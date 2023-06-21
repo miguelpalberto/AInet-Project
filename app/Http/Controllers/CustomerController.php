@@ -41,7 +41,7 @@ class CustomerController extends Controller
 
         // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
         //$customers = $customerQuery->paginate(10);
-        $customers = $customerQuery->with('orders', 'user')->paginate(10);//TODO  confirmar
+        $customers = $customerQuery->with('orders', 'user')->paginate(10); //TODO  confirmar
         return view('customers.index', compact('customers', 'filterByName', 'filterByEmail'));
     }
 
@@ -92,7 +92,7 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
-            //TODO redirect ver docente
+        //TODO redirect ver docente
     }
 
     // /**
@@ -188,5 +188,4 @@ class CustomerController extends Controller
 
     //TODO destroy foto ver docente
 
-    //TODO changeadmin ver docente
 }

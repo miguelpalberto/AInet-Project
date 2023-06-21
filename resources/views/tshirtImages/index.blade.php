@@ -1,4 +1,3 @@
-
 @extends('template.layout')
 
 @section('titulo', 'Imagens de Tshirts')
@@ -11,8 +10,13 @@
 @endsection
 
 @section('main')
-    <p><a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova imagem de tshirt</a></p>
-
+    @can('create', \App\Models\TshirtImage::class)
+        <!--Auth-->
+        <p>
+            <a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus">
+                </i> &nbsp;Criar nova imagemde tshirt</a>
+        </p>
+    @endcan
     <!--Filtro:-->
 
     <hr>
@@ -22,7 +26,8 @@
                 <div class="d-flex justify-content-between">
                     <div class="flex-grow-1 mb-3 form-floating">
                         <select class="form-select" name="category" id="inputCategory">
-                            <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">Todas Categorias </option>
+                            <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">Todas
+                                Categorias </option>
                             @foreach ($categories as $category)
                                 <option {{ old('category_id', $filterByCategory) == $category->id ? 'selected' : '' }}
                                     value="{{ $category->id }}">
