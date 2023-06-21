@@ -29,7 +29,7 @@ class TshirtImageRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'image_url' =>   'nullable',//apagar e descomentar o debaixo
             //'image_url' =>   'required|string|max:255',//TODO
-            'extra_info' =>   'nullable',//TODO
+            //'extra_info' =>   'nullable',//TODO
         ];
     }
 

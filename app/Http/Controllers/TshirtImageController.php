@@ -159,6 +159,7 @@ class TshirtImageController extends Controller
             $tshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$tshirtImage->image_url = $formData['image_url'];//editar
 
+
             $extraInfo = json_encode($formData['extra_info']);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 // Log the JSON encoding error
@@ -166,8 +167,10 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
+
             //$tshirtImage->extra_info = $formData['extra_info'] ?? null;//TODO descomentar dá erro se vier com string
             //$tshirtImage->extra_info = $extraInfo;
+
 
             $tshirtImage->save();
             return $tshirtImage;
