@@ -70,9 +70,9 @@ Route::post('/password/change', [ChangePasswordController::class, 'store'])
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Adicionar tshit ao carrinho
+// Adicionar img tshirt ao carrinho
 Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
-// Remover tshit ao carrinho
+// Remover img tshirt ao carrinho
 Route::delete('cart/{tshirtImage}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 // Mostrar carrinho
 Route::get('cart', [CartController::class, 'show'])->name('cart.show');
