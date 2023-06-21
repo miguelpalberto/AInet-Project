@@ -62,7 +62,7 @@
 
     @include('tshirtImages.shared.table', [
         'tshirtImages' => $tshirtImages,
-        // 'showFoto' => true,
+        'showFoto' => true,
         // 'showContatos' => true,
         // 'showDetail' => true,
         // 'showEdit' => true,
