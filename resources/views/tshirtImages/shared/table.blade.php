@@ -34,8 +34,8 @@
                 <tr>
                     <td>{{ $tshirtImage->id }}</td>
                     <td>{{ $tshirtImage->customer_id }}</td>
-                    <td>{{ $tshirtImage->category_id }}</td>
-                    {{-- <td>{{ $tshirtImage->categoryStr }}</td> --}}
+                    <td>{{ $tshirtImage->category->name }}</td>
+                    {{-- <td>{{ $tshirtImage->category_id }}</td> --}}
                     <td>{{ $tshirtImage->name }}</td>
                     <td>{{ $tshirtImage->description }}</td>
                     <td>{{ $tshirtImage->image_url }}</td>
@@ -75,13 +75,13 @@
                                     <i class="fas fa-plus"></i></button>
                             </form>
                         </td> --}}
-        {{-- <td class="button-icon-col">
-            <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
-                @csrf
-                <button type="submit" name="order_item" class="btn btn-success">
-                    <i class="fas fa-plus"></i></button>
-            </form>
-        </td> --}}
+            {{-- <td class="button-icon-col">
+                <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
+                    @csrf
+                    <button type="submit" name="order_item" class="btn btn-success">
+                        <i class="fas fa-plus"></i></button>
+                </form>
+            </td> --}}
 
 
 
