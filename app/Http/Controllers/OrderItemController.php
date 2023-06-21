@@ -24,6 +24,8 @@ class OrderItemController extends Controller
      */
     public function index(Request $request): View
     {
+        $this->authorize('userActive');//auth
+
         $useQuery = OrderItem::query();
 
         $orderItems = $useQuery->paginate(10);
@@ -85,6 +87,8 @@ class OrderItemController extends Controller
      */
     public function edit(OrderItem $orderItem): View
     {
+        $this->authorize('userActive');//auth
+
         return view('orderItems.edit', compact('orderItem'));
     }
 
@@ -93,6 +97,8 @@ class OrderItemController extends Controller
      */
     public function update(OrderItemRequest $request, OrderItem $orderItem): RedirectResponse
     {
+        $this->authorize('userActive');//auth
+
         $formData = $request->validated();
 
         $orderItem->tshirt_image_id = $formData['tshirt_image_id'];
@@ -116,8 +122,21 @@ class OrderItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(OrderItem $orderItem)
     {
-        //
+        $this->authorize('userActive');//auth
+
+        try {
+            $orderItem->delete();
+            $htmlMessage = "Item #{$orderItem->id}foi apagado com sucesso!";
+            $alertType = 'success';
+        } catch (\Exception $error) {
+            $url = route('order_items.show', ['orderItem' => $orderItem]);
+            $htmlMessage = "Não foi possível apagar o Item <a href='$url'>#{$orderItem->id}</a> porque ocorreu um erro!";
+            $alertType = 'danger';
+        }
+        return redirect()->route('order_items.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', $alertType);
     }
 }
