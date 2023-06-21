@@ -56,7 +56,7 @@
                     <td class="button-icon-col"><a class="btn btn-dark"
                             href="{{ route('users.edit', ['user' => $user]) }}">
                             <i class="fas fa-edit"></i></a></td>
-                    {{-- bloquear: --}}
+                    {{-- bloquear: aqui está get e tem de ser patch - tenho de por formualario como deve ser--}}
                     <td class="button-icon-col"><a class="btn btn-dark"
                             href="{{ route('usersBlock', ['user' => $user]) }}">
                             <i class="fas fa-unlock"></i></a></td>

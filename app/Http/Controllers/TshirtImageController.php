@@ -17,7 +17,7 @@ class TshirtImageController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(TshirtImage::class, 'thirtImage');
+        $this->authorizeResource(TshirtImage::class, 'tshirtImage');
     }
 
     /**
