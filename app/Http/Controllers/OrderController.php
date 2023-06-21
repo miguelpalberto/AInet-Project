@@ -22,6 +22,7 @@ class OrderController extends Controller
      */
     public function index(Request $request): View
     {
+        $this->authorize('userActive');//auth
         // COrrigir vendo pelo tshirts
         // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
@@ -78,6 +79,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order): View
     {
+        $this->authorize('userActive');//auth
+
         return view('orders.edit', compact('order'));
             //,
 
@@ -88,6 +91,8 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, Order $order): RedirectResponse
     {
+        $this->authorize('userActive');//auth
+
         $order->update($request->validated());
         $url = route('orders.show', ['order' => $order]);
         $htmlMessage = "Order <a href='$url'>#{$order->id}</a> foi alterada com sucesso!";
@@ -101,6 +106,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order): RedirectResponse
     {
+        $this->authorize('userActive');//auth
+        
         try {
             $order->delete();
             $htmlMessage = "Order #{$order->id}foi apagada com sucesso!";

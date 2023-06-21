@@ -37,22 +37,19 @@ Auth::routes(['verify' => true]);
 // Route::put('users/{user}', [UserController::class, 'update'])->name('users.update');
 // Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 // Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
-Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
 
-//Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function () { //Auth
+
+Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
 Route::resource('customers', CustomerController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('colors', ColorController::class);
+Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
+});
 
 Route::resource('tshirtImages', TshirtImageController::class);
-
-Route::resource('categories', CategoryController::class);
-
 Route::resource('orders', OrderController::class);
-
 Route::resource('order_items', OrderItemController::class);
-
-Route::resource('colors', ColorController::class);
-
-Route::resource('prices', PriceController::class);
 
 
 //Route::view('teste', 'template.layout');

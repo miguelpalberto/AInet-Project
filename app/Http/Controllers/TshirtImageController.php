@@ -57,6 +57,8 @@ class TshirtImageController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('userActive');//auth
+
         $tshirtImage = new TshirtImage();
         $categories = Category::all();
         return view('tshirtImages.create')
@@ -69,6 +71,7 @@ class TshirtImageController extends Controller
      */
     public function store(TshirtImageRequest $request): RedirectResponse
     {
+        $this->authorize('userActive');//auth
 
         $formData = $request->validated();
         $tshirtImage = DB::transaction(function () use ($formData) {
@@ -129,6 +132,8 @@ class TshirtImageController extends Controller
      */
     public function edit(TshirtImage $tshirtImage): View
     {
+        $this->authorize('userActive');//auth
+
         $categories = Category::all();
         return view('tshirtImages.edit', [
             'tshirtImage' => $tshirtImage, 'categories' => $categories
@@ -140,6 +145,7 @@ class TshirtImageController extends Controller
      */
     public function update(TshirtImageRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
+        $this->authorize('userActive');//auth
 
         $formData = $request->validated();
         $tshirtImage = DB::transaction(function () use ($formData, $tshirtImage) {
@@ -178,6 +184,8 @@ class TshirtImageController extends Controller
     //TODO - adicionar condicoes e especificacoes
     public function destroy(TshirtImage $tshirtImage): RedirectResponse
     {
+        $this->authorize('userActive');//auth
+        
         try {
             $totalOrders = DB::scalar('select count(*) from order_items where tshirt_image_id = ?', [$tshirtImage->id]);
             if ($totalOrders == 0) {

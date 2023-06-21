@@ -61,13 +61,13 @@
                                     <i class="fas fa-plus"></i></button>
                             </form>
                         </td> --}}
-                        <td class="button-icon-col">
-                            <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
-                                @csrf
-                                <button type="submit" name="order_item" class="btn btn-success">
-                                    <i class="fas fa-plus"></i></button>
-                            </form>
-                        </td>
+        {{-- <td class="button-icon-col">
+            <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
+                @csrf
+                <button type="submit" name="order_item" class="btn btn-success">
+                    <i class="fas fa-plus"></i></button>
+            </form>
+        </td> --}}
 
 
 

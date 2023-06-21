@@ -26,5 +26,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('administrar', function (User $user) {
             return $user->user_type === 'A';
         });
+
+        //adicionado para users bloqueados:
+        Gate::define('userActive', function (User $user) {
+            return !$user->blocked;
+        });
     }
 }
