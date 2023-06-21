@@ -68,6 +68,8 @@ class TshirtImageController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     *
      */
     public function store(TshirtImageRequest $request): RedirectResponse
     {
@@ -85,7 +87,7 @@ class TshirtImageController extends Controller
             //$newtshirtImage->image_url = $formData['image_url'];
 
             //Campo Extra-Info é com ficheiro json:
-            $extraInfo = json_encode($formData['extra_info']);
+            $extraInfo = json_encode($formData['extra_info']) ?? null;
             if (json_last_error() !== JSON_ERROR_NONE) {
                 // Log the JSON encoding error
                 Log::error('JSON encoding error: ' . json_last_error_msg());
@@ -93,7 +95,7 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+            //$newtshirtImage->extra_info = $formData['extra_info'] ?? null; //TODO descomentar dá erro se vier com string
 
             $newtshirtImage->save();
             return $newtshirtImage;
@@ -164,7 +166,8 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $tshirtImage->extra_info = $formData['extra_info'] ?? null;
+            //$tshirtImage->extra_info = $formData['extra_info'] ?? null;//TODO descomentar dá erro se vier com string
+            //$tshirtImage->extra_info = $extraInfo;
 
             $tshirtImage->save();
             return $tshirtImage;
@@ -185,7 +188,7 @@ class TshirtImageController extends Controller
     public function destroy(TshirtImage $tshirtImage): RedirectResponse
     {
         $this->authorize('userActive');//auth
-        
+
         try {
             $totalOrders = DB::scalar('select count(*) from order_items where tshirt_image_id = ?', [$tshirtImage->id]);
             if ($totalOrders == 0) {

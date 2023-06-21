@@ -15,7 +15,7 @@
         @csrf
         @include('tshirtImages.shared.fields')
         <div class="my-4 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="ok">Guardar nova imagem de t-shirt</button>
+            <button type="submit" class="btn btn-primary" name="ok">Criar Nova Imagem de Tshirt</button>
             <a href="{{ route('tshirtImages.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>
