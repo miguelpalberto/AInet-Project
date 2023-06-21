@@ -12,6 +12,7 @@
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
+                <th class="button-icon-col">Carrinho</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +51,19 @@
                             </form>
                         @endcan
                     </td>
+
+                    {{-- TODO: Este botao remte para order_items.create inves --}}
+                    <!-- Botão adicionar ao carrinho -->
+                        <td class="button-icon-col">
+                            <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
+                                @csrf
+                                <button type="submit" name="addToCart" class="btn btn-success">
+                                    <i class="fas fa-plus"></i></button>
+                            </form>
+                        </td>
+
+
+
                 </tr>
             @endforeach
         </tbody>

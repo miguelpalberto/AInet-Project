@@ -28,15 +28,17 @@ class OrderRequest extends FormRequest
             'date' => 'required|date_format:Y-m-d',
             'total_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'notes' => 'nullable|string|max:255',
-            'nif' => 'required|integer|digits:9',
+            'nif' => 'nullable|integer|digits:9',//TODO default nif
             'address' => 'required|string|max:255',//TODO default address
+
             'payment_type' => 'nullable|in:VISA,MC,PAYPAL',
             'payment_ref' => [
                 Rule::requiredIf(function () {
                     return $this->input('payment_type') !== null;
                 }),
             ],//TODO ver enunciado
-            'receipt_url' => 'nullable|integer|max',
+            'receipt_url' => 'nullable|string|max:255',
+
         ];
     }
 
@@ -44,6 +46,7 @@ class OrderRequest extends FormRequest
     {
         return [
 
+            'status.in' => 'O status tem de ser pending, paid, closed ou canceled',
             'customer_id.required' => 'ID do cliente é obrigatório',
             'customer_id.integer' => 'ID do cliente tem de ser um numero inteiro',
             'date.required' => 'A data é obrigatória',
@@ -53,17 +56,19 @@ class OrderRequest extends FormRequest
             'total_price.regex' => 'O preço total tem de ser um numero',
             'notes.string' => 'As notas tem de ser uma string',
             'notes.max' => 'As notas podem ter no máximo 255 caracteres',
-            'nif.required' => 'O NIF é obrigatório',
+            //'nif.required' => 'O NIF é obrigatório',
             'nif.integer' => 'O NIF tem de ser um numero inteiro',
             'nif.digits' => 'O NIF tem de ter 9 digitos',
             'address.required' => 'A morada é obrigatória',
             'address.string' => 'A morada tem de ser uma string',
             'address.max' => 'A morada pode ter no máximo 255 caracteres',
+            'payment_type.required' => 'O tipo de pagamento é obrigatório',
             'payment_type.in' => 'O tipo de pagamento tem de ser VISA, MC ou PAYPAL',
             'payment_ref.required' => 'A referencia de pagamento é obrigatória',
-            'payment_ref.string' => 'A referencia de pagamento tem de ser uma string',
-            'payment_ref.max' => 'A referencia de pagamento pode ter no máximo 255 caracteres',
-            'receipt_url.integer' => 'O url do recibo tem de ser um numero inteiro',
+            'payment_ref.integer' => 'A referencia de pagamento tem de ser um numero inteiro',
+            'payment_ref.digits_between' => 'A referencia de pagamento tem de ter entre 3 e 20 digitos',
+            'receipt_url.string' => 'O url do recibo tem de ser uma string',
+            'receipt_url.max' => 'O url do recibo pode ter no máximo 255 caracteres',
 
 
 

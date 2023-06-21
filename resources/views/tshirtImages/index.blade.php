@@ -4,7 +4,7 @@
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">Gestão</li>
+        {{-- <li class="breadcrumb-item">Gestão</li> --}}
         <li class="breadcrumb-item active">Imagens Tshirts</li>
     </ol>
 @endsection
@@ -67,6 +67,7 @@
         // 'showDetail' => true,
         // 'showEdit' => true,
         // 'showDelete' => true,
+        //'showAddCart' => true,
     ])
 
 
