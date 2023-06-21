@@ -35,8 +35,8 @@ class OrderRequest extends FormRequest
                 Rule::requiredIf(function () {
                     return $this->input('payment_type') !== null;
                 }),
-            ],
-            'receipt_url' => 'nullable|integer',
+            ],//TODO ver enunciado
+            'receipt_url' => 'nullable|integer|max',
         ];
     }
 

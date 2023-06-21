@@ -107,9 +107,9 @@ class UserController extends Controller
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
-            if ($request->user()->can('changeBlocked', $user)) {//TODO rever se e necessario
-                $user->blocked =  $formData['blocked'];
-            }
+            // if ($request->user()->can('changeBlocked', $user)) {//TODO rever se e necessario
+            //     $user->blocked =  $formData['blocked'];
+            // }
             $user->save();
             return $user;
         });
@@ -181,7 +181,7 @@ class UserController extends Controller
             }
 
             $user->save();
-            return $user;
+            //return $user;
         //});
         $url = route('users.index', ['user' => $user]);
         $htmlMessage = "User <a href='$url'>#{$user->id}</a>

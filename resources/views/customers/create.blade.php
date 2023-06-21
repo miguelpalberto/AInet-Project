@@ -19,8 +19,7 @@
                 @include('customers.shared.fields_password_inicial')
                 @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => false])
                 <div class="my-1 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary" name="ok" form="form_customer">Guardar novo
-                        cliente</button>
+                    <button type="submit" class="btn btn-primary" name="ok" form="form_customer">Criar Novo Cliente</button>
                     <a href="{{ route('customers.index', ['customer' => $customer]) }}"
                         class="btn btn-secondary ms-3">Cancelar</a>
                 </div>

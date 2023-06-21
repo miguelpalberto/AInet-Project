@@ -78,7 +78,7 @@ class TshirtImageController extends Controller
             $newtshirtImage->name = $formData['name'];
             $newtshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
-            $newtshirtImage->image_url = ''; //TODO apagar
+            $newtshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$newtshirtImage->image_url = $formData['image_url'];
 
             //Campo Extra-Info é com ficheiro json:
@@ -90,8 +90,7 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $newtshirtImage->extra_info = $extraInfo;
-            //$newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $newtshirtImage->extra_info = $formData['extra_info'] ?? null;
 
             $newtshirtImage->save();
             return $newtshirtImage;
@@ -149,7 +148,7 @@ class TshirtImageController extends Controller
             $tshirtImage->name = $formData['name'];
             $tshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
-            $tshirtImage->image_url = ''; //TODO apagar
+            $tshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$tshirtImage->image_url = $formData['image_url'];//editar
 
             $extraInfo = json_encode($formData['extra_info']);
@@ -159,8 +158,7 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $tshirtImage->extra_info = $extraInfo;
-            //$tshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $tshirtImage->extra_info = $formData['extra_info'] ?? null;
 
             $tshirtImage->save();
             return $tshirtImage;

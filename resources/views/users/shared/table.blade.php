@@ -56,10 +56,15 @@
                     <td class="button-icon-col"><a class="btn btn-dark"
                             href="{{ route('users.edit', ['user' => $user]) }}">
                             <i class="fas fa-edit"></i></a></td>
-                    {{-- bloquear: aqui está get e tem de ser patch - tenho de por formualario como deve ser--}}
-                    <td class="button-icon-col"><a class="btn btn-dark"
-                            href="{{ route('usersBlock', ['user' => $user]) }}">
-                            <i class="fas fa-unlock"></i></a></td>
+                    {{-- bloquear: --}}
+                    <td class="button-icon-col">
+                        <form method="POST" action="{{ route('usersBlock', ['user' => $user]) }}">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" name="usersBlock" class="btn btn-dark">
+                                <i class="fas fa-unlock"></i></button>
+                        </form>
+                    </td>
                 @endif
                 @if ($showDelete)
                     <td class="button-icon-col">
