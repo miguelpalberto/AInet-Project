@@ -29,6 +29,17 @@ class TshirtImage extends Model
         return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
+    protected function fullImageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->photo_url ? asset('storage/tshirt_images_private/' . $this->image_url) :
+                    asset('/img/avatar_unknown.png');
+            },
+        );
+    }
+
+
     //NAO HA FK NA TSHIRTIMAGE PARA A ORDERITEMS
     // public function orderItemsT(): HasMany
     // {
