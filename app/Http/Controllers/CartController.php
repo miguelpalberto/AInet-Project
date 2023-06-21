@@ -37,7 +37,7 @@ class CartController extends Controller
                 $alertType = 'warning';
                 $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
                 $htmlMessage = "Não é possível adicionar a tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> ao carrinho, porque já existeno mesmo";
+                    <strong>\"{$tshirtImage->name}\"</strong> ao carrinho, porque já existe no mesmo";
             } else {
                 // We can access session with a "global" function
                 $cart = session('cart', []);
@@ -90,7 +90,7 @@ class CartController extends Controller
             $userType = $request->user()->user_type ?? 'O';
             if ($userType != 'C') {
                 $alertType = 'warning';
-                $htmlMessage = "É necessário fazer login com uma conta de cliente para adicionar itens ao carrinho.";
+                $htmlMessage = "É necessário fazer login com uma conta de cliente para concluir a encomenda.";
             } else {
                 $cart = session('cart', []);
                 $total = count($cart);
@@ -111,7 +111,7 @@ class CartController extends Controller
                         // $order->unit_price = '0,0'; // valor forçado
                         // $order->sub_total = '0,0'; // valor forçado
                         // dd($orderItem);
-                        
+
                         // $order = new OrderItem();
                         // $order->status = 'Pending';
                         // $order->customer_id = $customer;

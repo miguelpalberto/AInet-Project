@@ -41,6 +41,7 @@
                         </form>
                     </td>
 
+                    {{-- TODO: Este botao remte para order_items.create inves --}}
                     <!-- Botão adicionar ao carrinho -->
                         <td class="button-icon-col">
                             <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
