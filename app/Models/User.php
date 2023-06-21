@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Customer;
+
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -21,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'email', 'email_verified_at', 'password', 'remember_token', 'user_type', 'blocked', 'photo_url' ];
+    protected $fillable = ['name', 'email', 'email_verified_at', 'password', 'remember_token', 'user_type', 'blocked', 'photo_url'];
 
     protected $dates = ['deleted_at'];
 
@@ -48,5 +50,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class, 'id', 'id');
+    }
+
+    
+    // VER COM O PROF
+    
+    protected function fullPhotoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->photo_url ? asset('storage/photos/' . $this->photo_url) :
+                    asset('/img/avatar_unknown.png');
+            },
+        );
     }
 }
