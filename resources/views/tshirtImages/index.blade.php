@@ -14,7 +14,7 @@
         <!--Auth-->
         <p>
             <a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus">
-                </i> &nbsp;Criar nova imagemde tshirt</a>
+                </i> &nbsp;Criar nova Imagem de Tshirt</a>
         </p>
     @endcan
     <!--Filtro:-->

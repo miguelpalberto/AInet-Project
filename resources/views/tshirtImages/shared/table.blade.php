@@ -26,21 +26,21 @@
                     <td>{{ $tshirtImage->image_url }}</td>
                     <td>{{ $tshirtImage->extra_info }}</td>
                     <td class="button-icon-col">
-                        {{-- @can('view', $category)<!--Auth--> --}}
+                        {{-- @can('view', $tshirtImage)<!--Auth--> --}}
                             <a class="btn btn-secondary"
                                 href="{{ route('tshirtImages.show', ['tshirtImage' => $tshirtImage]) }}">
                                 <i class="fas fa-eye"></i></a>
                         {{-- @endcan --}}
                     </td>
                     <td class="button-icon-col">
-                        @can('update', $category)<!--Auth-->
+                        @can('update', $tshirtImage)<!--Auth-->
                             <a class="btn btn-dark"
                                 href="{{ route('tshirtImages.edit', ['tshirtImage' => $tshirtImage]) }}">
                                 <i class="fas fa-edit"></i></a>
                         @endcan
                     </td>
                     <td class="button-icon-col">
-                        @can('delete', $category)<!--Auth-->
+                        @can('delete', $tshirtImage)<!--Auth-->
                             <form method="POST"
                                 action="{{ route('tshirtImages.destroy', ['tshirtImage' => $tshirtImage]) }}">
                                 @csrf
