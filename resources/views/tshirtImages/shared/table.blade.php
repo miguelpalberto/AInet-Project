@@ -43,10 +43,17 @@
 
                     {{-- TODO: Este botao remte para order_items.create inves --}}
                     <!-- Botão adicionar ao carrinho -->
-                        <td class="button-icon-col">
+                        {{-- <td class="button-icon-col">
                             <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
                                 @csrf
                                 <button type="submit" name="addToCart" class="btn btn-success">
+                                    <i class="fas fa-plus"></i></button>
+                            </form>
+                        </td> --}}
+                        <td class="button-icon-col">
+                            <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
+                                @csrf
+                                <button type="submit" name="order_item" class="btn btn-success">
                                     <i class="fas fa-plus"></i></button>
                             </form>
                         </td>
