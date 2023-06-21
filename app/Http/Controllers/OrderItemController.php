@@ -42,13 +42,13 @@ class OrderItemController extends Controller
     {
         $formData = $request->validated();
 
-        $orderItem = DB::transaction(function () use ($formData) {
-            $neworderItem = new OrderItem();
-            $neworderItem->order_id = $formData['order_id'];
-            $neworderItem->tshirt_image_id = $formData['tshirt_image_id'];
-            $neworderItem->color_code = $formData['color_code'];
-            $neworderItem->size = $formData['size'];
-            $neworderItem->qty = $formData['qty'];
+        $orderItem = DB::transaction(function () use ($formData) {//TODO Rever acho que nao é form
+            $newOrderItem = new OrderItem();
+            $newOrderItem->order_id = $formData['order_id'];
+            $newOrderItem->tshirt_image_id = $formData['tshirt_image_id'];
+            $newOrderItem->color_code = $formData['color_code'];
+            $newOrderItem->size = $formData['size'];
+            $newOrderItem->qty = $formData['qty'];
         });
         // Obter o preço unitário da t-shirt com base na configuração atual
         $price = Price::getCurrentPrice();

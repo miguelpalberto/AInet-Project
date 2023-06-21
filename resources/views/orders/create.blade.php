@@ -15,7 +15,7 @@
         @csrf
         @include('orders.shared.fields')
         <div class="my-4 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="ok">Guardar Order</button>
+            <button type="submit" class="btn btn-primary" name="ok">Criar Nova Order</button>
             <a href="{{ route('orders.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
         </div>
     </form>

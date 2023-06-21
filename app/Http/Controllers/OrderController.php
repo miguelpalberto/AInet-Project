@@ -52,6 +52,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request): RedirectResponse
     {
         $newOrder = Order::create($request->validated());
+        $newOrder->status = 'pending';
         $url = route('orders.show', ['order' => $newOrder]);
         $htmlMessage = "Order <a href='$url'>#{$newOrder->id}</a> foi criada com sucesso!";
         return redirect()->route('orders.index')
