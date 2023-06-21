@@ -27,7 +27,7 @@
                         </button>
                     </form>
                     <a href="{{ route('customers.edit', ['customer' => $customer]) }}" class="btn btn-secondary ms-3">
-                        Alterar Cliente
+                        Alterar Dados
                     </a>
                 </div>
             </div>

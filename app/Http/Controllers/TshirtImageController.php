@@ -15,6 +15,11 @@ use App\Http\Requests\TshirtImageRequest;
 
 class TshirtImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(TshirtImage::class, 'tshirtImage');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -24,6 +29,7 @@ class TshirtImageController extends Controller
         $categories = Category::all();
         $filterByCategory = $request->category ?? '';
         $filterByName = $request->name ?? '';
+        $filterByDescription = $request->description ?? '';
         $tshirtImageQuery = TshirtImage::query();
         if ($filterByCategory !== '') {
             $tshirtImageQuery->where('category_id', $filterByCategory);
@@ -32,12 +38,17 @@ class TshirtImageController extends Controller
             $tshirtImageIds = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id');
             $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
         }
+        if ($filterByDescription !== '') {
+            $tshirtImageIds = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id');
+            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
+        }
         $tshirtImages = $tshirtImageQuery->with('category', 'customerT')->paginate(10);
         return view('tshirtImages.index', compact(
             'tshirtImages',
             'categories',
             'filterByCategory',
             'filterByName',
+            'filterByDescription',
         ));
     }
 
@@ -67,7 +78,7 @@ class TshirtImageController extends Controller
             $newtshirtImage->name = $formData['name'];
             $newtshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
-            $newtshirtImage->image_url = ''; //TODO apagar
+            $newtshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$newtshirtImage->image_url = $formData['image_url'];
 
             //Campo Extra-Info é com ficheiro json:
@@ -79,8 +90,7 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $newtshirtImage->extra_info = $extraInfo;
-                    //$newtshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $newtshirtImage->extra_info = $formData['extra_info'] ?? null;
 
             $newtshirtImage->save();
             return $newtshirtImage;
@@ -138,7 +148,7 @@ class TshirtImageController extends Controller
             $tshirtImage->name = $formData['name'];
             $tshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
-            $tshirtImage->image_url = ''; //TODO apagar
+            $tshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$tshirtImage->image_url = $formData['image_url'];//editar
 
             $extraInfo = json_encode($formData['extra_info']);
@@ -148,8 +158,7 @@ class TshirtImageController extends Controller
                 // Return an error response or perform any other error handling
                 return redirect()->back()->withErrors(['extra_info' => 'Invalid value for extra_info']);
             }
-            $tshirtImage->extra_info = $extraInfo;
-                    //$tshirtImage->extra_info = $formData['extra_info'] ?? null;
+            $tshirtImage->extra_info = $formData['extra_info'] ?? null;
 
             $tshirtImage->save();
             return $tshirtImage;

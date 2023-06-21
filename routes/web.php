@@ -68,6 +68,9 @@ Route::post('/password/change', [ChangePasswordController::class, 'store'])
 ->name('password.change.store');
 
 
+Route::patch('/users/{user}/blocked', [UserController::class, 'changeBlocked'])->name('usersBlock');
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Adicionar tshit ao carrinho
@@ -83,4 +86,5 @@ Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 
 // Carrinho
 //Route::resource('cart', CartController::class);
+
 

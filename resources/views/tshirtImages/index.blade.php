@@ -1,4 +1,3 @@
-
 @extends('template.layout')
 
 @section('titulo', 'Imagens de Tshirts')
@@ -11,8 +10,13 @@
 @endsection
 
 @section('main')
-    <p><a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova imagem de tshirt</a></p>
-
+    @can('create', \App\Models\TshirtImage::class)
+        <!--Auth-->
+        <p>
+            <a class="btn btn-success" href="{{ route('tshirtImages.create') }}"><i class="fas fa-plus">
+                </i> &nbsp;Criar nova Imagem de Tshirt</a>
+        </p>
+    @endcan
     <!--Filtro:-->
 
     <hr>
@@ -22,7 +26,8 @@
                 <div class="d-flex justify-content-between">
                     <div class="flex-grow-1 mb-3 form-floating">
                         <select class="form-select" name="category" id="inputCategory">
-                            <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">Todas Categorias </option>
+                            <option {{ old('category', $filterByCategory) === '' ? 'selected' : '' }} value="">Todas
+                                Categorias </option>
                             @foreach ($categories as $category)
                                 <option {{ old('category_id', $filterByCategory) == $category->id ? 'selected' : '' }}
                                     value="{{ $category->id }}">
@@ -37,6 +42,13 @@
                         <input type="text" class="form-control" name="name" id="inputName"
                             value="{{ old('name', $filterByName) }}">
                         <label for="inputName" class="form-label">Nome</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="description" id="inputDescription"
+                            value="{{ old('description', $filterByDescription) }}">
+                        <label for="inputDescription" class="form-label">Descrição</label>
                     </div>
                 </div>
             </div>
