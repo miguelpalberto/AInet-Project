@@ -11,15 +11,29 @@
 @endsection
 
 @section('main')
-    <!-- Botão adicionar ao carrinho -->
-    {{-- TODO order item em vez de tshirt e ver se botao esta bom --}}
-    <td class="button-icon-col">
-        <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
-            @csrf
-            <button type="submit" name="addToCart" class="btn btn-success ms-3">
-                <i class="fas fa-plus"></i> Adicionar ao Carrinho</button>
-        </form>
-    </td>
+    {{-- <form id="form_docente" method="POST" action="{{ route('docentes.store') }}" enctype="multipart/form-data"> --}}
+    @csrf
+    <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
+        <div class="flex-grow-1 pe-2">
+            @include('order_items.shared.fields', [
+                'order_item' => $docente->user,
+                'readonlyData' => false,
+            ])
+
+
+
+            <!-- Botão adicionar ao carrinho -->
+            {{-- TODO order item em vez de tshirt e ver se botao esta bom --}}
+            <td class="button-icon-col">
+                <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
+                    @csrf
+                    <button type="submit" name="addToCart" class="btn btn-success ms-3">
+                        <i class="fas fa-plus"></i> Adicionar ao Carrinho</button>
+                </form>
+            </td>
+            <a href="{{ route('tshirtImages.index') }}" class="btn btn-secondary ms-3">Cancelar</a>
+        </div>
+    </div>
 
     {{-- <form method="POST" action="{{ route('order_items.store') }}">
         @csrf
@@ -30,5 +44,3 @@
         </div>
     </form> --}}
 @endsection
-
-
