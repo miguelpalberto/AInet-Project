@@ -47,6 +47,7 @@ class OrderItemController extends Controller
         //      ->withOrderItem($orderItem)
         //      ->withColor($color);
         //return view('order_items.create', ['color' => $color]);
+        
         return view('order_items.create', compact('orderItem', 'colors', 'price'));
     }
 
