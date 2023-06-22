@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderItemRequest;
+use App\Models\Color;
+use App\Models\Price;
 use App\Models\OrderItem;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Price;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\OrderItemRequest;
 
 
 
@@ -24,7 +25,7 @@ class OrderItemController extends Controller
      */
     public function index(Request $request): View
     {
-        $this->authorize('userActive');//auth
+        $this->authorize('userActive'); //auth
 
         $useQuery = OrderItem::query();
 
@@ -39,7 +40,14 @@ class OrderItemController extends Controller
     {
         $orderItem = new OrderItem();
 
-        return view('orderItems.create', compact('ordemItem'));
+        //return view('orderItems.create', compact('ordemItem'));
+        $colors = Color::all();
+        $price = Price::first();
+        //  return view('order_items.create')
+        //      ->withOrderItem($orderItem)
+        //      ->withColor($color);
+        //return view('order_items.create', ['color' => $color]);
+        return view('order_items.create', compact('orderItem', 'colors', 'price'));
     }
 
     /**
@@ -49,7 +57,7 @@ class OrderItemController extends Controller
     {
         $formData = $request->validated();
 
-        $orderItem = DB::transaction(function () use ($formData) {//TODO Rever acho que nao é form
+        $orderItem = DB::transaction(function () use ($formData) { //TODO Rever acho que nao é form
             $newOrderItem = new OrderItem();
             $newOrderItem->order_id = $formData['order_id'];
             $newOrderItem->tshirt_image_id = $formData['tshirt_image_id'];
@@ -87,7 +95,7 @@ class OrderItemController extends Controller
      */
     public function edit(OrderItem $orderItem): View
     {
-        $this->authorize('userActive');//auth
+        $this->authorize('userActive'); //auth
 
         return view('orderItems.edit', compact('orderItem'));
     }
@@ -97,7 +105,7 @@ class OrderItemController extends Controller
      */
     public function update(OrderItemRequest $request, OrderItem $orderItem): RedirectResponse
     {
-        $this->authorize('userActive');//auth
+        $this->authorize('userActive'); //auth
 
         $formData = $request->validated();
 
@@ -124,7 +132,7 @@ class OrderItemController extends Controller
      */
     public function destroy(OrderItem $orderItem)
     {
-        $this->authorize('userActive');//auth
+        $this->authorize('userActive'); //auth
 
         try {
             $orderItem->delete();
