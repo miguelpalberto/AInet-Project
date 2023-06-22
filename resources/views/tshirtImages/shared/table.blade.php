@@ -2,6 +2,7 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
+                <th>IMG</th>
                 <th>ID</th>
                 <th>ID Cliente</th>
                 <th>ID Categoria</th>
@@ -27,11 +28,11 @@
             <td width="45">
                 @if ($tshirtImage->image_url)
                 <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
-                @endif
-            @endif    
+                @endif  
             </td>
-            
+            @endif 
                 <tr>
+                    <td></td>
                     <td>{{ $tshirtImage->id }}</td>
                     <td>{{ $tshirtImage->customer_id }}</td>
                     <td>{{ $tshirtImage->category->name }}</td>
