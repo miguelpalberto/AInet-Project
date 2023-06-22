@@ -71,9 +71,10 @@ Route::patch('/users/{user}/blocked', [UserController::class, 'changeBlocked'])-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Adicionar img tshirt ao carrinho
-Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
+//Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])->name('cart.add');
 // Remover img tshirt ao carrinho
-Route::delete('cart/{tshirtImage}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::delete('cart/{orderItem}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 // Mostrar carrinho
 Route::get('cart', [CartController::class, 'show'])->name('cart.show');
 // Gravar encomenda
