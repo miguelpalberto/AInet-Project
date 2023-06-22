@@ -22,7 +22,7 @@
     @enderror
 </div> --}}
 <div class="mb-3 form-floating">
-    <span class="form-control-plaintext">{{ $tshirtImage->id }}</span>
+    <span class="form-control-plaintext">{{ $orderItem->id }}</span>
     <label for="inputImageId" class="form-label">ID Imagem</label>
 </div>
 {{-- <div class="mb-3 form-floating">
@@ -61,7 +61,7 @@
     <select class="form-select @error('color') is-invalid @enderror" name="color" id="inputColor"
         {{ $disabledStr }}>
         @foreach ($colors as $color)
-            <option {{ $color->code == old('color', $order_item->color_code) ? 'selected' : '' }}
+            <option {{ $color->code == old('color', $orderItem->color_code) ? 'selected' : '' }}
                 value="{{ $color->code }}">
                 {{ $color->name }}</option>
         @endforeach
@@ -78,7 +78,7 @@
 
 <div class="mb-3 form-floating">
     <input type="number" class="form-control @error('qty') is-invalid @enderror" name="qty"
-        id="inputQty" {{ $disabledStr }} value="{{ old('qty', $order_item->qty) }}">
+        id="inputQty" {{ $disabledStr }} value="{{ old('qty', $orderItem->qty) }}">
     <label for="inputQty" class="form-label">Quantidade</label>
     @error('qty')
         <div class="invalid-feedback">
@@ -111,6 +111,7 @@
     @enderror
 </div> --}}
 <div class="mb-3 form-floating">
-    <span class="form-control-plaintext">{{ $price->unit_price_catalog*quant }}</span>
+    <span class="form-control-plaintext">{{ $price->unit_price_catalog }}</span>
+    {{-- TODO: fazer * quant --}}
     <label for="inputTotal" class="form-label">Total</label>
 </div>

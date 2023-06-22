@@ -16,11 +16,9 @@
     <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
         <div class="flex-grow-1 pe-2">
             @include('order_items.shared.fields', [
-                'order_item' => $docente->user,
+                //'order_item' => $customer->user,
                 'readonlyData' => false,
             ])
-
-
 
             <!-- Botão adicionar ao carrinho -->
             {{-- TODO order item em vez de tshirt e ver se botao esta bom --}}

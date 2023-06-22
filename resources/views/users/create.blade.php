@@ -18,8 +18,8 @@
                 @include('users.shared.fields', ['user' => $user, 'readonlyData' => false, 'isCliente' => false])
                 @include('users.shared.fields_password_inicial')
                 <div class="my-1 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary" name="ok" form="form_user">Guardar novo
-                        user</button>
+                    <button type="submit" class="btn btn-primary" name="ok" form="form_user">Criar Novo
+                        User</button>
                     <a href="{{ route('users.index', ['user' => $user]) }}"
                         class="btn btn-secondary ms-3">Cancelar</a>
                 </div>

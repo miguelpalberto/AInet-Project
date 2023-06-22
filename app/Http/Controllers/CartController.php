@@ -8,7 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\TshirtImage;
+
 
 
 class CartController extends Controller
@@ -20,8 +20,8 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-    // Adicionar tshirt ao carrinho
-    public function addToCart(Request $request, TshirtImage $tshirtImage): RedirectResponse
+    // Adicionar item ao carrinho
+    public function addToCart(Request $request, OrderItem $orderItem): RedirectResponse
     {
         try {
             $userType = $request->user()->user_type ?? 'O';
@@ -30,36 +30,36 @@ class CartController extends Controller
             } else {
                 $customersId = $request->user()->id;
             }
-            $totalTshirt = OrderItem::where('order_id', $tshirtImage)
+            $totalItems = OrderItem::where('order_id', $orderItem)
                 ->where('order_id', $customersId)
                 ->count();
-                if ($totalTshirt >= 1) {
+                if ($totalItems >= 1) {
                 $alertType = 'warning';
-                $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-                $htmlMessage = "Não é possível adicionar a tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> ao carrinho, porque já existe no mesmo";
+                $url = route('orderItems.show', ['orderItem' => $orderItem]);
+                $htmlMessage = "Não é possível adicionar o item <a href='$url'>#{$orderItem->id}</a>
+                    <strong>\"{$orderItem->name}\"</strong> ao carrinho, porque já existe no mesmo";
             } else {
                 // We can access session with a "global" function
                 $cart = session('cart', []);
-                if (array_key_exists($tshirtImage->id, $cart)) {
+                if (array_key_exists($orderItem->id, $cart)) {
                     $alertType = 'warning';
-                    $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-                    $htmlMessage = "Tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> não foi adicionada ao carrinho porque já está presente no mesmo!";
+                    $url = route('orderItems.show', ['orderItem' => $orderItem]);
+                    $htmlMessage = "Item <a href='$url'>#{$orderItem->id}</a>
+                    <strong>\"{$orderItem->name}\"</strong> não foi adicionado ao carrinho porque já está presente no mesmo!";
                 } else {
-                    $cart[$tshirtImage->id] = $tshirtImage;
+                    $cart[$orderItem->id] = $orderItem;
                     // We can access session with a request function
                     $request->session()->put('cart', $cart);
                     $alertType = 'success';
-                    $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-                    $htmlMessage = "Tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                    <strong>\"{$tshirtImage->name}\"</strong> foi adicionada ao carrinho!";
+                    $url = route('orderItems.show', ['orderItem' => $orderItem]);
+                    $htmlMessage = "Item <a href='$url'>#{$orderItem->id}</a>
+                    <strong>\"{$orderItem->name}\"</strong> foi adicionado ao carrinho!";
                 }
             }
         } catch (\Exception $error) {
-            $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-            $htmlMessage = "Não é possível adicionar a tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                        <strong>\"{$tshirtImage->name}\"</strong> ao carrinho, porque ocorreu um erro!";
+            $url = route('orderItems.show', ['orderItem' => $orderItem]);
+            $htmlMessage = "Não é possível adicionar o item <a href='$url'>#{$orderItem->id}</a>
+                        <strong>\"{$orderItem->name}\"</strong> ao carrinho, porque ocorreu um erro!";
             $alertType = 'danger';
         }
         return back()
@@ -68,16 +68,16 @@ class CartController extends Controller
     }
 
         // Remover tshirt do carrinho
-    public function removeFromCart(Request $request, tshirtImage $tshirtImage): RedirectResponse
+    public function removeFromCart(Request $request, OrderItem $orderItem): RedirectResponse
     {
         $cart = session('cart', []);
-        if (array_key_exists($tshirtImage->id, $cart)) {
-            unset($cart[$tshirtImage->id]);
+        if (array_key_exists($orderItem->id, $cart)) {
+            unset($cart[$orderItem->id]);
         }
         $request->session()->put('cart', $cart);
-        $url = route('tshirtImages.show', ['tshirtImage' => $tshirtImage]);
-        $htmlMessage = "Tshirt <a href='$url'>#{$tshirtImage->id}</a>
-                        <strong>\"{$tshirtImage->name}\"</strong> foi removida do carrinho!";
+        $url = route('orderItems.show', ['orderItem' => $orderItem]);
+        $htmlMessage = "Item <a href='$url'>#{$orderItem->id}</a>
+                        <strong>\"{$orderItem->name}\"</strong> foi removido do carrinho!";
         return back()
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
@@ -100,11 +100,11 @@ class CartController extends Controller
                 $totalOrders = (DB::select('select count(*) as total from orders'))[0]->total + 1;
                 // dd($totalOrdersItems, $totalOrders);
                 DB::transaction(function () use ($customer, $cart, $totalOrders) {
-                    foreach ($cart as $tshirtImage) {
-                        // $orderItem->tshirtImages()->attach($tshirtImage->id, []);
+                    foreach ($cart as $orderItem) {
+                        // $orderItem->orderItems()->attach($orderItem->id, []);
                         // $order = new OrderItem();
                         // $order->order_id = $totalOrders;
-                        // $order->tshirt_image_id = $tshirtImage->id;
+                        // $order->tshirt_image_id = $orderItem->id;
                         // $order->color_code = 'a1a2a3'; // valor forçado
                         // $order->size = 'L'; // valor forçado
                         // $order->qty = '1'; // valor forçado
@@ -125,19 +125,19 @@ class CartController extends Controller
                         // $order->receipt_url = 'Vazio.pdf';
                         // dd($order);
 
-                        // $customer->tshirtImages()->attach(['status' => 'Pending', 'customer_id' => $customer, 'date' => date('Y-m-d H:i:s'), 'total_price' => '', 'notes' => 'Sem notas',
+                        // $customer->orderItems()->attach(['status' => 'Pending', 'customer_id' => $customer, 'date' => date('Y-m-d H:i:s'), 'total_price' => '', 'notes' => 'Sem notas',
                         // 'nif' => $customer->nif, 'address' => $customer->address, 'payment_type' => $customer->default_payment_type, 'payment_ref' => $customer->default_payment_ref, 'receipt_url' => 'Vazio.pdf']);
 
-                        $customer->tshirtImages()->attach($tshirtImage->id, ['status' => 'Pending']);
+                        $customer->orderItems()->attach($orderItem->id, ['status' => 'Pending']);
 
                         dd('AQUI');
                         // $order->save();
 
                     }
                 });
-                $htmlMessage = "A encomenda foi confirmada com $total tshirts #{$customer->id} <strong>\"{$request->user()->name}\"</strong>";
+                $htmlMessage = "A encomenda foi confirmada com $total itens #{$customer->id} <strong>\"{$request->user()->name}\"</strong>";
                 $request->session()->forget('cart');
-                return redirect()->route('tshirtImages.show')
+                return redirect()->route('orderItems.show')
                     ->with('alert-msg', $htmlMessage)
                     ->with('alert-type', 'success');
             }
