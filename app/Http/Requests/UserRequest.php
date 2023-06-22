@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
             'email_verified_at' =>  'nullable',
             // 'password' =>  'nullable', //not needed - colocar aqui apenas campos que utilizador vai preencher
             // 'blocked' =>  'nullable',
-            'photo_url' =>  'nullable|string|max:255',
+            'photo_url' =>  'sometimes|image|max:4096',
 
             'password_inicial' =>       'sometimes|required',
         ];
@@ -50,8 +50,8 @@ class UserRequest extends FormRequest
             'email.max' =>      'O email tem de ter no máximo 255 caracteres',
             'user_type.required' => 'O tipo de utilizador é obrigatório',
             'user_type.in' => 'O tipo de utilizador tem de ser Funcionário(E) ou Administrador(A)',
-            'photo_url.string' => 'O url da imagem tem que ser uma string',
-            'photo_url.max' => 'O url da imagem pode ter no máximo 255 caracteres',
+            'photo_url.imagem' => 'O ficheiro com a foto nao é uma imagem',
+            'photo_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
 
             'password_inicial.required' => 'A password inicial é obrigatória',
         ];

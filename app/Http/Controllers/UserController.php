@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerRequest;
-
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -63,8 +63,15 @@ class UserController extends Controller
     public function store(UserRequest $request): RedirectResponse
     {
         $formData = $request->validated();
-        $user = DB::transaction(function () use ($formData) {
+        $user = DB::transaction(function () use ($formData, $request) {
             $newUser = new User();
+
+            if ($request->hasFile('photo_url')) {
+                $path = $request->photo_url->store('storage/photos');
+                $newUser->photo_url = basename($path);
+                $newUser->save();
+            }
+
             $newUser->name = $formData['name'];
             $newUser->email = $formData['email'];
             $newUser->user_type = $formData['user_type'];
@@ -103,13 +110,21 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         $formData = $request->validated();
-        $user = DB::transaction(function () use ($formData, $user) {
+        $user = DB::transaction(function () use ($formData, $user, $request) {
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
-            // if ($request->user()->can('changeBlocked', $user)) {//TODO rever se e necessario
-            //     $user->blocked =  $formData['blocked'];
-            // }
+
+
+            if ($request->hasFile('photo_url')) {
+                if ($user->photo_url) {
+                    Storage::delete('storage/photos/' . $user->photo_url);
+                }
+                $path = $request->photo_url->store('storage/photos');
+                $user->photo_url = basename($path);
+                $user->save();
+            }
+
             $user->save();
             return $user;
         });
@@ -135,6 +150,7 @@ class UserController extends Controller
                 DB::transaction(function () use ($user) {
                     $user->delete();
                 });
+
                 //TODO foto ver docente
                 $htmlMessage = "User #{$user->id}
                         <strong>\"{$user->name}\"</strong> foi apagado com sucesso!";
@@ -153,6 +169,10 @@ class UserController extends Controller
                     <strong>\"{$user->name}\"</strong>
                     não pode ser apagado porque $ordersStr!
                     ";
+            }
+
+            if ($user->photo_url) {
+                Storage::delete('storage/photos/' . $user->photo_url);
             }
         } catch (\Exception $error) {
             $url = route('users.show', ['user' => $user]);
@@ -173,15 +193,15 @@ class UserController extends Controller
 
         //$formData = $request->validated();
         //$user = DB::transaction(function () use ($formData, $user) {
-            if ($user->blocked == 0){
-                $user->blocked = 1;
-            } else{
-                $user->blocked = 0;
-                $strblocked = 'desbloqueado';
-            }
+        if ($user->blocked == 0) {
+            $user->blocked = 1;
+        } else {
+            $user->blocked = 0;
+            $strblocked = 'desbloqueado';
+        }
 
-            $user->save();
-            //return $user;
+        $user->save();
+        //return $user;
         //});
         $url = route('users.index', ['user' => $user]);
         $htmlMessage = "User <a href='$url'>#{$user->id}</a>
@@ -192,4 +212,16 @@ class UserController extends Controller
     }
 
 
+    public function destroy_foto(User $user): RedirectResponse
+    {
+        if ($user->photo_url) {
+            Storage::delete('storage/photos/' . $user->photo_url);
+            $user->photo_url = null;
+            $user->save();
+        }
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('alert-msg', 'Foto do docente "' . $user->name .
+                '" foi removida!')
+            ->with('alert-type', 'success');
+    }
 }

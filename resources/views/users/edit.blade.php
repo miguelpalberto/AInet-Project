@@ -38,7 +38,7 @@
             </div>
         </div>
     </form>
-    <form id="form_delete_photo" action="#" method="POST" class="d-none">
+    <form id="form_delete_photo" action="{{ route('users.foto.destroy', ['user' => $user]) }}" method="POST" class="d-none">
         @csrf
         @method('DELETE')
     </form>
@@ -65,7 +65,7 @@
 
 @section('main')
 
-    <form method="POST" action="{{ route('users.update', ['user' => $user]) }}">
+    <form method="POST" action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
