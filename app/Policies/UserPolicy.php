@@ -24,7 +24,7 @@ class UserPolicy
     public function view(User $user, User $userClasse): bool
     {
         //
-        return $user->user_type === 'A' || $user->id == $userClasse->id;
+        return $user->user_type === 'A' || ($user->id == $userClasse->id && $user->user_type === 'C');
     }
 
     /**

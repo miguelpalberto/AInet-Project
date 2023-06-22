@@ -23,7 +23,7 @@
             <!-- Botão adicionar ao carrinho -->
             {{-- TODO order item em vez de tshirt e ver se botao esta bom --}}
             <td class="button-icon-col">
-                <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
+                <form method="POST" action="{{ route('cart.add', ['orderItem' => $orderItem]) }}">
                     @csrf
                     <button type="submit" name="addToCart" class="btn btn-success ms-3">
                         <i class="fas fa-plus"></i> Adicionar ao Carrinho</button>

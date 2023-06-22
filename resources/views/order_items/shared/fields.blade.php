@@ -22,7 +22,7 @@
     @enderror
 </div> --}}
 <div class="mb-3 form-floating">
-    <span class="form-control-plaintext">{{ $orderItem->id }}</span>
+    <span class="form-control-plaintext">{{ $orderItem->tshirt_image_id }}</span>
     <label for="inputImageId" class="form-label">ID Imagem</label>
 </div>
 {{-- <div class="mb-3 form-floating">

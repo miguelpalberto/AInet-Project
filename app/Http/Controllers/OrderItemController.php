@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\Price;
 use App\Models\OrderItem;
+use App\Models\TshirtImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
@@ -36,19 +37,20 @@ class OrderItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(TshirtImage $tshirtImage): View
     {
         $orderItem = new OrderItem();
 
         //return view('orderItems.create', compact('ordemItem'));
         $colors = Color::all();
         $price = Price::first();
+        //$tshirtImage = TshirtImage::all();
         //  return view('order_items.create')
         //      ->withOrderItem($orderItem)
         //      ->withColor($color);
         //return view('order_items.create', ['color' => $color]);
-        
-        return view('order_items.create', compact('orderItem', 'colors', 'price'));
+
+        return view('order_items.create', compact('orderItem', 'colors', 'price', 'tshirtImage'));
     }
 
     /**
