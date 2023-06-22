@@ -62,7 +62,7 @@
 
 @section('main')
 
-    <form method="POST" action="{{ route('users.store') }}">
+    <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
         @csrf
         {{-- <div>
             TODO: adicionar id automaticamente

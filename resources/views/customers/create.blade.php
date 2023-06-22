@@ -11,7 +11,7 @@
 @endsection
 
 @section('main')
-    <form id="form_customer" method="POST" action="{{ route('customers.store') }}">
+    <form id="form_customer" method="POST" action="{{ route('customers.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">

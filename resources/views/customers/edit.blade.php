@@ -39,7 +39,7 @@
             </div>
         </div>
     </form>
-    <form id="form_delete_photo" action="#" method="POST" class="d-none">
+    <form id="form_delete_photo" action="#" method="POST" class="d-none" enctype="multipart/form-data">
         @csrf
         @method('DELETE')
     </form>

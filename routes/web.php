@@ -81,6 +81,9 @@ Route::post('cart', [CartController::class, 'store'])->name('cart.store');
 // Limpar carrinho
 Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 
+Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
+ ->name('users.foto.destroy');
+
 // Carrinho
 //Route::resource('cart', CartController::class);
 
