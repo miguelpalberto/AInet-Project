@@ -107,12 +107,12 @@ class OrderController extends Controller
 
         $user = Auth::user();
         $orders = null;
-        $tipo = 'O'; // Valor padrão para tipo "Outro"
+     
 
         if ($user && $user->user_type === 'C') {
             $customer = $user->customer;
             $orders = $customer ? $customer->orders : null;
-            $tipo = 'cliente';
+           
         }
         return view('orders.minhas', compact('orders', 'tipo'));
     }
