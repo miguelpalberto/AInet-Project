@@ -1,56 +1,51 @@
-    <!--Tabela:-->
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>URL Imagem</th>
-                <th>Info Extra</th>
-                @if ($showAddCart ?? false)
-                    <th class="button-icon-col">Carrinho</th>
-                @endif
-                @if ($showRemoveCart ?? false)
-                    <th class="button-icon-col"></th>
-                @endif
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($tshirtImages as $tshirtImage)
+            @foreach($cart as $orderItem)
                 <tr>
-                    <td>{{ $tshirtImage->id }}</td>
-                    <td>{{ $tshirtImage->name }}</td>
-                    <td>{{ $tshirtImage->description }}</td>
-                    <td>{{ $tshirtImage->image_url }}</td>
-                    <td>{{ $tshirtImage->extra_info }}</td>
+                    <td>
+                        <img src="{{ $orderItem->tshirtImage->fullImageUrl }}" alt="{{ $orderItem->tshirtImage->name }}" width="50">
+                    </td>
+                    <td>{{ $orderItem->tshirtImage->name }}</td>
+                    <td>{{ $orderItem->color_code }}</td>
+                    <td>{{ $orderItem->size }}</td>
+                    <td>{{ $orderItem->qty }}</td>
+                    {{-- TODO --}}
+                    {{-- <td>{{ $orderItem->getUnitPrice($price) }}</td>
 
-                    <!-- Botão adicionar ao carrinho -->
-                    @if ($showAddCart ?? false)
-                        <td class="button-icon-col">
-                            <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
-                                @csrf
-                                <button type="submit" name="addToCart" class="btn btn-success">
-                                    <i class="fas fa-plus"></i></button>
-                            </form>
-                        </td>
-                    @endif
+                    <td>{{ $orderItem->calculateSubTotal($price) }}</td> --}}
+                    @php
 
-                    <!-- Botão remover do carrinho -->
-                    @if ($showRemoveCart ?? false)
-                        <td class="button-icon-col">
-                            <form method="POST" action="{{ route('cart.remove', ['tshirtImage' => $tshirtImage]) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" name="removeFromCart" class="btn btn-danger">
-                                    <i class="fas fa-remove"></i></button>
-                            </form>
-                        </td>
-                    @endif
+                    $price
 
-
-
+                        //TODO contas
+                    @endphp
+                    <td>
+                        <form action="{{ route('cart.remove', ['index' => $orderItem->index]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <div class="text-right">
+        {{-- <p>Total Price: {{ $totalPrice }}</p> --}}
+    </div>
+
+

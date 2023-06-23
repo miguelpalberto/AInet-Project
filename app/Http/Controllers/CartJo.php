@@ -22,7 +22,7 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-public function addToCart(AddToCartRequest $request, TshirtImage $tshirtImage): RedirectResponse
+public function addToCart(CartRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
         try {
             $formData = $request->validated();

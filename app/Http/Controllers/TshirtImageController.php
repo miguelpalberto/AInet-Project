@@ -232,19 +232,17 @@ class TshirtImageController extends Controller
             ->with('alert-type', $alertType);
     }
 
-    //funcao createorder(tshirt)
-    //colocar cor tamanho e qty - request
-    public function createOrderItem(TshirtImage $tshirtImage): View //OrderItemRequest $request,
+    //Mostrar View Comprar Tshirt (adicionar cor, tamanho e quantidade)
+    public function createOrderItem(TshirtImage $tshirtImage): View
     {
         $orderItem = new OrderItem();
         $colors = Color::all();
         $price = Price::first();
-
-        $sizes = ['XS', 'S', 'M', 'L', 'XL'];
-
+        //$sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
 
-        return view('tshirtImages/createOrderItem', compact('colors', 'price', 'sizes', 'tshirtImage', 'orderItem'));
+
+        return view('tshirtImages/createOrderItem', compact('colors', 'price', 'tshirtImage', 'orderItem'));
     }
 
 
