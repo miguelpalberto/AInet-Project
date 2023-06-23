@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
 });
 
 Route::resource('tshirtImages', TshirtImageController::class);
+Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
 Route::resource('orders', OrderController::class);
 Route::resource('order_items', OrderItemController::class);
 
@@ -85,7 +86,6 @@ Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
     ->name('users.foto.destroy');
 
-Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
 
 // Carrinho
 //Route::resource('cart', CartController::class);
