@@ -50,7 +50,7 @@ class UserRequest extends FormRequest
             'email.max' =>      'O email tem de ter no máximo 255 caracteres',
             'user_type.required' => 'O tipo de utilizador é obrigatório',
             'user_type.in' => 'O tipo de utilizador tem de ser Funcionário(E) ou Administrador(A)',
-            'photo_url.imagem' => 'O ficheiro com a foto nao é uma imagem',
+            'photo_url.image' => 'O ficheiro com a foto nao é uma imagem',
             'photo_url.size' => 'O tamanho do ficheiro com a foto tem que ser inferior a 4 Mb',
 
             'password_inicial.required' => 'A password inicial é obrigatória',
