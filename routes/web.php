@@ -12,8 +12,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-
-
+use App\Models\TshirtImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,16 +39,18 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function () { //Auth
 
-Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
-Route::resource('customers', CustomerController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('colors', ColorController::class);
-Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
+    Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
+    Route::resource('customers', CustomerController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('colors', ColorController::class);
+    Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
 });
 
 Route::resource('tshirtImages', TshirtImageController::class);
 Route::resource('orders', OrderController::class);
-Route::resource('order_items', OrderItemController::class);
+//Route::resource('orderItems', OrderItemController::class);
+//Route::get('orderItems/create', [OrderItemController::class, 'create'])->name('orderItems.create');
+Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 
 
 //Route::view('teste', 'template.layout');

@@ -1,4 +1,4 @@
-@extends('template.layout')
+
 
 @section('titulo', 'Comprar T-Shirt')
 
@@ -16,7 +16,7 @@
     <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
         <div class="flex-grow-1 pe-2">
             @include('order_items.shared.fields', [
-                //'order_item' => $customer->user,
+                //'orderItem' => $orderItem,
                 'readonlyData' => false,
             ])
 
@@ -26,7 +26,10 @@
                 <form method="POST" action="{{ route('cart.add', ['orderItem' => $orderItem]) }}">
                     @csrf
                     <button type="submit" name="addToCart" class="btn btn-success ms-3">
-                        <i class="fas fa-plus"></i> Adicionar ao Carrinho</button>
+                        <i class="fas fa-plus"></i> Adicionar ao Carrinho
+                    </button>
+
+
                 </form>
             </td>
             <a href="{{ route('tshirtImages.index') }}" class="btn btn-secondary ms-3">Cancelar</a>

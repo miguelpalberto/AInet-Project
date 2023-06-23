@@ -102,6 +102,7 @@
         @endforeach
     </tbody>
 </table>
+
 <div>
     {{ $orders->withQueryString()->links() }}
 </div>
