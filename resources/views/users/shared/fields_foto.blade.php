@@ -2,7 +2,7 @@
 
 @if ($allowUpload)
 <div class="mb-3 pt-3">
-    <input type="file" class="form-control" id="inputFileFoto" @error('photo_url') is-invalid @enderror" name="photo_url">
+    <input type="file" class="form-control" id="inputFileFoto" @error('file_photo') is-invalid @enderror" name="file_photo">
 
     @error('photo_url')
 
