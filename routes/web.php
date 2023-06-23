@@ -12,8 +12,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-
-
+use App\Models\TshirtImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//Route::view('teste', 'template.layout');
 Route::view('/', 'home')->name('root');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes(['verify' => true]);
@@ -44,15 +43,17 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
     Route::resource('customers', CustomerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('colors', ColorController::class);
-    Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']); //TODO rota apenas de editar e ver?
+    Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
+
 });
 
 Route::resource('tshirtImages', TshirtImageController::class);
 Route::resource('orders', OrderController::class);
-Route::resource('order_items', OrderItemController::class);
+Route::resource('orderItems', OrderItemController::class)->only(['create', 'destroy']);
+//Route::get('orderItems/create', [OrderItemController::class, 'create'])->name('orderItems.create');
+Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 
 
-//Route::view('teste', 'template.layout');
 
 //TODO: Minhas Encomendas
 // Route::get('disciplinas/minhas', [DisciplinaController::class, 'minhasDisciplinas'])
@@ -71,8 +72,8 @@ Route::patch('/users/{user}/blocked', [UserController::class, 'changeBlocked'])-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Adicionar img tshirt ao carrinho
-//Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('cart/{tshirtImage}', [CartController::class, 'addToCart'])->name('cart.add');
+//Route::post('cart/{orderItem}', [CartController::class, 'addToCart'])->name('cart.add');
 // Remover img tshirt ao carrinho
 Route::delete('cart/{orderItem}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 // Mostrar carrinho

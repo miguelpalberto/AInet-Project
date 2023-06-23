@@ -48,7 +48,6 @@
     </div>
 </form>
 
-
 @include('orders.shared.table', [
         'orders' => $orders,
         'showOrder' => true,
@@ -56,6 +55,7 @@
         'showEdit' => true,
         'showDelete' => true,
     ])
+
 
 <div>
     {{ $orders->withQueryString()->links() }}

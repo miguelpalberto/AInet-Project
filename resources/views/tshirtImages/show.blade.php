@@ -17,19 +17,26 @@
     </div>
     <div class="my-4 d-flex justify-content-end">
         <!-- Botão adicionar ao carrinho -->
-        <td class="button-icon-col">
-            <a class="btn btn-success" href="{{ route('order_items.create') }}"><i class="fas fa-plus"></i>
+        {{-- apagar --}}
+        {{-- <td class="button-icon-col">
+            <a class="btn btn-success" href="{{ route('orderItems.create', ['tshirtImage' => $tshirtImage]) }}"><i class="fas fa-plus"></i>
                 &nbsp;
                 Comprar Tshirt com esta Imagem</a>
-        </td>
-        {{-- <!-- Botão adicionar ao carrinho -->
-        <td class="button-icon-col">
-            <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
+        </td> --}}
+        <!-- Botão adicionar ao carrinho -->
+
+        {{-- <td class="button-icon-col">
+            <form method="POST" action="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
                 @csrf
                 <button type="submit" name="addToCart" class="btn btn-success ms-3">
                     <i class="fas fa-plus"></i> Adicionar ao Carrinho</button>
             </form>
         </td> --}}
+        <td class="button-icon-col">
+            <a class="btn btn-success"
+            href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
+            <i class="fas fa-plus"></i> Adicionar ao Carrinho</a>
+        </td>
         <form method="POST" action="{{ route('tshirtImages.destroy', ['tshirtImage' => $tshirtImage]) }}">
             @csrf
             @method('DELETE')

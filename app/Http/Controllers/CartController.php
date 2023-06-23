@@ -19,8 +19,9 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
+    //TODO cartRequest
     // Adicionar item ao carrinho
-    public function addToCart(Request $request, OrderItem $orderItem): RedirectResponse
+    public function addToCart(Request $request, TshirtImage $tshirtImage): RedirectResponse
     {
         try {
             $userType = $request->user()->user_type ?? 'O';

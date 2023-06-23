@@ -33,8 +33,8 @@ class TshirtImage extends Model
     {
         return Attribute::make(
             get: function () {
-                return $this->image_url ? asset('storage/tshirt_base/' . $this->image_url) :
-                    asset('/img/avatar_unknown.png');
+                return $this->image_url ? asset('storage/tshirt_images/' . $this->image_url) :
+                    asset('/img/plain_white.png');
             },
         );
     }
