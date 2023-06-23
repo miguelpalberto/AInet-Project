@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Color;
 use App\Models\Order;
+use App\Models\Price;
 use App\Models\Category;
+use App\Models\OrderItem;
 use Illuminate\View\View;
 use App\Models\TshirtImage;
 use Illuminate\Http\Request;
@@ -12,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TshirtImageRequest;
+use App\Http\Requests\OrderItemRequest;
 
 class TshirtImageController extends Controller
 {
@@ -227,4 +231,22 @@ class TshirtImageController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }
+
+    //funcao createorder(tshirt)
+    //colocar cor tamanho e qty - request
+    public function createOrderItem(TshirtImage $tshirtImage): View //OrderItemRequest $request,
+    {
+        $orderItem = new OrderItem();
+        $colors = Color::all();
+        $price = Price::first();
+
+        $sizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+
+
+        return view('tshirtImages/createOrderItem', compact('colors', 'price', 'sizes', 'tshirtImage', 'orderItem'));
+    }
+
+
+
 }
