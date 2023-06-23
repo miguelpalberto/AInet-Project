@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\TshirtPreviewController;
 use App\Models\TshirtImage;
 
 /*
@@ -90,3 +91,6 @@ Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
 
 // Carrinho
 //Route::resource('cart', CartController::class);
+
+
+Route::get('/tshirt/preview', [TshirtPreviewController::class, 'createPreview']);
