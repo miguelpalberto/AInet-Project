@@ -77,4 +77,9 @@ class TshirtImagePolicy
     {
         return false;
     }
+
+    public function createOrderItem(User $user, TshirtImage $tshirtImage): bool
+    {
+        return true;
+    }
 }
