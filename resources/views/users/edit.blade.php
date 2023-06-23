@@ -13,7 +13,7 @@
 
 @section('main')
     <form id="form_user" novalidate class="needs-validation" method="POST"
-        action="{{ route('users.update', ['user' => $user]) }}">
+        action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ $user->id }}">
