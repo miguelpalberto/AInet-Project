@@ -2,6 +2,7 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
+                <th>IMG</th>
                 <th>ID</th>
                 <th>ID Cliente</th>
                 <th>ID Categoria</th>
@@ -19,7 +20,8 @@
 
 
 
-            @foreach ($tshirtImages as $tshirtImage)
+
+            {{-- @foreach ($tshirtImages as $tshirtImage)
                 @if ($showFoto)
                     <td width="45">
                         @if ($tshirtImage->image_url)
@@ -27,9 +29,18 @@
                                 width="45" height="45">
                         @endif
                 @endif
-                </td>
+                </td>--}}
+
+            @if ($showFoto)
+            <td width="45">
+                @if ($tshirtImage->image_url)
+                <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
+                @endif  
+            </td>
+            @endif 
 
                 <tr>
+                    <td></td>
                     <td>{{ $tshirtImage->id }}</td>
                     <td>{{ $tshirtImage->customer_id }}</td>
                     <td>{{ $tshirtImage->category->name }}</td>

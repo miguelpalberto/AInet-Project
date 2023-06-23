@@ -189,7 +189,9 @@
 
                         <!-- TODO  -->
                         <div class="sb-sidenav-menu-heading">Espaço Privado</div>
-                        <a class="nav-link" href="#">
+                       <!-- METER A ROTA A SEGUIR!!  -->
+                       <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}"
+                            href="{{ route('orders.minhas') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
                             Minhas Encomendas
                         </a>
