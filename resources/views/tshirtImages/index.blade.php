@@ -61,13 +61,13 @@
     </form>
 
     @include('tshirtImages.shared.table', [
-        'tshirtImages' => $tshirtImages,
+        //'tshirtImages' => $tshirtImages,
         'showFoto' => true,
         // 'showContatos' => true,
         // 'showDetail' => true,
         // 'showEdit' => true,
         // 'showDelete' => true,
-        //'showAddCart' => true,
+        'showCart' => false,
     ])
 
 

@@ -13,12 +13,13 @@
 
     @if ($cart && count($cart) > 0)
         @include('cart.shared.table', [
-            'tshirtImages' => $cart,
-            'showAddCart' => false,
-            'showRemoveCart' => true,
+            'cart' => $cart,
+            'showCart' => true,
+            'showFoto' => true,
+            //'prices' => $prices,
         ])
         <div class="my-4 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="ok" form="formStore"> Confirmar Compras</button>
+            <button type="submit" class="btn btn-success" name="ok" form="formStore"><i class="fas fa-credit-card"></i> Confirmar Compras</button>
             <button type="submit" class="btn btn-danger ms-3" name="clear" form="formClear"> Limpar Carrinho</button>
         </div>
         <form id="formStore" method="POST" action="{{ route('cart.store') }}" class="d-none">
@@ -33,4 +34,5 @@
                 <p><strong>O carrinho está vazio.</strong></p>
             </div>
     @endif
+    @dump($cart)
 @endsection

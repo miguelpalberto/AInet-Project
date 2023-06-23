@@ -6,6 +6,7 @@ use App\Models\Color;
 use App\Models\Order;
 use App\Models\TshirtImage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,4 +34,15 @@ class OrderItem extends Model
         //FK, PK
         return $this->belongsTo(TshirtImage::class, 'tshirt_image_id', 'id');
     }
+
+    protected function index(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $index = $this->tshirt_image_id . '_' . $this->color_code . '_' . $this->size;
+            },
+        );
+    }
+
+
 }

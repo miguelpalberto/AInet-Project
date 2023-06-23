@@ -14,6 +14,7 @@
 @section('main')
     <form method="POST" action="{{ route('cart.add', ['tshirtImage' => $tshirtImage]) }}">
         @csrf
+        <input type="hidden" name="id" value="{{ $tshirtImage->id }}">
         @include('order_items.shared.fields', [
             //'orderItem' => $orderItem,
             'readonlyData' => false,

@@ -3,10 +3,10 @@
 @endphp
 
 
-<div class="mb-3 form-floating ms-2">
+{{-- <div class="mb-3 form-floating ms-2">
     <span class="form-control-plaintext">{{ $tshirtImage->id }}</span>
     <label for="inputImageId" class="form-label">ID Imagem</label>
-</div>
+</div> --}}
 <div class="mb-3 form-floating ms-2">
     <span class="form-control-plaintext">{{ $tshirtImage->name }}</span>
     <label for="inputImageId" class="form-label">Nome Imagem</label>
@@ -29,7 +29,6 @@
     @enderror
 </div>
 
-
 <div class="mb-3 form-floating ms-2">
     <select class="form-select @error('color') is-invalid @enderror" name="color" id="inputColor"
         {{ $disabledStr }}>
@@ -49,7 +48,7 @@
 
 
 <div class="mb-3 form-floating ms-2">
-    <input type="number" class="form-control" name="qty" id="inputQty" value="{{ old('qty', $orderItem->qty) ?? 1 }}" min="1" step="1">{{-- //TODO required --}}
+    <input type="number" class="form-control" name="qty" id="inputQty" value="{{ old('qty', $orderItem->qty) ?? 1 }}" min="1" step="1" required>
     <label for="inputQty" class="form-label">Quantidade</label>
     @error('qty')
         <div class="invalid-feedback">
