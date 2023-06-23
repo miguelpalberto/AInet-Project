@@ -23,12 +23,12 @@
                     <td>{{ $orderItem->size }}</td>
                     <td>{{ $orderItem->qty }}</td>
                     {{-- TODO --}}
-                    {{-- <td>{{ $orderItem->getUnitPrice($prices) }}</td>
+                    {{-- <td>{{ $orderItem->getUnitPrice($price) }}</td>
 
-                    <td>{{ $orderItem->calculateSubTotal($prices) }}</td> --}}
+                    <td>{{ $orderItem->calculateSubTotal($price) }}</td> --}}
                     @php
 
-                    $prices
+                    $price
 
                         //TODO contas
                     @endphp

@@ -31,7 +31,7 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
 
             $cart = session('cart', []);
             $orderItem = new OrderItem();
-            $orderItem->id = null; //precisa de ter um id para ser considerado como parametro de uma rota
+            $orderItem->id = null; //precisa de id para ser parametro de rota
             $orderItem->color_code = $formData['color'];
             $orderItem->size = $formData['size'];
             $orderItem->qty = $formData['qty'];
@@ -40,8 +40,7 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
             //dd($orderItem);
             //dd($tshirtImage);
 
-            //$index = $tshirtImage->id . '#' . $orderItem->color_code . '#' . $orderItem->size;
-            $index = $orderItem->index;
+            $index = $orderItem->index;//Index é definido no model OrderItem
 
             if (array_key_exists($index, $cart)) {
                 $cart[$index]->qty += $orderItem->qty;

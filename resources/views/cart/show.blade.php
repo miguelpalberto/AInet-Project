@@ -16,7 +16,7 @@
             'cart' => $cart,
             'showCart' => true,
             'showFoto' => true,
-            //'prices' => $prices,
+            'price' => $price,
         ])
         <div class="my-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-success" name="ok" form="formStore"><i class="fas fa-credit-card"></i> Confirmar Compras</button>
@@ -34,5 +34,5 @@
                 <p><strong>O carrinho está vazio.</strong></p>
             </div>
     @endif
-    @dump($cart)
+    {{-- @dump($cart) --}}
 @endsection
