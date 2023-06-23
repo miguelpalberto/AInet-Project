@@ -40,11 +40,11 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function () { //Auth
 
-Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
-Route::resource('customers', CustomerController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('colors', ColorController::class);
-Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
+    Route::resource('users', UserController::class); //igual às 7 rotas acima (7 em 1)
+    Route::resource('customers', CustomerController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('colors', ColorController::class);
+    Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']); //TODO rota apenas de editar e ver?
 });
 
 Route::resource('tshirtImages', TshirtImageController::class);
@@ -60,9 +60,9 @@ Route::resource('order_items', OrderItemController::class);
 // ->middleware('verified');
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])
-->name('password.change.show');
+    ->name('password.change.show');
 Route::post('/password/change', [ChangePasswordController::class, 'store'])
-->name('password.change.store');
+    ->name('password.change.store');
 
 
 Route::patch('/users/{user}/blocked', [UserController::class, 'changeBlocked'])->name('usersBlock');
@@ -83,9 +83,9 @@ Route::post('cart', [CartController::class, 'store'])->name('cart.store');
 Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 
 Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
- ->name('users.foto.destroy');
+    ->name('users.foto.destroy');
+
+Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
 
 // Carrinho
 //Route::resource('cart', CartController::class);
-
-
