@@ -15,7 +15,7 @@ class OrderPolicy
     public function viewAny(User $user): bool
     {
         //
-        return $user->user_type === 'A';
+        return $user->user_type === 'A' || $user->user_type === 'E'; //TODO Funcs nao verem canceladas
     }
 
     /**
@@ -25,7 +25,7 @@ class OrderPolicy
     public function view(User $user, Order $order): bool
     {
         //
-        return $user->user_type === 'A'  || $user->id == $order->id;
+        return $user->user_type === 'A'  || $user->id == $order->id || ($user->user_type === 'E'  && $order->status !== 'canceled');
     }
 
     /**
@@ -43,7 +43,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order): bool
     {
-        return $user->user_type === 'A';
+        return $user->user_type === 'A' || $user->user_type === 'E';//TODO Funcs
     }
 
     /**
@@ -51,7 +51,7 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order): bool
     {
-        return $user->user_type === 'A';
+        return false;
     }
 
     /**
@@ -59,7 +59,6 @@ class OrderPolicy
      */
     public function restore(User $user, Order $order): bool
     {
-        //return $user->user_type === 'A';
         return false;
     }
 

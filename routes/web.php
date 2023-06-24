@@ -49,18 +49,15 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
 });
 
 Route::resource('tshirtImages', TshirtImageController::class);
+
+Route::resource('orders', OrderController::class)->except(['create', 'store']);
+
 Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
-Route::resource('orders', OrderController::class);
+
 Route::resource('orderItems', OrderItemController::class)->only(['create', 'destroy']);
-//Route::get('orderItems/create', [OrderItemController::class, 'create'])->name('orderItems.create');
 Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 
 
-
-//TODO: Minhas Encomendas
-// Route::get('disciplinas/minhas', [DisciplinaController::class, 'minhasDisciplinas'])
-// ->name('disciplinas.minhas')
-// ->middleware('verified');
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])
     ->name('password.change.show');
@@ -89,9 +86,11 @@ Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
     ->name('users.foto.destroy');
 
 
+
 // Carrinho
 //Route::resource('cart', CartController::class);
 
 
 // Route::get('/tshirt/preview', [TshirtPreviewController::class, 'createPreview']);
 Route::get('/preview', [TshirtPreviewController::class, 'createPreview'])->name('preview.create');
+

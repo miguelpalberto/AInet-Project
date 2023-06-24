@@ -47,25 +47,25 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
-    {
-        $order = new Order();
-        return view('orders.create', compact('order'));
-    }
+    // public function create(): View
+    // {
+    //     $order = new Order();
+    //     return view('orders.create', compact('order'));
+    // }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(OrderRequest $request): RedirectResponse
-    {
-        $newOrder = Order::create($request->validated());
-        $newOrder->status = 'pending';
-        $url = route('orders.show', ['order' => $newOrder]);
-        $htmlMessage = "Order <a href='$url'>#{$newOrder->id}</a> foi criada com sucesso!";
-        return redirect()->route('orders.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', 'success');
-    }
+    // public function store(OrderRequest $request): RedirectResponse
+    // {
+    //     $newOrder = Order::create($request->validated());
+    //     $newOrder->status = 'pending';
+    //     $url = route('orders.show', ['order' => $newOrder]);
+    //     $htmlMessage = "Order <a href='$url'>#{$newOrder->id}</a> foi criada com sucesso!";
+    //     return redirect()->route('orders.index')
+    //         ->with('alert-msg', $htmlMessage)
+    //         ->with('alert-type', 'success');
+    // }
 
     /**
      * Display the specified resource.
@@ -106,6 +106,7 @@ class OrderController extends Controller
     {
 
         $user = Auth::user();
+
         $orderQuery = Order::query();
 
         $orders = $orderQuery->where('customer_id', '=', $user->id)->orderBy('orders.date', 'DESC')->paginate(10);
@@ -113,25 +114,25 @@ class OrderController extends Controller
         return view('orders.minhas', compact('orders'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order): RedirectResponse
-    {
-        $this->authorize('userActive');//auth
-        
-        try {
-            $order->delete();
-            $htmlMessage = "Order #{$order->id}foi apagada com sucesso!";
-            $alertType = 'success';
-        } catch (\Exception $error) {
-            $url = route('orders.show', ['order' => $order]);
-            $htmlMessage = "Não foi possível apagar a Order <a href='$url'>#{$order->id}</a> porque ocorreu um erro!";
-            $alertType = 'danger';
-        }
-        return redirect()->route('orders.index')
-            ->with('alert-msg', $htmlMessage)
-            ->with('alert-type', $alertType);
-    }
+
+    // public function destroy(Order $order): RedirectResponse
+    // {
+    //     $this->authorize('userActive');//auth
+
+    //     try {
+    //         $order->delete();
+    //         // $order->status = 'canceled';
+    //         // $order->save();
+    //         $htmlMessage = "Order #{$order->id} foi cancelada com sucesso!";
+    //         $alertType = 'success';
+    //     } catch (\Exception $error) {
+    //         $url = route('orders.show', ['order' => $order]);
+    //         $htmlMessage = "Não foi possível cancelar a Order <a href='$url'>#{$order->id}</a> porque ocorreu um erro!";
+    //         $alertType = 'danger';
+    //     }
+    //     return redirect()->route('orders.index')
+    //         ->with('alert-msg', $htmlMessage)
+    //         ->with('alert-type', $alertType);
+    // }
 }
 

@@ -14,7 +14,7 @@
             <th>Recibo</th>
             <th class="button-icon-col"></th>
             <th class="button-icon-col"></th>
-            <th class="button-icon-col"></th>
+            {{-- <th class="button-icon-col"></th> --}}
         </tr>
     </thead>
     <tbody>
@@ -37,14 +37,14 @@
                     <i class="fas fa-eye"></i></a></td>
             <td class="button-icon-col"><a class="btn btn-dark" href="{{ route('orders.edit', ['order' => $order]) }}">
                     <i class="fas fa-edit"></i></a></td>
-            <td class="button-icon-col">
+            {{-- <td class="button-icon-col">
                 <form method="POST" action="{{ route('orders.destroy', ['order' => $order]) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" name="delete" class="btn btn-danger">
                         <i class="fas fa-trash"></i></button>
                 </form>
-            </td>
+            </td> --}}
         </tr>
         @endforeach
     </tbody>

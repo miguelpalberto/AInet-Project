@@ -99,7 +99,7 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
         if (!Auth::check()) {//Auth
             return redirect()->route('login')
                 ->with('cart', $cart)
-                ->with('alert-msg', "Precisa de fazer login para finalizar a compra!")
+                ->with('alert-msg', "É necessário fazer login para concluir a encomenda!")
                 ->with('alert-type', 'danger');
         }
 
@@ -165,7 +165,7 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
         } catch (\Exception $error) {
 
             $htmlMessage = "Não foi possível criar encomenda, porque ocorreu um erro!";
-            $htmlMessage = "$error Não foi possível criar encomenda, porque ocorreu um erro!";//TODO comentar esta linha
+            //$htmlMessage = "$error Não foi possível criar encomenda, porque ocorreu um erro!";
             $alertType = 'danger';
         }
 
