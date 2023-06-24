@@ -41,8 +41,8 @@ class UserPolicy
      */
     public function update(User $user, User $userClasse): bool
     {
-        return ($user->id == $userClasse->id) ||
-            ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser cliente
+        //return true;
+        return ($user->id == $userClasse->id) || ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser os do cliente
     }
 
     /**
@@ -50,7 +50,7 @@ class UserPolicy
      */
     public function delete(User $user, User $userClasse): bool
     {
-        return $user->user_type === 'A';
+        return $user->user_type === 'A' && $user->id != $userClasse->id;
     }
 
     /**
@@ -82,6 +82,7 @@ class UserPolicy
     public function destroy_foto(User $user, User $userClasse): bool
     {
         return ($user->id == $userClasse->id) ||
-        ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser cliente
+            ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser cliente
     }
+
 }

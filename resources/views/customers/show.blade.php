@@ -19,6 +19,7 @@
                 @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => true])
                 <div class="my-1 d-flex justify-content-end">
 
+                    @can('delete', \App\Models\Customer::class)
                     <form method="POST" action="{{ route('customers.destroy', ['customer' => $customer]) }}">
                         @csrf
                         @method('DELETE')
@@ -26,6 +27,8 @@
                             Apagar Cliente
                         </button>
                     </form>
+                    @endcan
+
                     <a href="{{ route('customers.edit', ['customer' => $customer]) }}" class="btn btn-secondary ms-3">
                         Alterar Dados
                     </a>

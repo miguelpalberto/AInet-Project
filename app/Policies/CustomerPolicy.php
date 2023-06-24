@@ -49,7 +49,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Customer $customer): bool
+    public function delete(User $user): bool
     {
         return $user->user_type === 'A';
     }
