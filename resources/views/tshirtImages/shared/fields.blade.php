@@ -82,7 +82,8 @@
     <div class="col-md-6">
         <div class="mb-3">
             <h3>Preview da T-Shirt</h3>
-            <img id="previewImage" src="{{ url(route('preview.update', ['color' => '00a2f2' .'.jpg', 'image_url' => $tshirtImage->image_url])) }}">
+            <img src="{{ asset('storage/tshirt_images/'.$tshirtImage->image_url) }}" alt="Desenho para T-Shirt" style="max-width: 40%">
+
         </div>
     </div>
 
