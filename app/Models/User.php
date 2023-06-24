@@ -55,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-    // VER COM O PROF
+   
 
     protected function fullPhotoUrl(): Attribute
     {

@@ -115,6 +115,8 @@ class CustomerController extends Controller
     //  */
     public function update(CustomerRequest $request, Customer $customer): RedirectResponse
     {
+        //$this->authorize('edit', $customer);//auth
+
         $formData = $request->validated();
         $customer = DB::transaction(function () use ($formData, $customer) {
             $customer->nif = $formData['nif'];
@@ -136,7 +138,7 @@ class CustomerController extends Controller
         $url = route('customers.show', ['customer' => $customer]);
         $htmlMessage = "Cliente <a href='$url'>#{$customer->id}</a>
                         <strong>\"{$customer->user->name}\"</strong> foi alterado com sucesso!";
-        return redirect()->route('customers.index')
+        return redirect()->route('customers.show', ['customer' => $customer])
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
