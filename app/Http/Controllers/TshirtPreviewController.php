@@ -9,19 +9,23 @@ use Illuminate\Http\Request;
 
 class TshirtPreviewController extends Controller
 {
-    public function createPreview(Request $request, TshirtImage $url)
+    public function createPreview(Request $request)
     {
-        // $colorCode = $request->input('color');
-        // $image_url = $request->input('image_url');
+        // dd('Controller called');
+        $colorCode = $request->input('color');
+        $image_url = $request->input('image_url');
+        // dd($colorCode, $image_url);
 
         // Caminhos para as imagens
-        // $tshirtEmptyPath = public_path('storage/tshirt_base/'.$colorCode.'.jpg');
-        // $tshirtDesignPath = public_path('storage/tshirt_images/'.$image_url.'');
-        // $previewPath = public_path('tshirt_preview.png');
+        $tshirtEmptyPath = public_path('storage/tshirt_base/'.$colorCode.'');
+        $tshirtDesignPath = public_path('storage/tshirt_images/'.$image_url.'');
+        $previewPath = public_path('tshirt_preview.png');
+        
+        // $tshirtEmptyPath = public_path('storage/tshirt_base/1e1e21.jpg');
+        // $tshirtDesignPath = public_path('storage/tshirt_images/1_6477be5abb99f.png');
+        // $previewPath = public_path('storage/tshirt_preview.png');
+        // dd($tshirtEmptyPath, $tshirtDesignPath);
 
-        $tshirtEmptyPath = public_path('storage/tshirt_base/1e1e21.jpg');
-        $tshirtDesignPath = public_path('storage/tshirt_images/2_6477be5abd2a3.png');
-        $previewPath = public_path('storage/tshirt_preview.png');
 
         // Carregar imagens
         $tshirtEmpty = Image::make($tshirtEmptyPath);
@@ -51,6 +55,6 @@ class TshirtPreviewController extends Controller
         return response($imageData)
             ->header('Content-Type', 'image/png')
             ->header('Content-Disposition', 'inline');
-
         }
+
 }
