@@ -52,8 +52,8 @@ Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController:
 Route::resource('tshirtImages', TshirtImageController::class);
 
 
-Route::patch('/orders/{order}/status', [OrderController::class, 'markAsClosed'])->name('ordersClosed');
-Route::patch('/orders/{order}/status', [OrderController::class, 'markAsPaid'])->name('ordersPaid');
+Route::patch('/orders/{order}/mark-as-closed', [OrderController::class, 'markAsClosed'])->name('ordersClosed');
+Route::patch('/orders/{order}/mark-as-paid', [OrderController::class, 'markAsPaid'])->name('ordersPaid');
 
 
 Route::get('orders/minhasFunc', [OrderController::class, 'minhasOrdersFuncionario'])->name('orders.minhasFunc');
