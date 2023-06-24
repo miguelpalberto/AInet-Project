@@ -29,17 +29,20 @@
                     <td>{{ $orderItem->color_code }}</td>
                     <td>{{ $orderItem->size }}</td>
                     <td>{{ $orderItem->qty }}</td>
-                    {{-- TODO --}}
-                    {{-- <td>{{ $orderItem->getUnitPrice($price) }}</td>
-
-                    <td>{{ $orderItem->calculateSubTotal($price) }}</td> --}}
                     @php
+                        $total = 0;
 
-                        $price;
-
-                        //TODO contas
-
+                        if ($orderItem->tshirtImage->customer_id == null) {
+                            $orderItem->unit_price = $price->unit_price_catalog;
+                        } else {
+                            $orderItem->unit_price = $price->unit_price_own;
+                        }
+                        $orderItem->sub_total = $orderItem->unit_price * $orderItem->qty;
+                        $total += $orderItem->sub_total;
                     @endphp
+                    <td>{{ $orderItem->unit_price }} €</td>
+                    <td>{{ $orderItem->sub_total }} €</td>
+
                     <td>
                         <form action="{{ route('cart.remove', ['index' => $orderItem->index]) }}" method="POST">
                             @csrf
@@ -49,12 +52,21 @@
                     </td>
                 </tr>
             @endforeach
+
         </div>
 
     </tbody>
 </table>
-
-
-<div class="text-right">
-    {{-- <p>Total Price: {{ $totalPrice }}</p> --}}
+<div style="text-align: right;">
+    <table>
+        <tr>
+            @php
+                $totalPrice = 0;
+                foreach ($cart as $orderItem) {
+                    $totalPrice += $orderItem->sub_total;
+                }
+            @endphp
+            <strong style="text-align: right; font-size: 24px;"> Total: {{ $totalPrice }} €</strong>
+        </tr>
+    </table>
 </div>
