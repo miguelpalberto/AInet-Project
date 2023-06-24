@@ -50,6 +50,9 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
 Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 Route::resource('tshirtImages', TshirtImageController::class);
 
+
+
+Route::get('orders/minhasFunc', [OrderController::class, 'minhasOrdersFuncionario'])->name('orders.minhasFunc');
 Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
 Route::resource('orders', OrderController::class)->except(['create', 'store']);
 

@@ -44,9 +44,9 @@
         <!-- Navbar-->
         <ul class="navbar-nav me-1 me-lg-3">
             <li class="nav-item dropdown">
-                
-            
-                
+
+
+
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
                 </a>
@@ -119,15 +119,15 @@
 
 
 
-      
 
-                        
+
+
 
                         <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}" href="{{ route('cart.show') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
                         </a>
 
-                   @can('viewAny', \App\Models\Customer::class)<!--Auth-->
+                        @can('viewAny', \App\Models\Customer::class)<!--Auth-->
                         <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
                         <nav class="sb-sidenav-menu-nested nav">
@@ -152,12 +152,27 @@
                         @can('viewAny', \App\Models\Order::class)<!--Auth-->
                         <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
 
+
+                        @auth
+                        @if (auth()->user()->user_type === 'E')
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link {{ Route::currentRouteName() == 'orders.minhasFunc' ? 'active' : '' }}" href="{{ route('orders.minhasFunc') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
+                                Encomendas
+                            </a>
+                        </nav>
+                        @else
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}" href="{{ route('orders.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
                                 Encomendas
                             </a>
                         </nav>
+                        @endif
+                        @endauth
+
+
+
                         @endcan
                         <nav class="sb-sidenav-menu-nested nav">
 
@@ -187,26 +202,18 @@
                         </nav>
                         @endcan
 
-                        <!-- TODO  -->
+
+
+
                         <div class="sb-sidenav-menu-heading">Espaço Privado</div>
-                       <!-- METER A ROTA A SEGUIR!!  -->
-                       <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}"
-                            href="{{ route('orders.minhas') }}">
+
+                        @auth
+                        <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}" href="{{ route('orders.minhas') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
                             Minhas Encomendas
                         </a>
+                        @endauth
 
-                        {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRecursosHumanos" aria-expanded="false" aria-controls="collapseRecursosHumanos">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                            Recursos Humanosssssss
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseRecursosHumanos" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="#">Departamentosssssss</a>
-                                <a class="nav-link" href="#">Docentesssss</a>
-                            </nav>
-                        </div> --}}
 
                     </div>
                 </div>

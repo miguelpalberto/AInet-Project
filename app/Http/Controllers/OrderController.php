@@ -115,6 +115,26 @@ class OrderController extends Controller
     }
 
 
+    public function minhasOrdersFuncionario(Request $request): View
+{
+    $user = Auth::user();
+
+    if ($user->user_type === 'E') {
+        $orderQuery = Order::query();
+
+        $orders = $orderQuery->whereIn('status', ['pending', 'paid'])
+            ->orderBy('date', 'DESC')
+            ->paginate(10);
+
+        return view('orders.minhasFunc', compact('orders'));
+    }
+
+    // Caso o usuário atual não seja um funcionário, retorne uma resposta adequada
+    abort(403, 'Acesso não autorizado.');
+}
+
+
+
     // public function destroy(Order $order): RedirectResponse
     // {
     //     $this->authorize('userActive');//auth
