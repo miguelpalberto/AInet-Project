@@ -21,7 +21,8 @@ class CartController extends Controller
     {
         $cart = session('cart', []);
         $price = Price::first();
-        return view('cart.show', compact('cart', 'price'));
+        $order = new Order();
+        return view('cart.show', compact('cart', 'price', 'order'));
     }
 
 public function addToCart(CartRequest $request, TshirtImage $tshirtImage): RedirectResponse
@@ -116,19 +117,26 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
                 $user = Auth::user();
 
                 $order = DB::transaction(function () use ($user, $formData, $prices, $cart) {
-                    $total = 0;
                     $newOrder = new Order();
                     $newOrder->status = 'pending';
                     $newOrder->customer_id = $user->id;
                     $newOrder->date = date('y-m-d');
-                    $newOrder->nif = $formData['nif'];
+                    $newOrder->notes = $formData['notes'];
+                    $newOrder->nif = $formData['nif'] ?? '';
                     $newOrder->address = $formData['address'];
                     $newOrder->payment_type = $formData['payment_type'];
                     $newOrder->payment_ref = $formData['payment_ref'];
+                    $newOrder->receipt_url = null;//TODO ver enunciado
 
+                    $total = 0;
                     foreach($cart as $orderItem){
-                        $orderItem->unit_price = $orderItem->getUnitPrice($prices);
-                        $orderItem->sub_total = $orderItem->calculateSubTotal($prices);
+                        if( $orderItem->tshirtImage->customer_id == null){
+                            $orderItem->unit_price = $prices->unit_price_catalog;
+                        }
+                        else{
+                            $orderItem->unit_price = $prices->unit_price_own;
+                        }
+                        $orderItem->sub_total = $orderItem->unit_price * $orderItem->qty;
                         $total += $orderItem->sub_total;
                     }
 
@@ -138,28 +146,26 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
                     foreach($cart as $orderItem){
 
                         $orderItem->order_id = $newOrder->id;
-                        //não encontramos outra solução para remover a referência da tshirtImage sem
-                        //  interferir com a vista
-
-                        $orderItemClone = clone $orderItem;
-                        unset($orderItemClone->tshirtImage);
-                        $orderItemClone->save();
+                        //remover a referência da tshirtImage para nao interferir com a vista
+                        $orderCopia = clone $orderItem;
+                        unset($orderCopia->tshirtImage);
+                        $orderCopia->save();
                     }
 
                     return $newOrder;
                 });
 
-                $htmlMessage = "Encomenda efetuada com sucesso";
+                $htmlMessage = "A encomenda com $total itens foi criada com sucesso!";
                 $request->session()->forget('cart');
-
-                return redirect()->route('orders.payment.confirm', ['order' => $order])
+                return redirect()->route('cart.show', ['order' => $order])
                     ->with('alert-msg', $htmlMessage)
                     ->with('alert-type', 'success');
             }
 
         } catch (\Exception $error) {
 
-            $htmlMessage = "$error Não foi possível confirmar o carrinho, porque ocorreu um erro!";
+            $htmlMessage = "Não foi possível criar encomenda, porque ocorreu um erro!";
+            $htmlMessage = "$error Não foi possível criar encomenda, porque ocorreu um erro!";//TODO comentar esta linha
             $alertType = 'danger';
         }
 

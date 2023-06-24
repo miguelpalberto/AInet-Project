@@ -44,5 +44,15 @@ class OrderItem extends Model
         );
     }
 
+    protected function fullImageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->image_url ? asset('storage/tshirt_base/' . $this->color_code . '.jpg') :
+                    asset('img/plain_white.png');
+            },
+        );
+    }
+
 
 }

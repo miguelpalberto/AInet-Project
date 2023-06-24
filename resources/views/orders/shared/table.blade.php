@@ -23,7 +23,6 @@
             <td>{{ $order->id }}</td>
             <td>{{ $order->status }}</td>
             <td>{{ $order->customer_id }}</td>
-            {{-- <td>{{ $tshirtImage->categoryStr }}</td> --}}
             <td>{{ $order->date }}</td>
             <td>{{ $order->total_price }}</td>
             <td>{{ $order->notes }}</td>
