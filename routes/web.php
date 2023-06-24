@@ -101,4 +101,5 @@ Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
 
 // Route::get('/tshirt/preview', [TshirtPreviewController::class, 'createPreview']);
 Route::get('/preview', [TshirtPreviewController::class, 'createPreview'])->name('preview.create');
+Route::post('/preview/update', [TshirtPreviewController::class, 'createPreview'])->name('preview.update');
 
