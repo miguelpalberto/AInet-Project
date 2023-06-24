@@ -13,7 +13,6 @@ class UserPolicy
     /////ViewAny é para o Index (lista)
     public function viewAny(User $user): bool
     {
-        //
         return $user->user_type === 'A';
     }
 
@@ -43,7 +42,7 @@ class UserPolicy
     public function update(User $user, User $userClasse): bool
     {
         return ($user->id == $userClasse->id) ||
-                ($user->user_type === 'A' && $userClasse->user_type !== 'C');//proprio user editar dados ou admin sem ser cliente
+            ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser cliente
     }
 
     /**
@@ -79,5 +78,10 @@ class UserPolicy
         // Can change "blocked" field, if user is admin
         // but not the logged in user
         return $user->id != $userClasse->id;
+    }
+    public function destroy_foto(User $user, User $userClasse): bool
+    {
+        return ($user->id == $userClasse->id) ||
+        ($user->user_type === 'A' && $userClasse->user_type !== 'C'); //proprio user editar dados ou admin sem ser cliente
     }
 }
