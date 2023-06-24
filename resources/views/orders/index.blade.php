@@ -10,7 +10,7 @@
 @endsection
 
 @section('main')
-<p><a class="btn btn-success" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar Nova Encomenda</a></p>
+{{-- <p><a class="btn btn-success" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar Nova Encomenda</a></p> --}}
 
 <!--Filtro:-->
 
