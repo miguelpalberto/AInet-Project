@@ -13,7 +13,8 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="height: 65px;>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
+        style="height: 65px;>
         <!-- Navbar Brand-->
         <a class=" navbar-brand " href=" {{ route('home') }}">
         <img src="/img/logoimagineshirt.png" alt="Logo" class="bg-dark" width="200" height="60">
@@ -21,8 +22,8 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-3 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         @guest
-        <ul class="navbar-nav ms-auto me-1 me-lg-3">
-            @if (Route::has('login'))
+            <ul class="navbar-nav ms-auto me-1 me-lg-3">
+                 @if (Route::has('login'))
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">
                     {{ __('Login') }}
@@ -30,71 +31,77 @@
             </li>
             @endif
             @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">
-                    {{ __('Registar') }}
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">
+                        {{ __('Registar') }}
+                    </a>
+                </li>
             @endif
-        </ul>
+            </ul>
         @else
-        <div class="ms-auto me-0 me-md-2 my-2 my-md-0 navbar-text">
-            {{ Auth::user()->name }}
-        </div>
-        <!-- Navbar-->
-        <ul class="navbar-nav me-1 me-lg-3">
-            <li class="nav-item dropdown">
+            <div class="ms-auto me-0 me-md-2 my-2 my-md-0 navbar-text">
+                {{ Auth::user()->name }}
+            </div>
+            <!-- Navbar-->
+            <ul class="navbar-nav me-1 me-lg-3">
+                <li class="nav-item dropdown">
 
 
 
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
-                </a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ Auth::user()->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle"
+                            width="45" height="45">
+                    </a>
 
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-
-
-
-
-                    {{-- Auth --}}
-                    {{-- <li><a class="dropdown-item" href="#">Perfil</a></li> --}}
-                    @if ((Auth::user()->user_type ?? '') == 'A')
-                    <li><a class="dropdown-item" href="{{ route('users.show', ['user' => Auth::user()]) }}">Perfil</a></li>
-                    @elseif ((Auth::user()->user_type ?? '') == 'E')
-                    <li><a class="dropdown-item" href="{{ route('users.show', ['user' => Auth::user()]) }}">Perfil</a>
-                    </li>
-                    @elseif ((Auth::user()->user_type ?? '') == 'C')
-                    <li><a class="dropdown-item" href="{{ route('customers.show', ['customer' => Auth::user()->customer]) }}">Perfil</a>
-                    </li>
-                    @endif
-                    <li>
-                        {{-- <a class="dropdown-item" href="#">Alterar Senha</a> --}}
-                        <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
-                    </li>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
 
 
 
 
+                        {{-- Auth --}}
+                        {{-- <li><a class="dropdown-item" href="#">Perfil</a></li> --}}
+                        @if ((Auth::user()->user_type ?? '') == 'A')
+                            <li><a class="dropdown-item"
+                                    href="{{ route('users.show', ['user' => Auth::user()]) }}">Perfil</a></li>
+                        @elseif ((Auth::user()->user_type ?? '') == 'E')
+                            <li><a class="dropdown-item"
+                                    href="{{ route('users.show', ['user' => Auth::user()]) }}">Perfil</a>
+                            </li>
+                        @elseif ((Auth::user()->user_type ?? '') == 'C')
+                            <li><a class="dropdown-item"
+                                    href="{{ route('customers.show', ['customer' => Auth::user()->customer]) }}">Perfil</a>
+                            </li>
+                        @endif
+                        <li>
+                            {{-- <a class="dropdown-item" href="#">Alterar Senha</a> --}}
+                            <a class="dropdown-item" href="{{ route('password.change.show') }}">Alterar Senha</a>
+                        </li>
 
 
 
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li>
-                        <a class="dropdown-item" onclick="event.preventDefault();
+
+
+
+
+
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
-                            Sair
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                                Sair
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         @endguest
 
         <!-- Side bar-->
@@ -112,7 +119,8 @@
                         </a> --}}
                         <br>
 
-                        <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}" href="{{ route('tshirtImages.index') }}">
+                        <a class="nav-link {{ Route::currentRouteName() == 'tshirtImages.index' ? 'active' : '' }}"
+                            href="{{ route('tshirtImages.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shirt"></i></div>
                             Imagens Tshirt
                         </a>
@@ -123,27 +131,31 @@
 
 
                         @if ((Auth::user()->user_type ?? '') != 'E' && (Auth::user()->user_type ?? '') != 'A')
-                        <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}" href="{{ route('cart.show') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
-                        </a>
+                            <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}"
+                                href="{{ route('cart.show') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
+                            </a>
                         @endif
 
-                        @can('viewAny', \App\Models\Customer::class)<!--Auth-->
-                        <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
+                        @can('viewAny', \App\Models\Customer::class)
+                            <!--Auth-->
+                            <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
 
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}" href="{{ route('users.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
-                                Users
-                            </a>
-                        </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}"
+                                    href="{{ route('users.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
+                                    Users
+                                </a>
+                            </nav>
 
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}" href="{{ route('customers.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
-                                Clientes
-                            </a>
-                        </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}"
+                                    href="{{ route('customers.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                    Clientes
+                                </a>
+                            </nav>
                         @endcan
 
                         <nav class="sb-sidenav-menu-nested nav">
@@ -151,25 +163,29 @@
                         </nav>
 
 
-                        <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
+
 
 
                         @auth
-                        @if (auth()->user()->user_type === 'E')
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'orders.minhasFunc' ? 'active' : '' }}" href="{{ route('orders.minhasFunc') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
-                                Encomendas
-                            </a>
-                        </nav>
-                        @else
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}" href="{{ route('orders.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
-                                Encomendas
-                            </a>
-                        </nav>
-                        @endif
+                            @if (auth()->user()->user_type === 'E')
+                            <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ Route::currentRouteName() == 'orders.minhasFunc' ? 'active' : '' }}"
+                                        href="{{ route('orders.minhasFunc') }}">
+                                        <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
+                                        Encomendas
+                                    </a>
+                                </nav>
+                            @elseif (auth()->user()->user_type === 'A')
+                            <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ Route::currentRouteName() == 'orders.index' ? 'active' : '' }}"
+                                        href="{{ route('orders.index') }}">
+                                        <div class="sb-nav-link-icon"><i class="fa-solid fa-box-open"></i></div>
+                                        Encomendas
+                                    </a>
+                                </nav>
+                            @endif
                         @endauth
 
 
@@ -177,30 +193,34 @@
 
                         <nav class="sb-sidenav-menu-nested nav">
 
-                            @can('viewAny', \App\Models\Category::class)<!--Auth-->
-                        </nav>
-                        <br>
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}" href="{{ route('prices.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
-                                Preços
-                            </a>
-                        </nav>
+                            @can('viewAny', \App\Models\Category::class)
+                                <!--Auth-->
+                            </nav>
+                            <br>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'prices.index' ? 'active' : '' }}"
+                                    href="{{ route('prices.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
+                                    Preços
+                                </a>
+                            </nav>
 
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}" href="{{ route('categories.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-border-all"></i></div>
-                                Categorias
-                            </a>
-                        </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
+                                    href="{{ route('categories.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-border-all"></i></div>
+                                    Categorias
+                                </a>
+                            </nav>
 
 
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link {{ Route::currentRouteName() == 'colors.index' ? 'active' : '' }}" href="{{ route('colors.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-palette"></i></div>
-                                Cores
-                            </a>
-                        </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link {{ Route::currentRouteName() == 'colors.index' ? 'active' : '' }}"
+                                    href="{{ route('colors.index') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-palette"></i></div>
+                                    Cores
+                                </a>
+                            </nav>
                         @endcan
 
 
@@ -209,14 +229,14 @@
                         <div class="sb-sidenav-menu-heading">Espaço Privado</div>
 
                         @auth
-                        @if (auth()->user()->user_type === 'C')
-                        <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}" href="{{ route('orders.minhas') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
-                            Minhas Encomendas
-                        </a>
-                        @else
-
-                        @endif
+                            @if (auth()->user()->user_type === 'C')
+                                <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}"
+                                    href="{{ route('orders.minhas') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
+                                    Minhas Encomendas
+                                </a>
+                            @else
+                            @endif
 
                         @endauth
 
@@ -230,10 +250,10 @@
                 <div class="container-fluid px-4">
                     <!--Flash Messages:-->
                     @if (session('alert-msg'))
-                    @include('shared.messages')
+                        @include('shared.messages')
                     @endif
                     @if ($errors->any())
-                    @include('shared.alertValidation')
+                        @include('shared.alertValidation')
                     @endif
                     <h1 class="mt-4">@yield('titulo', 'ImagineShirt')</h1>
                     @yield('subtitulo')

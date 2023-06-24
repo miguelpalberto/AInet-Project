@@ -167,7 +167,7 @@ class OrderController extends Controller
     public function markAsPaid(Order $order): RedirectResponse
     {
         $this->authorize('markAsPaid', $order);
-        $this->authorize('markAsPaid', Order::class);//auth
+        $this->authorize('markAsPaid', $order);//auth
 
         if ($order->status === 'pending') {
             $order->status = 'paid';
@@ -186,7 +186,7 @@ class OrderController extends Controller
     public function markAsClosed(Order $order): RedirectResponse
     {
         $this->authorize('markAsClosed', $order);
-        $this->authorize('markAsClosed', Order::class);//auth
+        $this->authorize('markAsClosed', $order);//auth
 
         if ($order->status === 'paid') {
             $order->status = 'closed';

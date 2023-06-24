@@ -38,7 +38,6 @@
 
 
 
-
             @auth
             @if (auth()->user()->user_type === 'A')
 
