@@ -178,6 +178,8 @@ class OrderController extends Controller
                 ->with('success', 'Encomenda marcada como paga com sucesso.');
         }
 
+    
+
         return redirect()->route('orders.minhasFunc')
             ->with('error', 'Não é possível marcar a encomenda como paga.');
     }
@@ -196,6 +198,12 @@ class OrderController extends Controller
 
             return redirect()->route('orders.minhasFunc')
                 ->with('success', 'Encomenda marcada como fechada com sucesso.');
+        }
+        if($order->status === 'pending'){
+
+            return redirect()->route('orders.minhasFunc')
+            ->with('error', 'Não é possível marcar a encomenda em espera como fechada sem que esteja paga!');
+
         }
 
         return redirect()->route('orders.minhasFunc')
