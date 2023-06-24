@@ -22,7 +22,8 @@ class CartController extends Controller
         $cart = session('cart', []);
         $price = Price::first();
         $order = new Order();
-        return view('cart.show', compact('cart', 'price', 'order'));
+        $tshirtImage = TshirtImage::all();
+        return view('cart.show', compact('cart', 'price', 'order', 'tshirtImage'));
     }
 
 public function addToCart(CartRequest $request, TshirtImage $tshirtImage): RedirectResponse

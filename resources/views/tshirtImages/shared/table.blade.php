@@ -21,17 +21,15 @@
 
 
 
-        @foreach ($tshirtImages as $tshirtImage)
-
-
-
-            @if ($showFoto)
-            <td width="45">
-                @if ($tshirtImage->image_url)
-                <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
+            @foreach ($tshirtImages as $tshirtImage)
+                @if ($showFoto)
+                    <td width="45">
+                        @if ($tshirtImage->image_url)
+                            <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle"
+                                width="45" height="45">
+                        @endif
+                    </td>
                 @endif
-            </td>
-            @endif
 
                 <tr>
                     <td>{{ $tshirtImage->id }}</td>
