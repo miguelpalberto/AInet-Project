@@ -47,15 +47,16 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
     Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
 
 });
-
+Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 Route::resource('tshirtImages', TshirtImageController::class);
 
+Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
 Route::resource('orders', OrderController::class)->except(['create', 'store']);
 
-Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
+
 
 Route::resource('orderItems', OrderItemController::class)->only(['create', 'destroy']);
-Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
+
 
 
 

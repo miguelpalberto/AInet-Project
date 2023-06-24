@@ -67,7 +67,7 @@ class UserController extends Controller
             $newUser = new User();
 
             if ($request->hasFile('photo_url')) {
-                $path = $request->photo_url->store('storage/photos');
+                $path = $request->photo_url->store('public/photos');
                 $newUser->photo_url = basename($path);
                 $newUser->save();
             }
@@ -120,9 +120,9 @@ class UserController extends Controller
 
             if ($request->hasFile('file_photo')) {
                 if ($user->photo_url) {
-                    Storage::delete('storage/photos/' . $user->photo_url);
+                    Storage::delete('public/photos/' . $user->photo_url);
                 }
-                $path = $request->file_photo->store('storage/photos');
+                $path = $request->file_photo->store('public/photos');
                 $user->photo_url = basename($path);
                 $user->save();
             }
@@ -223,7 +223,7 @@ class UserController extends Controller
             $user->save();
         }
         return redirect()->route('users.edit', ['user' => $user])
-            ->with('alert-msg', 'Foto do docente "' . $user->name .
+            ->with('alert-msg', 'Foto do user "' . $user->name .
                 '" foi removida!')
             ->with('alert-type', 'success');
     }
