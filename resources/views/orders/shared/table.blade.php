@@ -44,7 +44,7 @@
                 <form method="POST" action="{{ route('ordersPaid', ['order' => $order]) }}">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" name="ordersPaid" class="btn btn-dark">
+                    <button style ="background-color: green" type="submit" name="ordersPaid" class="btn btn-dark">
                         <i class="fas fa-money-check-dollar"></i></button>
                 </form>
             </td>
@@ -55,7 +55,7 @@
                 <form method="POST" action="{{ route('ordersClosed', ['order' => $order]) }}">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" name="ordersClosed" class="btn btn-dark">
+                    <button style ="background-color: red" type="submit" name="ordersClosed" class="btn btn-dark">
                         <i class="fas fa-clipboard-check"></i></button>
                 </form>
             </td>
