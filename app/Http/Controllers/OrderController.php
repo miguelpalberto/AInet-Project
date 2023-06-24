@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\OrderRequest;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\OrderEditRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
@@ -90,7 +91,7 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(OrderRequest $request, Order $order): RedirectResponse
+    public function update(OrderEditRequest $request, Order $order): RedirectResponse
     {
         $this->authorize('userActive');//auth
 
@@ -110,7 +111,7 @@ class OrderController extends Controller
         $orderQuery = Order::query();
 
         $orders = $orderQuery->where('customer_id', '=', $user->id)->orderBy('orders.date', 'DESC')->paginate(10);
-       
+
         return view('orders.minhas', compact('orders'));
     }
 
