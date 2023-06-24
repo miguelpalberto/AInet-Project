@@ -208,10 +208,15 @@
                         <div class="sb-sidenav-menu-heading">Espaço Privado</div>
 
                         @auth
+                        @if (auth()->user()->user_type === 'C')
                         <a class="nav-link {{ Route::currentRouteName() == 'orders.minhas' ? 'active' : '' }}" href="{{ route('orders.minhas') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-file-text"></i></div>
                             Minhas Encomendas
                         </a>
+                        @else
+
+                        @endif
+                        
                         @endauth
 
 
