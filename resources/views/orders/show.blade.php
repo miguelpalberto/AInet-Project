@@ -16,8 +16,10 @@
     <div>
         @include('orders.shared.fields', ['readonlyData' => true])
     </div>
+    @can('edit', \App\Models\Order::class)
     <div class="my-4 d-flex justify-content-end">
-        <a href="{{ route('orders.edit', ['order' => $order]) }}" class="btn btn-secondary ms-3">Alterar Order</a>
+        <a href="{{ route('orders.edit', ['order' => $order]) }}" class="btn btn-secondary ms-3">Alterar Encomenda</a>
     </div>
+    @endcan
 @endsection
 

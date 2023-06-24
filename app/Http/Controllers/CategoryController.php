@@ -66,17 +66,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category): View
     {
-        //TODO: ter detalhes com tshirtimagens (mudar view show e um @include do index (para enviar o showDetails))
-        // $tshirtImages = TshirtImage::all();
-        // $showDetail = 'tshirtImages';
-        // $category->load('tshirtImages', 'tshirtImages.category');
-
 
         return view('categories.show')
             ->withCategory($category);
-        //->with('tshirtImages', $tshirtImage)
-        //->with('showDetail', $showDetail);
-
     }
 
     /**

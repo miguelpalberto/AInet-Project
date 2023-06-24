@@ -73,7 +73,7 @@
         'showDetail' => true,
         'showEdit' => true,
         'showDelete' => true,
-        //TODO admin
+       
     ])
     <div>
         {{ $users->withQueryString()->links() }}

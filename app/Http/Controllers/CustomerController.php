@@ -26,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request): View
     {
-        //$customers = Customer::all();
+
         $filterByName = $request->name ?? '';
         $filterByEmail = $request->email ?? '';
         $customerQuery = Customer::query();
@@ -39,9 +39,9 @@ class CustomerController extends Controller
             $customerQuery->whereIntegerInRaw('id', $userEmail);
         }
 
-        // ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
-        //$customers = $customerQuery->paginate(10);
-        $customers = $customerQuery->with('orders', 'user')->paginate(10); //TODO  confirmar
+
+        //$customers = $customerQuery->paginate(10);//TODO
+        $customers = $customerQuery->with('orders', 'user')->paginate(10);
         return view('customers.index', compact('customers', 'filterByName', 'filterByEmail'));
     }
 
@@ -71,7 +71,7 @@ class CustomerController extends Controller
             $newUser->user_type = 'C';
             $newUser->name = $formData['name'];
             $newUser->email = $formData['email'];
-            //TODO admin - ver docente
+
             $newUser->blocked = 0;
             $newUser->password = Hash::make($formData['password_inicial']);
             $newUser->save();
@@ -82,8 +82,7 @@ class CustomerController extends Controller
             $newCustomer->default_payment_type = $formData['default_payment_type'] ?? null;
             $newCustomer->default_payment_ref = $formData['default_payment_ref'] ?? null;
             $newCustomer->save();
-            //TODO foto - ver docente
-            //$newCustomer->load('user');//para ter acesso a $customer->user->name a frente
+
             return $newCustomer;
         });
         $url = route('customers.show', ['customer' => $customer]);
@@ -92,7 +91,6 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
-        //TODO redirect ver docente
     }
 
     // /**
@@ -128,10 +126,10 @@ class CustomerController extends Controller
             $user->user_type = 'C';
             $user->name = $formData['name'];
             $user->email = $formData['email'];
-            //TODO admin ver docente
+
             $user->blocked = 0;
             $user->save();
-            //TODO foto ver docente
+
             return $customer;
         });
 
@@ -156,7 +154,7 @@ class CustomerController extends Controller
                     $customer->delete();
                     $user->delete();
                 });
-                //TODO foto ver docente
+
                 $htmlMessage = "Cliente #{$customer->id}
                         <strong>\"{$user->name}\"</strong> foi apagado com sucesso!";
                 return redirect()->route('customers.index')
@@ -186,6 +184,6 @@ class CustomerController extends Controller
             ->with('alert-type', $alertType);
     }
 
-    //TODO destroy foto ver docente
+
 
 }

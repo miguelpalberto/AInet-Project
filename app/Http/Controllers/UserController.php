@@ -26,8 +26,7 @@ class UserController extends Controller
 
     public function index(Request $request): View
     {
-        //$departamentos = Departamento::all();
-        //TODO corrigir?
+
         $filterByUserType = $request->user_type ?? '';
         $filterByName = $request->name ?? '';
         $userQuery = User::query();
@@ -38,7 +37,7 @@ class UserController extends Controller
             $userIds = User::where('name', 'like', "%$filterByName%")->pluck('id');
             $userQuery->whereIntegerInRaw('id', $userIds);
         }
-        // TODO ATENÇÃO: Comparar estas 2 alternativas com Laravel Telescope
+        // TODO
         $users = $userQuery->paginate(10);
         //$users = $userQuery->with('customer')->paginate(10);
         return view('users.index', compact('users', 'filterByName', 'filterByUserType'));
@@ -50,10 +49,6 @@ class UserController extends Controller
     public function create(): View
     {
         $user = new User();
-        // Garante que atribute user existe (mas não grava nada na BD)
-        // É necessário, para reaproveitar os forms,
-        // porque o form para edit pressupoe que user existe
-        // Departamento default
         return view('users.create', compact('user'));
     }
 
@@ -153,7 +148,6 @@ class UserController extends Controller
                     $user->delete();
                 });
 
-                //TODO foto ver docente
                 $htmlMessage = "User #{$user->id}
                         <strong>\"{$user->name}\"</strong> foi apagado com sucesso!";
                 return redirect()->route('users.index')
@@ -188,7 +182,6 @@ class UserController extends Controller
             ->with('alert-type', $alertType);
     }
 
-    //public function changeBlocked(UserRequest $request, User $user): RedirectResponse
     public function changeBlocked(User $user): RedirectResponse
     {
         $this->authorize('changeBlocked', $user); //auth

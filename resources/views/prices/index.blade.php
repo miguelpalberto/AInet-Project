@@ -15,8 +15,6 @@
     {{-- Prices é só uma linha (já criada desde o inicio, nao se pode criar mais) --}}
     {{-- <p><a class="btn btn-success" href="{{ route('prices.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar Novo Preço</a></p> --}}
 
-    <!-- Filtro: -->
-
 
     <!--Tabela:-->
     <table class="table">

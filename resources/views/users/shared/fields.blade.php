@@ -3,18 +3,6 @@
     $isCliente = $isCliente ?? true;
 @endphp
 
-{{-- isto será no edit customer ? - para ser proprio user a mudar suas infos - atualizar com codigo ativo
-        <div>
-            <label for="inputEmail">Email</label>
-            <input type="text" name="email" id="inputEmail" {{ $disabledStr }} value="{{ $user->email }}">
-        </div>
-        <div>
-            <label for="inputPassword">Password</label>
-            <input type="text" name="password" id="inputPassword" {{ $disabledStr }} value="{{ $user->password }}">
-        </div> --}}
-
-{{-- TODO: fazer isto so apenas se user logged in for admin --}}
-
 
 @if ($errors->any())
 
@@ -61,7 +49,7 @@
 </div>
 @endif
 
-{{-- rever se deixo estes campos aqui --}}
+
 <div class="mb-3 form-floating ms-2">
     <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="inputEmail" {{ $disabledStr }} value="{{ old('email', $user->email) }}">
     <label for="inputEmail">Email</label>
@@ -71,14 +59,5 @@
         </div>
     @enderror
 </div>
-{{-- <div class="mb-3 form-floating ms-2">
-        <input type="text" name="password" id="inputPassword" class="form-control @error('password') is-invalid @enderror" {{ $disabledStr }} value="{{ $user->password }}">
-        <label for="inputPassword">Password</label>
-    @error('password')
-    <div class="invalid-feedback">
-        {{ $message }}
-    </div>
-        @enderror
-    </div> --}}
 
-    {{-- TODO - foto --}}
+

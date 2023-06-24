@@ -160,7 +160,7 @@ class OrderController extends Controller
             return view('orders.minhasFunc', compact('orders'));
         }
 
-        // Caso o usuário atual não seja um funcionário, retorne uma resposta adequada
+        // Caso o usuário atual não seja um funcionário, retorna uma resposta adequada
         abort(403, 'Acesso não autorizado.');
     }
 
@@ -178,7 +178,7 @@ class OrderController extends Controller
                 ->with('success', 'Encomenda marcada como paga com sucesso.');
         }
 
-    
+
 
         return redirect()->route('orders.minhasFunc')
             ->with('error', 'Não é possível marcar a encomenda como paga.');

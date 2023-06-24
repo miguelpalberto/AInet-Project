@@ -58,7 +58,6 @@
         'showDetail' => true,
         'showEdit' => true,
         'showDelete' => true,
-        //TODO admin
     ])
     <div>
         {{ $customers->withQueryString()->links() }}

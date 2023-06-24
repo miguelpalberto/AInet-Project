@@ -43,7 +43,6 @@
         <td>{{ $user->blocked }}</td>
         <td>{{ $user->photo_url }}</td>
 
-        {{-- TODO - show cenas é diferente ficha 9 --}}
         @if ($showDates)
             <td>{{ $user->created_at }}</td>
             <td>{{ $user->updated_at }}</td>
