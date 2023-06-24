@@ -69,12 +69,29 @@ class OrderPolicy
     {
         return false;
     }
+
+
+
+
     public function minhasOrders(User $user): bool
     {
+        //return true;
         return $user->user_type === 'C';
     }
     public function minhasOrdersFuncionario(User $user): bool
     {
         return $user->user_type === 'E';
+    }
+
+
+
+
+    public function markAsClosed(User $user, Order $order): bool
+    {
+        return $user->user_type === 'E' || $user->user_type === 'A';
+    }
+    public function markAsPaid(User $user, Order $order): bool
+    {
+        return $user->user_type === 'E' || $user->user_type === 'A';
     }
 }
