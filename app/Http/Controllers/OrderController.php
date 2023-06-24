@@ -106,15 +106,12 @@ class OrderController extends Controller
     {
 
         $user = Auth::user();
-        $orders = null;
 
+        $orderQuery = Order::query();
 
-        if ($user && $user->user_type === 'C') {
-            $customer = $user->customer;
-            $orders = $customer ? $customer->orders : null;
-
-        }
-        return view('orders.minhas', compact('orders', 'tipo'));
+        $orders = $orderQuery->where('customer_id', '=', $user->id)->orderBy('orders.date', 'DESC')->paginate(10);
+       
+        return view('orders.minhas', compact('orders'));
     }
 
 
