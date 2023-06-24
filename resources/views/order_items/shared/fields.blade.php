@@ -13,7 +13,10 @@
 </div>
 
 
-<div class="mb-3 form-floating ms-2">
+<div class="row">
+    <div class="col-md-6">
+
+    <div class="mb-3 form-floating ms-2">
     <select class="form-control @error('size') is-invalid @enderror" name="size" id="inputSize" {{ $disabledStr }}>
         <option {{ old('size', $orderItem->size) == 'XS' ? 'selected' : '' }} value="XS">XS</option>
         <option {{ old('size', $orderItem->size) == 'S' ? 'selected' : '' }} value="S">S</option>
@@ -27,8 +30,7 @@
             {{ $message }}
         </div>
     @enderror
-</div>
-
+    </div>
 
 <div class="mb-3 form-floating ms-2">
     <select class="form-select @error('color') is-invalid @enderror" name="color" id="inputColor"
@@ -49,7 +51,7 @@
 
 
 <div class="mb-3 form-floating ms-2">
-    <input type="number" class="form-control" name="qty" id="inputQty" value="{{ old('qty', $orderItem->qty) ?? 1 }}" min="1" step="1">{{-- //TODO required --}}
+    <input type="number" class="form-control" name="qty" id="inputQty" value="{{ old('qty', $orderItem->qty) ?? 1 }}" min="1" step="1" required>
     <label for="inputQty" class="form-label">Quantidade</label>
     @error('qty')
         <div class="invalid-feedback">
@@ -59,19 +61,29 @@
 </div>
 
 
-<div class="mb-3 form-floating ms-2">
-    <span class="form-control-plaintext">{{ $price->unit_price_catalog }}</span>
-    <label for="inputPrice" class="form-label">Preço</label>
-</div>
+    <div class="mb-3 form-floating ms-2">
+        <span class="form-control-plaintext">{{ $price->unit_price_catalog }}</span>
+        <label for="inputPrice" class="form-label">Preço</label>
+    </div>
 
 
-{{-- <div class="mb-3 form-floating ms-2">
-    <span class="form-control-plaintext">{{ $price->unit_price_catalog }}</span>
+    {{-- <div class="mb-3 form-floating ms-2">
+        <span class="form-control-plaintext">{{ $price->unit_price_catalog }}</span>
 
-    <label for="inputTotal" class="form-label">Total</label>
-</div> --}}
-{{-- TODO: fazer * quant --}}
-<div class="mb-3 form-floating ms-2">
-    <span class="form-control-plaintext">{{ $price->unit_price_catalog * $orderItem->qty }}</span>
-    <label for="inputTotal" class="form-label">Total</label>
+        <label for="inputTotal" class="form-label">Total</label>
+    </div> --}}
+    {{-- TODO: fazer * quant --}}
+    <div class="mb-3 form-floating ms-2">
+        <span class="form-control-plaintext">{{ $price->unit_price_catalog * $orderItem->qty }}</span>
+        <label for="inputTotal" class="form-label">Total</label>
+    </div>
+
+
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h3>Preview da T-Shirt</h3>
+            <img src="storage/tshirt_preview.png" alt="Preview da T-Shirt" style="max-width: 100%">
+        </div>
+    </div>
 </div>
