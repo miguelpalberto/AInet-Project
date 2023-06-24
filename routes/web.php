@@ -13,6 +13,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\TshirtPreviewController;
+use App\Models\Order;
 use App\Models\TshirtImage;
 
 /*
@@ -47,20 +48,24 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
     Route::resource('prices', PriceController::class)->except(['delete', 'create', 'store']);//TODO rota apenas de editar e ver?
 
 });
-
-Route::resource('tshirtImages', TshirtImageController::class);
-Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
-Route::resource('orders', OrderController::class);
-Route::resource('orderItems', OrderItemController::class)->only(['create', 'destroy']);
-//Route::get('orderItems/create', [OrderItemController::class, 'create'])->name('orderItems.create');
 Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
+Route::resource('tshirtImages', TshirtImageController::class);
+
+
+Route::patch('/orders/{order}/mark-as-closed', [OrderController::class, 'markAsClosed'])->name('ordersClosed');
+Route::patch('/orders/{order}/mark-as-paid', [OrderController::class, 'markAsPaid'])->name('ordersPaid');
+
+
+Route::get('orders/minhasFunc', [OrderController::class, 'minhasOrdersFuncionario'])->name('orders.minhasFunc');
+Route::get('orders/minhas', [OrderController::class, 'minhasOrders'])->name('orders.minhas');
+Route::resource('orders', OrderController::class)->except(['create', 'store']);
 
 
 
-//TODO: Minhas Encomendas
-// Route::get('disciplinas/minhas', [DisciplinaController::class, 'minhasDisciplinas'])
-// ->name('disciplinas.minhas')
-// ->middleware('verified');
+Route::resource('orderItems', OrderItemController::class)->only(['create', 'destroy']);
+
+
+
 
 Route::get('/password/change', [ChangePasswordController::class, 'show'])
     ->name('password.change.show');
@@ -87,6 +92,7 @@ Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
 
 Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
     ->name('users.foto.destroy');
+
 
 
 // Carrinho

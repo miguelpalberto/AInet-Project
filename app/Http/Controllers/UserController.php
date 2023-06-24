@@ -67,7 +67,7 @@ class UserController extends Controller
             $newUser = new User();
 
             if ($request->hasFile('photo_url')) {
-                $path = $request->photo_url->store('storage/photos');
+                $path = $request->photo_url->store('public/photos');
                 $newUser->photo_url = basename($path);
                 $newUser->save();
             }
@@ -114,15 +114,15 @@ class UserController extends Controller
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
-           
-            
+
+
 
 
             if ($request->hasFile('file_photo')) {
                 if ($user->photo_url) {
-                    Storage::delete('storage/photos/' . $user->photo_url);
+                    Storage::delete('public/photos/' . $user->photo_url);
                 }
-                $path = $request->file_photo->store('storage/photos');
+                $path = $request->file_photo->store('public/photos');
                 $user->photo_url = basename($path);
                 $user->save();
             }
@@ -176,7 +176,7 @@ class UserController extends Controller
             if ($user->photo_url) {
                 Storage::delete('storage/photos/' . $user->photo_url);
             }
-            
+
         } catch (\Exception $error) {
             $url = route('users.show', ['user' => $user]);
             $htmlMessage = "Não foi possível apagar o user <a href='$url'>#{$user->id}</a>
@@ -217,13 +217,15 @@ class UserController extends Controller
 
     public function destroy_foto(User $user): RedirectResponse
     {
+        $this->authorize('destroy_foto', $user); //auth
+
         if ($user->photo_url) {
             Storage::delete('storage/photos/' . $user->photo_url);
             $user->photo_url = null;
             $user->save();
         }
         return redirect()->route('users.edit', ['user' => $user])
-            ->with('alert-msg', 'Foto do docente "' . $user->name .
+            ->with('alert-msg', 'Foto do user "' . $user->name .
                 '" foi removida!')
             ->with('alert-type', 'success');
     }

@@ -8,14 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class TshirtImagePolicy
 {
-    //Usado em disciplinas:
-    // public function before(?User $user, string $ability): bool|null
-    // {
-    //     if ((($user->user_type === 'A') ?? false)) {
-    //         return true;
-    //     }
-    //     return null;
-    // }
     /**
      * Determine whether the user can view any models.
      */

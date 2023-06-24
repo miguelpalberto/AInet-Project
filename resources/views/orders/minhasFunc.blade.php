@@ -1,11 +1,11 @@
 @extends('template.layout')
 
-@section('titulo', 'Minhas Orders')
+@section('titulo', 'Order')
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">Espaço Privado</li>
-        <li class="breadcrumb-item active">Minhas Orders</li>
+        <li class="breadcrumb-item">Gestao</li>
+        <li class="breadcrumb-item active">Encomendas</li>
     </ol>
 @endsection
 

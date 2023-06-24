@@ -32,6 +32,7 @@
                 @include('users.shared.fields_foto', [
                     'user' => $user,
                     'allowUpload' => true,
+                    'allowDelete' => true,
                     'formToDelete' => 'form_delete_photo',
                     //TODO delete foto - ver alteracoes docente
                 ])

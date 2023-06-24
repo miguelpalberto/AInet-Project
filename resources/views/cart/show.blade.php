@@ -16,6 +16,7 @@
             'cart' => $cart,
             'price' => $price,
             'order' => $order,
+            'tshirtImage' => $tshirtImage,
             'showCart' => true,
             'showFoto' => true,
         ])
