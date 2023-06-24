@@ -24,8 +24,8 @@ class OrderPolicy
     /////ViewAny é para o Show (mostrar só uma)
     public function view(User $user, Order $order): bool
     {
-        //
-        return $user->user_type === 'A'  || $user->id == $order->id || ($user->user_type === 'E'  && $order->status !== 'canceled' && $order->status !== 'closed');
+
+        return $user->user_type === 'A'  || $user->id == $order->customer_id || ($user->user_type === 'E'  && $order->status !== 'canceled' && $order->status !== 'closed');
     }
 
     /**
