@@ -67,7 +67,7 @@
         // 'showDetail' => true,
         // 'showEdit' => true,
         // 'showDelete' => true,
-        'showCart' => false,
+        //'showCart' => false,
     ])
 
 

@@ -33,7 +33,7 @@
                     <td width="45">
                         @if ($user->photo_url)
                             <img src="{{ $user->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle"
-                                width="45" height="45">
+                                width="45">
                     </td>
                 @endif
         @endif

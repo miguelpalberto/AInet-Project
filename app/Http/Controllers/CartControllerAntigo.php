@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//TODO APAGAR ESTE FICHIERO
+
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

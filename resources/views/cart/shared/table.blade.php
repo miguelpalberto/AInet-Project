@@ -1,22 +1,29 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tshirt</th>
+            <th>Imagem</th>
+            <th>Nome Imagem</th>
+            <th>Cor</th>
+            <th>Tamanho</th>
+            <th>Quantidade</th>
+            <th>Preço Unidade
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($cart as $orderItem)
+            </th>
+            <th>Subtotal</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <div>
+            @foreach ($cart as $orderItem)
                 <tr>
                     <td>
-                        <img src="{{ $orderItem->tshirtImage->fullImageUrl }}" alt="{{ $orderItem->tshirtImage->name }}" width="50">
+                        <img src="{{ $orderItem->fullImageUrl }}" alt="Tshirt Color" width="50">
+                    </td>
+                    <td>
+                        <img src="{{ $orderItem->tshirtImage->fullImageUrl }}" alt="{{ $orderItem->tshirtImage->name }}"
+                            width="50">
                     </td>
                     <td>{{ $orderItem->tshirtImage->name }}</td>
                     <td>{{ $orderItem->color_code }}</td>
@@ -28,9 +35,10 @@
                     <td>{{ $orderItem->calculateSubTotal($price) }}</td> --}}
                     @php
 
-                    $price
+                        $price;
 
                         //TODO contas
+
                     @endphp
                     <td>
                         <form action="{{ route('cart.remove', ['index' => $orderItem->index]) }}" method="POST">
@@ -41,11 +49,12 @@
                     </td>
                 </tr>
             @endforeach
-        </tbody>
-    </table>
+        </div>
 
-    <div class="text-right">
-        {{-- <p>Total Price: {{ $totalPrice }}</p> --}}
-    </div>
+    </tbody>
+</table>
 
 
+<div class="text-right">
+    {{-- <p>Total Price: {{ $totalPrice }}</p> --}}
+</div>
