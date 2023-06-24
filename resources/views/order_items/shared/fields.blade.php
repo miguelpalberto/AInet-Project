@@ -83,7 +83,32 @@
     <div class="col-md-6">
         <div class="mb-3">
             <h3>Preview da T-Shirt</h3>
-            <img src="storage/tshirt_preview.png" alt="Preview da T-Shirt" style="max-width: 100%">
+            <img id="previewImage" src="{{ url(route('preview.update', ['color' => '00a2f2' .'.jpg', 'image_url' => $tshirtImage->image_url])) }}">
         </div>
     </div>
+    
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#inputColor').on('change', function() {
+            var colorCode = 'color=' + $(this).val() + '.jpg';
+            var imageUrl = 'image_url={{ $tshirtImage->image_url }}';
+
+            // Construir o URL
+            var previewUrl = '{{ route("preview.update", [":colorCode", ":imageUrl"]) }}';
+            previewUrl = previewUrl.replace(':colorCode', encodeURIComponent(colorCode));
+            previewUrl = previewUrl.replace(':imageUrl', encodeURIComponent(imageUrl));
+
+            // Remover o "amp;" e alterar o %3D para '=' no link
+            previewUrl = previewUrl.replace(/&amp;/g, '&');
+            previewUrl = previewUrl.replace(/%3D/g, '=');
+
+            // Atualizar a imagem
+            $('#previewImage').attr('src', previewUrl);
+        });
+    });
+</script>

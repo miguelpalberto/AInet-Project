@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,4 +25,15 @@ class Color extends Model
 
         return $this->hasMany(OrderItem::class, 'color_code', 'code');
     }
+
+    protected function fullColorUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->code ? asset('storage/tshirt_base/' . $this->code.'.jpg') :
+                    asset('img/image_unknown.png');
+            },
+        );
+    }
+
 }
