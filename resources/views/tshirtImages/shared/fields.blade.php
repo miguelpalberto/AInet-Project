@@ -1,6 +1,10 @@
 @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
 @endphp
+
+<div class="row">
+    <div class="col-md-6">
+
 {{-- TODO: colocar apenas para ser visto (e pelo admin) --}}
 {{-- <div class="mb-3 form-floating">
     <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="inputID"
@@ -73,6 +77,15 @@
         </div>
     @enderror
 </div>
+
+</div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <h3>Preview da T-Shirt</h3>
+            <img id="previewImage" src="{{ url(route('preview.update', ['color' => '00a2f2' .'.jpg', 'image_url' => $tshirtImage->image_url])) }}">
+        </div>
+    </div>
+
 
 {{-- @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
