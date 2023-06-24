@@ -13,8 +13,13 @@
                 <th>Info Extra</th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
+                {{-- @can('update', $tshirtImage) --}}
                 <th class="button-icon-col"></th>
+                {{-- @endcan --}}
+                {{-- @can('delete', $tshirtImage) --}}
                 <th class="button-icon-col"></th>
+                {{-- @endcan --}}
+
             </tr>
         </thead>
         <tbody>
@@ -42,6 +47,15 @@
 
                     <td>{{ $tshirtImage->image_url }}</td>
                     <td>{{ $tshirtImage->extra_info }}</td>
+
+                    <!-- Botão adicionar ao carrinho -->
+
+                    <td class="button-icon-col">
+                        <a class="btn btn-success"
+                            href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
+                            <i class="fas fa-plus"></i></a>
+                    </td>
+
                     <td class="button-icon-col">
                         {{-- @can('view', $tshirtImage)<!--Auth--> --}}
                         <a class="btn btn-secondary"
@@ -70,13 +84,8 @@
                         @endcan
                     </td>
 
-                    {{-- TODO: Este botao remte para order_items.create inves --}}
-                    <!-- Botão adicionar ao carrinho -->
-                    <td class="button-icon-col">
-                        <a class="btn btn-success"
-                            href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
-                            <i class="fas fa-plus"></i></a>
-                    </td>
+
+
 
 
 

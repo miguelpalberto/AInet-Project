@@ -35,6 +35,8 @@
 
             <td class="button-icon-col"><a class="btn btn-secondary" href="{{ route('orders.show', ['order' => $order]) }}">
                     <i class="fas fa-eye"></i></a></td>
+
+                
             <td class="button-icon-col"><a class="btn btn-dark" href="{{ route('orders.edit', ['order' => $order]) }}">
                     <i class="fas fa-edit"></i></a></td>
 
