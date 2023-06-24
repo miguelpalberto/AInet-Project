@@ -122,10 +122,11 @@
 
 
 
-
+                        @if ((Auth::user()->user_type ?? '') != 'E' && (Auth::user()->user_type ?? '') != 'A')
                         <a class="nav-link {{ Route::currentRouteName() == 'cart.show' ? 'active' : '' }}" href="{{ route('cart.show') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-cart-shopping"></i></div>Carrinho Compras
                         </a>
+                        @endif
 
                         @can('viewAny', \App\Models\Customer::class)<!--Auth-->
                         <div class="sb-sidenav-menu-heading">Gestão Pessoas</div>
@@ -149,7 +150,7 @@
                             <br>
                         </nav>
 
-                        @can('viewAny', \App\Models\Order::class)<!--Auth-->
+
                         <div class="sb-sidenav-menu-heading">Gestão Encomendas</div>
 
 
@@ -173,7 +174,7 @@
 
 
 
-                        @endcan
+
                         <nav class="sb-sidenav-menu-nested nav">
 
                             @can('viewAny', \App\Models\Category::class)<!--Auth-->
@@ -216,7 +217,7 @@
                         @else
 
                         @endif
-                        
+
                         @endauth
 
 

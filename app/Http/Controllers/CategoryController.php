@@ -25,7 +25,6 @@ class CategoryController extends Controller
      */
     public function index(Request $request): View
     {
-        //$this->authorize('viewAny', Category::class);//auth
 
         $filterByName = $request->name ?? '';
         $categoryQuery = Category::query();
@@ -42,7 +41,6 @@ class CategoryController extends Controller
      */
     public function create(): View
     {
-        //$this->authorize('create', Category::class);//auth
 
         $category = new Category();
         return view('categories.create')
@@ -54,7 +52,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
-        //$this->authorize('create', Category::class);//auth
 
         $newCategory = Category::create($request->validated());
         $url = route('categories.show', ['category' => $newCategory]);
@@ -74,7 +71,6 @@ class CategoryController extends Controller
         // $showDetail = 'tshirtImages';
         // $category->load('tshirtImages', 'tshirtImages.category');
 
-        //$this->authorize('view', $category);//auth
 
         return view('categories.show')
             ->withCategory($category);
@@ -88,7 +84,6 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //$this->authorize('update', $category);//auth
 
         return view('categories.edit', [
             'category' => $category
@@ -102,7 +97,6 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        //$this->authorize('update', $category);//auth
 
         $category->update($request->validated());
         $url = route('categories.show', ['category' => $category]);
@@ -118,7 +112,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
-        //$this->authorize('delete', $category);//auth
 
         try {
             $totalTshirtImages = DB::scalar('select count(*) from tshirt_images where category_id = ?', [$category->id]);

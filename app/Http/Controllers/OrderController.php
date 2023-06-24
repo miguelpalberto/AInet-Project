@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Order::class, 'order');
-    // }
+    public function __construct()
+    {
+        $this->authorizeResource(Order::class, 'order');
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,30 +25,41 @@ class OrderController extends Controller
     public function index(Request $request): View
     {
         $this->authorize('userActive');//auth
+        $this->authorize('viewAny');//auth
         // COrrigir vendo pelo tshirts
         // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
         $filterByNif = $request->nif ?? '';
-        $userQuery = Order::query();
+        $filterByStatus = $request->status ?? '';
+        $filterByDate = $request->date ?? '';
+        $orderQuery = Order::query();
 
         if ($filterByCustomerID !== '') {
             $customerIds = Order::where('customer_id', 'like', "%$filterByCustomerID%")->pluck('id');
-            $userQuery->whereIntegerInRaw('id', $customerIds);
+            $orderQuery->whereIntegerInRaw('id', $customerIds);
         }
         if ($filterByNif !== '') {
             $customerNif = Order::where('nif', 'like', "%$filterByNif%")->pluck('id');
-            $userQuery->whereIntegerInRaw('id', $customerNif);
+            $orderQuery->whereIntegerInRaw('id', $customerNif);
+        }
+        if ($filterByStatus !== '') {
+            $orderQuery->where('status', $filterByStatus);
+        }
+        if ($filterByDate !== '') {
+            $orderQuery->where('date', $filterByDate);
         }
 
 
-        $orders = $userQuery->paginate(10);
-        return view('orders.index', compact('orders', 'filterByCustomerID','filterByNif'));
+        $orders = $orderQuery->paginate(10);
+        return view('orders.index', compact('orders', 'filterByCustomerID','filterByNif', 'filterByStatus','filterByDate'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     // public function create(): View
+
+    //$this->authorize('create');//auth
     // {
     //     $order = new Order();
     //     return view('orders.create', compact('order'));
@@ -59,6 +70,8 @@ class OrderController extends Controller
      */
     // public function store(OrderRequest $request): RedirectResponse
     // {
+        // $this->authorize('create');//auth
+
     //     $newOrder = Order::create($request->validated());
     //     $newOrder->status = 'pending';
     //     $url = route('orders.show', ['order' => $newOrder]);
@@ -73,6 +86,8 @@ class OrderController extends Controller
      */
     public function show(Order $order): View
     {
+        $this->authorize('view');//auth
+
         return view('orders.show', compact('order'));
     }
 
@@ -82,6 +97,7 @@ class OrderController extends Controller
     public function edit(Order $order): View
     {
         $this->authorize('userActive');//auth
+        $this->authorize('update');//auth
 
         return view('orders.edit', compact('order'));
             //,
@@ -94,6 +110,7 @@ class OrderController extends Controller
     public function update(OrderEditRequest $request, Order $order): RedirectResponse
     {
         $this->authorize('userActive');//auth
+        $this->authorize('update');//auth
 
         $order->update($request->validated());
         $url = route('orders.show', ['order' => $order]);
@@ -105,6 +122,8 @@ class OrderController extends Controller
 
     public function minhasOrders(Request $request): View
     {
+        $this->authorize('userActive');//auth
+        $this->authorize('minhasOrders');//auth
 
         $user = Auth::user();
 
@@ -118,6 +137,8 @@ class OrderController extends Controller
 
     public function minhasOrdersFuncionario(Request $request): View
 {
+    $this->authorize('userActive');//auth
+    $this->authorize('minhasOrdersFuncionario');//auth
     $user = Auth::user();
 
     if ($user->user_type === 'E') {

@@ -114,8 +114,8 @@ class UserController extends Controller
             $user->name = $formData['name'];
             $user->email = $formData['email'];
             $user->user_type = $formData['user_type'];
-           
-            
+
+
 
 
             if ($request->hasFile('file_photo')) {
@@ -176,7 +176,7 @@ class UserController extends Controller
             if ($user->photo_url) {
                 Storage::delete('storage/photos/' . $user->photo_url);
             }
-            
+
         } catch (\Exception $error) {
             $url = route('users.show', ['user' => $user]);
             $htmlMessage = "Não foi possível apagar o user <a href='$url'>#{$user->id}</a>
@@ -217,6 +217,8 @@ class UserController extends Controller
 
     public function destroy_foto(User $user): RedirectResponse
     {
+        $this->authorize('destroy_foto', $user); //auth
+
         if ($user->photo_url) {
             Storage::delete('storage/photos/' . $user->photo_url);
             $user->photo_url = null;

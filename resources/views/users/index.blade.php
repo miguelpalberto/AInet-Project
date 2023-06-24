@@ -14,6 +14,7 @@
         <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fas fa-plus"></i> &nbsp;Criar nova conta</a>
     </p>
     <hr>
+    {{-- Filtro --}}
     <form method="GET" action="{{ route('users.index') }}?filter=1">
         <div class="d-flex justify-content-between">
 

@@ -10,8 +10,10 @@
 @endsection
 
 @section('main')
-   
- @if ($orders) 
+
+
+
+ @if ($orders)
         @include('orders.shared.table', [
             'orders' => $orders,
             'showOrder' => true,
@@ -19,5 +21,5 @@
             'showEdit' => false,
             'showDelete' => false,
         ])
-@endif     
+@endif
 @endsection
