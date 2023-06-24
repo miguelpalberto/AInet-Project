@@ -93,4 +93,5 @@ Route::delete('users/{user}/foto', [UserController::class, 'destroy_foto'])
 //Route::resource('cart', CartController::class);
 
 
-Route::get('/tshirt/preview', [TshirtPreviewController::class, 'createPreview']);
+// Route::get('/tshirt/preview', [TshirtPreviewController::class, 'createPreview']);
+Route::get('/preview', [TshirtPreviewController::class, 'createPreview'])->name('preview.create');
