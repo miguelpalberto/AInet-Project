@@ -24,8 +24,10 @@ class OrderController extends Controller
      */
     public function index(Request $request): View
     {
+
         $this->authorize('userActive');//auth
         $this->authorize('viewAny');//auth
+
         // COrrigir vendo pelo tshirts
         // FILTROS FAZER MAIS
         $filterByCustomerID = $request->customer_id ?? '';
@@ -50,8 +52,10 @@ class OrderController extends Controller
         }
 
 
+
         $orders = $orderQuery->paginate(10);
         return view('orders.index', compact('orders', 'filterByCustomerID','filterByNif', 'filterByStatus','filterByDate'));
+
     }
 
     /**
@@ -96,11 +100,13 @@ class OrderController extends Controller
      */
     public function edit(Order $order): View
     {
+
         $this->authorize('userActive');//auth
         $this->authorize('update');//auth
 
+
         return view('orders.edit', compact('order'));
-            //,
+        //,
 
     }
 
@@ -111,6 +117,7 @@ class OrderController extends Controller
     {
         $this->authorize('userActive');//auth
         $this->authorize('update');//auth
+
 
         $order->update($request->validated());
         $url = route('orders.show', ['order' => $order]);
@@ -136,25 +143,62 @@ class OrderController extends Controller
 
 
     public function minhasOrdersFuncionario(Request $request): View
+
 {
     $this->authorize('userActive');//auth
     $this->authorize('minhasOrdersFuncionario');//auth
     $user = Auth::user();
 
-    if ($user->user_type === 'E') {
-        $orderQuery = Order::query();
 
-        $orders = $orderQuery->whereIn('status', ['pending', 'paid'])
-            ->orderBy('date', 'DESC')
-            ->paginate(10);
+        if ($user->user_type === 'E') {
+            $orderQuery = Order::query();
 
-        return view('orders.minhasFunc', compact('orders'));
+            $orders = $orderQuery->whereIn('status', ['pending', 'paid'])
+                ->orderBy('date', 'DESC')
+                ->paginate(10);
+
+            return view('orders.minhasFunc', compact('orders'));
+        }
+
+        // Caso o usuário atual não seja um funcionário, retorne uma resposta adequada
+        abort(403, 'Acesso não autorizado.');
     }
 
-    // Caso o usuário atual não seja um funcionário, retorne uma resposta adequada
-    abort(403, 'Acesso não autorizado.');
-}
+    public function markAsPaid(Order $order): RedirectResponse
+    {
+        $this->authorize('markAsPaid', $order);
 
+        if ($order->status === 'pending') {
+            $order->status = 'paid';
+            $order->save();
+
+
+            return redirect()->route('orders.minhasFunc')
+                ->with('success', 'Encomenda marcada como paga com sucesso.');
+        }
+
+        return redirect()->route('orders.minhasFunc')
+            ->with('error', 'Não é possível marcar a encomenda como paga.');
+    }
+
+
+    public function markAsClosed(Order $order): RedirectResponse
+    {
+        $this->authorize('markAsClosed', $order);
+
+        if ($order->status === 'paid') {
+            $order->status = 'closed';
+            $order->save();
+
+           
+
+            return redirect()->route('orders.minhasFunc')
+                ->with('success', 'Encomenda marcada como fechada com sucesso.');
+        }
+
+        return redirect()->route('orders.minhasFunc')
+            ->with('error', 'Não é possível marcar a encomenda como fechada.');
+    }
 
 
     // public function destroy(Order $order): RedirectResponse
@@ -177,4 +221,3 @@ class OrderController extends Controller
     //         ->with('alert-type', $alertType);
     // }
 }
-

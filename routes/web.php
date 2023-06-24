@@ -13,6 +13,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\TshirtImageController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\TshirtPreviewController;
+use App\Models\Order;
 use App\Models\TshirtImage;
 
 /*
@@ -50,6 +51,9 @@ Route::group(['middleware' => ['auth', 'verified', 'can:userActive']], function 
 Route::get('tshirtImages/{tshirtImage}/createOrderItem', [TshirtImageController::class, 'createOrderItem'])->name('tshirtImages.createOrderItem');
 Route::resource('tshirtImages', TshirtImageController::class);
 
+
+Route::patch('/orders/{order}/mark-as-closed', [OrderController::class, 'markAsClosed'])->name('ordersClosed');
+Route::patch('/orders/{order}/mark-as-paid', [OrderController::class, 'markAsPaid'])->name('ordersPaid');
 
 
 Route::get('orders/minhasFunc', [OrderController::class, 'minhasOrdersFuncionario'])->name('orders.minhasFunc');
