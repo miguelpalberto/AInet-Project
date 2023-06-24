@@ -29,7 +29,7 @@
                 @include('users.shared.fields_foto', [
                     'user' => $user,
                     'allowUpload' => true,
-                    //'allowDelete' => false, //TODO descomentar
+                    //'allowDelete' => false,
                 ])
             </div>
         </div>

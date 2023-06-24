@@ -30,7 +30,6 @@ class CustomerRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($this->id),
             ],
             //'user_type' =>          'required|in:C',
-
             'nif' =>                    'nullable|integer|digits:9',
             'address' =>                'nullable|string|max:255',
             'default_payment_type' =>   'nullable|in:VISA,MC,PAYPAL',
@@ -39,15 +38,9 @@ class CustomerRequest extends FormRequest
                 Rule::requiredIf(function () {
                     return $this->input('default_payment_type') !== null;
                 }),
-            ],//TODO ver enunciado (repetir nas orders)
-
+            ],
 
             //'default_payment_ref' => 'nullable',
-
-
-            //TODO confirmar
-            //TODO foto
-
 
             'password_inicial' => 'sometimes|required'
 

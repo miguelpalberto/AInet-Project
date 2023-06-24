@@ -37,7 +37,7 @@
 
     @include('categories.shared.table', [
         'categories' => $categories,
-        //'showDetail' => true, //para depois ver tshirts com x categoria
+        //'showDetail' => true,
     ])
 
 

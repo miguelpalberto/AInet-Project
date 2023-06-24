@@ -6,7 +6,7 @@
 <div class="mb-3 form-floating">
     <select class="form-select @error('status') is-invalid @enderror" name="status" id="inputDefaultPaymentType"
         {{ $disabledStr }}>
-        <option {{ old('status', $order->status) === 'pending' ? 'selected' : '' }} value="pending">-Em espera-</option>
+        <option {{ old('status', $order->status) === 'pending' ? 'selected' : '' }} value="pending">Em Espera</option>
         <option {{ old('status', $order->status) == 'paid' ? 'selected' : '' }} value="paid">Pago
         </option>
         <option {{ old('status', $order->status) == 'closed' ? 'selected' : '' }} value="closed">Fechado

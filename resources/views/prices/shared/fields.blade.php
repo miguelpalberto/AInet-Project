@@ -1,17 +1,6 @@
 @php
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
 @endphp
-{{-- TODO: colocar apenas para ser visto (e pelo admin) --}}
-{{-- <div class="mb-3 form-floating">
-    <input type="text" class="form-control @error('id') is-invalid @enderror" name="id" id="inputID"
-        {{ $disabledStr }} value="{{ old('id', $price->id) }}">
-    <label for="inputID" class="form-label">ID</label>
-    @error('inputID')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div> --}}
 
 <div class="mb-3 form-floating">
     <input type="text" class="form-control @error('unit_price_catalog') is-invalid @enderror" name="unit_price_catalog" id="inputPriceCatalog"
@@ -24,7 +13,6 @@
     @enderror
 </div>
 
-{{-- //TODO: fazer selecao de categoria, nao escrever, e fazer ex 17 Ficha 7 --}}
 <div class="mb-3 form-floating">
     <input type="text" class="form-control @error('unit_price_own') is-invalid @enderror" name="unit_price_own" id="inputPriceOwn"
         {{ $disabledStr }} value="{{ old('unit_price_own', $price->unit_price_own) }}">

@@ -24,7 +24,7 @@
         </thead>
         <tbody>
 
-
+            <tr>
 
             @foreach ($tshirtImages as $tshirtImage)
                 @if ($showFoto)
@@ -36,8 +36,8 @@
                     </td>
                 @endif
 
-                <tr>
-                    <td>{{ $tshirtImage->id }}</td>
+
+                    {{-- <td>{{ $tshirtImage->id }}</td> --}}
                     <td>{{ $tshirtImage->customer_id }}</td>
                     <td>{{ $tshirtImage->category->name }}</td>
                     {{-- <td>{{ $tshirtImage->category_id }}</td> --}}
@@ -50,11 +50,24 @@
 
                     <!-- Botão adicionar ao carrinho -->
 
+
+                    @auth
+                    {{-- Se estiver autenticado e for Cliente --}}
+                    @if (auth()->user()->user_type === 'C')
+                        <td class="button-icon-col">
+                            <a class="btn btn-success" href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </td>
+                    @endif
+                @else
+                    {{-- Se não estiver autenticado --}}
                     <td class="button-icon-col">
-                        <a class="btn btn-success"
-                            href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
-                            <i class="fas fa-plus"></i></a>
+                        <a class="btn btn-success" href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
+                            <i class="fas fa-plus"></i>
+                        </a>
                     </td>
+                @endauth
 
                     <td class="button-icon-col">
                         {{-- @can('view', $tshirtImage)<!--Auth--> --}}

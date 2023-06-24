@@ -87,7 +87,7 @@ class TshirtImageController extends Controller
             $newtshirtImage->name = $formData['name'];
             $newtshirtImage->description = $formData['description'] ?? null;
             //TODO: criar imagem e descomentar
-            $newtshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
+            $newtshirtImage->image_url = '';
             //$newtshirtImage->image_url = $formData['image_url'];
 
             if (isset($formData['extra_info'])) {
@@ -121,17 +121,10 @@ class TshirtImageController extends Controller
     public function show(TshirtImage $tshirtImage): View //Request $request,
     {
         $orders = Order::all();
-        // Following line ensures that $showDetail is either alunos or docentes
-        //$showDetail = $request->query('show-detail') == 'alunos' ? 'alunos' : 'docentes';
-        // if ($showDetail == 'docentes') {
-        //     $tshirtImage->load('docentes', 'docentes.user', 'docentes.departamentoRef');
-        // } else {
-        //     $tshirtImage->load('alunos', 'alunos.user', 'alunos.cursoRef');
-        // }
+
         return view('tshirtImages.show')
             ->with('tshirtImage', $tshirtImage)
             ->with('orders', $orders)
-            //->with('showDetail', $showDetail)
         ;
     }
 
@@ -161,7 +154,7 @@ class TshirtImageController extends Controller
             $tshirtImage->category_id = $formData['category_id'] ?? null;
             $tshirtImage->name = $formData['name'];
             $tshirtImage->description = $formData['description'] ?? null;
-            //TODO: criar imagem e descomentar
+
             $tshirtImage->image_url = ''; //TODO apagar e descomentar a debaixo
             //$tshirtImage->image_url = $formData['image_url'];//editar
 
@@ -238,8 +231,6 @@ class TshirtImageController extends Controller
         $orderItem = new OrderItem();
         $colors = Color::all();
         $price = Price::first();
-        //$sizes = ['XS', 'S', 'M', 'L', 'XL'];
-
 
 
         return view('tshirtImages/createOrderItem', compact('colors', 'price', 'tshirtImage', 'orderItem'));

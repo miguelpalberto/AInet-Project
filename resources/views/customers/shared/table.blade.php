@@ -45,7 +45,6 @@
             <td>{{ $customer->default_payment_type }}</td>
             <td>{{ $customer->default_payment_ref }}</td>
 
-            {{-- TODO - show cenas é diferente ficha 9--}}
             @if ($showDates)
             <td>{{ $customer->created_at }}</td>
             <td>{{ $customer->updated_at }}</td>

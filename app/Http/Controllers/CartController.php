@@ -127,7 +127,7 @@ public function addToCart(CartRequest $request, TshirtImage $tshirtImage): Redir
                     $newOrder->address = $formData['address'];
                     $newOrder->payment_type = $formData['payment_type'];
                     $newOrder->payment_ref = $formData['payment_ref'];
-                    $newOrder->receipt_url = null;//TODO ver enunciado
+                    $newOrder->receipt_url = null;
 
                     $total = 0;
                     foreach($cart as $orderItem){

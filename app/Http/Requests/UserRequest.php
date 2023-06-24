@@ -24,8 +24,6 @@ class UserRequest extends FormRequest
             ],
             'user_type' =>          'required|in:C,E,A',
             'email_verified_at' =>  'nullable',
-            // 'password' =>  'nullable', //not needed - colocar aqui apenas campos que utilizador vai preencher
-            // 'blocked' =>  'nullable',
             'file_photo' =>  'sometimes|image|max:4096',
 
             'password_inicial' =>       'sometimes|required',
