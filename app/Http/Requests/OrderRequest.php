@@ -23,21 +23,21 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'nullable|in:pending,paid,closed,canceled',
-            'customer_id' => 'required|integer',
-            'date' => 'required|date_format:Y-m-d',
-            'total_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            //'status' => 'nullable|in:pending,paid,closed,canceled',
+            //'customer_id' => 'nullable|integer',
+            //'date' => 'required|date_format:Y-m-d',
+            //'total_price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'notes' => 'nullable|string|max:255',
             'nif' => 'nullable|integer|digits:9',//TODO default nif
             'address' => 'required|string|max:255',//TODO default address
 
-            'payment_type' => 'nullable|in:VISA,MC,PAYPAL',
+            'payment_type' => 'required|in:VISA,MC,PAYPAL',
             'payment_ref' => [
                 Rule::requiredIf(function () {
                     return $this->input('payment_type') !== null;
                 }),
-            ],//TODO ver enunciado
-            'receipt_url' => 'nullable|string|max:255',
+            ],
+            //'receipt_url' => 'nullable|string|max:255',//TODO ver enunciado
 
         ];
     }
@@ -56,7 +56,6 @@ class OrderRequest extends FormRequest
             'total_price.regex' => 'O preço total tem de ser um numero',
             'notes.string' => 'As notas tem de ser uma string',
             'notes.max' => 'As notas podem ter no máximo 255 caracteres',
-            //'nif.required' => 'O NIF é obrigatório',
             'nif.integer' => 'O NIF tem de ser um numero inteiro',
             'nif.digits' => 'O NIF tem de ter 9 digitos',
             'address.required' => 'A morada é obrigatória',

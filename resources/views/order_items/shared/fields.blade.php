@@ -3,10 +3,10 @@
 @endphp
 
 
-<div class="mb-3 form-floating ms-2">
+{{-- <div class="mb-3 form-floating ms-2">
     <span class="form-control-plaintext">{{ $tshirtImage->id }}</span>
     <label for="inputImageId" class="form-label">ID Imagem</label>
-</div>
+</div> --}}
 <div class="mb-3 form-floating ms-2">
     <span class="form-control-plaintext">{{ $tshirtImage->name }}</span>
     <label for="inputImageId" class="form-label">Nome Imagem</label>

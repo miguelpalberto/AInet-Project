@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+//TODO APAGAR ESTE FICHIERO
+
 use App\Models\Order;
 use App\Models\Price;
 use App\Models\OrderItem;
@@ -22,7 +24,7 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-public function addToCart(AddToCartRequest $request, TshirtImage $tshirtImage): RedirectResponse
+public function addToCart(CartRequest $request, TshirtImage $tshirtImage): RedirectResponse
     {
         try {
             $formData = $request->validated();

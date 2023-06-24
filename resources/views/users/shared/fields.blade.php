@@ -16,6 +16,24 @@
 {{-- TODO: fazer isto so apenas se user logged in for admin --}}
 
 
+@if ($errors->any())
+
+<div class="alert alert-danger">
+
+<ul>
+
+@foreach ($errors->all() as $error)
+
+<li>{{ $error }}</li>
+
+@endforeach
+
+</ul>
+
+</div>
+
+@endif
+
 <div class="mb-3 form-floating ms-2">
     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="inputName"
     {{ $disabledStr }} value="{{ old('name', $user->name) }}">

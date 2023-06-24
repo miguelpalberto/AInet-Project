@@ -2,10 +2,11 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
-                <th>IMG</th>
-                <th>ID</th>
+                <th></th>
+                {{-- <th>ID</th> --}}
+
                 <th>ID Cliente</th>
-                <th>ID Categoria</th>
+                <th>Categoria</th>
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>URL Imagem</th>
@@ -13,7 +14,7 @@
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
                 <th class="button-icon-col"></th>
-                <th class="button-icon-col">Carrinho</th>
+                <th class="button-icon-col"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,32 +22,27 @@
 
 
 
-            {{-- @foreach ($tshirtImages as $tshirtImage)
-                @if ($showFoto)
-                    <td width="45">
-                        @if ($tshirtImage->image_url)
-                            <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle"
-                                width="45" height="45">
-                        @endif
-                @endif
-                </td>--}}
-
-            @if ($showFoto)
-            <td width="45">
-                @if ($tshirtImage->image_url)
-                <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle" width="45" height="45">
-                @endif  
-            </td>
-            @endif 
-
+            @foreach ($tshirtImages as $tshirtImage)
                 <tr>
-                    <td></td>
-                    <td>{{ $tshirtImage->id }}</td>
+
+                    @if ($showFoto)
+                        <td width="45">
+                            @if ($tshirtImage->image_url)
+                                <img src="{{ $tshirtImage->fullImageUrl }}" alt="Avatar" class="bg-dark rounded-circle"
+                                    width="45" height="45">
+                            @endif
+                        </td>
+                    @endif
+
+                    {{-- <td>{{ $tshirtImage->id }}</td> --}}
+
                     <td>{{ $tshirtImage->customer_id }}</td>
                     <td>{{ $tshirtImage->category->name }}</td>
                     {{-- <td>{{ $tshirtImage->category_id }}</td> --}}
+
                     <td>{{ $tshirtImage->name }}</td>
                     <td>{{ $tshirtImage->description }}</td>
+
                     <td>{{ $tshirtImage->image_url }}</td>
                     <td>{{ $tshirtImage->extra_info }}</td>
                     <td class="button-icon-col">
@@ -80,22 +76,11 @@
                     {{-- TODO: Este botao remte para order_items.create inves --}}
                     <!-- Botão adicionar ao carrinho -->
                     <td class="button-icon-col">
-                        {{-- <form method="POST" action="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
-                            @csrf
-                            <button type="submit" name="addToCart" class="btn btn-success">
-                                <i class="fas fa-plus"></i></button>
-                        </form> --}}
                         <a class="btn btn-success"
-                        href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
-                        <i class="fas fa-plus"></i></a>
+                            href="{{ route('tshirtImages.createOrderItem', ['tshirtImage' => $tshirtImage]) }}">
+                            <i class="fas fa-plus"></i></a>
                     </td>
-                    {{-- <td class="button-icon-col">
-                <form method="POST" action="{{ route('order_item.create', ['order_item' => $orderItem]) }}">
-                    @csrf
-                    <button type="submit" name="order_item" class="btn btn-success">
-                        <i class="fas fa-plus"></i></button>
-                </form>
-            </td> --}}
+
 
 
 
