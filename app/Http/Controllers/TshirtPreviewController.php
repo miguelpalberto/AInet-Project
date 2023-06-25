@@ -24,7 +24,7 @@ class TshirtPreviewController extends Controller
         // $tshirtEmptyPath = public_path('storage/tshirt_base/1e1e21.jpg');
         // $tshirtDesignPath = public_path('storage/tshirt_images/1_6477be5abb99f.png');
         // $previewPath = public_path('storage/tshirt_preview.png');
-        // dd($tshirtEmptyPath, $tshirtDesignPath);
+       // dd($tshirtEmptyPath, $tshirtDesignPath, "ESTÁ A ENTRAR");
 
 
         // Carregar imagens
